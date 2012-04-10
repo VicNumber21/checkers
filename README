@@ -1,0 +1,16 @@
+Checkers (draughts) game.
+
+Personal research project to learn how to make efficient algorithms for games.
+
+The rules of the game are simplified for faster startup of development:
+1. Bord is 8x8.
+2. 12 checkers for each player.
+3. King can go one square only.
+
+The plan is to support two modes:
+1. Traditional game.
+2. Givaway game.
+
+It might be that in future I will add support of:
+1. 10x10 board.
+2. King move is limited by board size only (Russian version of the game).
