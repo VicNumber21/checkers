@@ -16,6 +16,7 @@ include_directories( ${CMAKE_BINARY_DIR} )
 set(test_engine_SRCS
     main.cpp
     CoordTests.cpp
+    ColorTests.cpp
    )
 
 add_executable(test-engine ${test_engine_SRCS})

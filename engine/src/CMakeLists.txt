@@ -8,6 +8,7 @@ include_directories( ${CMAKE_BINARY_DIR} )
 
 set(engine_SRCS
     Coord.cpp
+    Color.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})
