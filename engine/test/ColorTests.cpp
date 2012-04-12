@@ -1,4 +1,3 @@
-
 #include "ColorTests.h"
 #include "Color.h"
 

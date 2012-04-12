@@ -12,6 +12,7 @@ namespace Checkers
     {
     public:
       Color(const Color &aColor);
+      Color(const ColorBase &aColor);
       Color(Color::Values aColor);
     };
   };
