@@ -33,7 +33,10 @@ void ColorTests::equalToColor()
 {
   Color c1(Color::EWhite);
   Color c2(c1);
+  Color c3(Color::EBlack);
   CPPUNIT_ASSERT(c1 == c2);
+  c3.assign(c1);
+  CPPUNIT_ASSERT(c1 == c3);
 }
 
 void ColorTests::notEqualToColor()
