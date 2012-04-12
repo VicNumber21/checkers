@@ -1,6 +1,8 @@
 #ifndef H_COLOR_BASE_H
 #define H_COLOR_BASE_H
 
+#include "BitFlag.h"
+
 namespace Checkers
 {
   namespace Engine
@@ -10,26 +12,26 @@ namespace Checkers
     public:
       enum Values
       {
-        EBlack = 0x00
-      , EWhite = 0x80
+        EBlack
+      , EWhite
       };
 
     public:
       ColorBase & assign(const ColorBase &aColor);
 
-      bool operator==(const ColorBase::Values aColor) const;
-      bool operator!=(const ColorBase::Values aColor) const;
+      bool operator==(ColorBase::Values aColor) const;
+      bool operator!=(ColorBase::Values aColor) const;
       bool operator==(const ColorBase &aColor) const;
       bool operator!=(const ColorBase &aColor) const;
       friend bool operator==(ColorBase::Values aColor1, const ColorBase &aColor2);
       friend bool operator!=(ColorBase::Values aColor1, const ColorBase &aColor2);
 
     protected:
-      unsigned char value() const;
-      void setValue(unsigned char aNewValue);
+      ColorBase::Values value() const;
+      void setValue(ColorBase::Values aNewValue);
 
     private:
-      unsigned char m_value;
+      BitFlag<unsigned char, 0x80> m_value;
     };
 
     bool operator==(ColorBase::Values aColor1, const ColorBase &aColor2);

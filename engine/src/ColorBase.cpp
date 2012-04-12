@@ -3,20 +3,18 @@
 using namespace Checkers::Engine;
 
 
-const unsigned char color_mask = 0x80;
-
 ColorBase & ColorBase::assign(const ColorBase &aColor)
 {
   setValue(aColor.value());
   return *this;
 }
 
-bool ColorBase::operator==(const ColorBase::Values aColor) const
+bool ColorBase::operator==(ColorBase::Values aColor) const
 {
   return value() == aColor;
 }
 
-bool ColorBase::operator!=(const ColorBase::Values aColor) const
+bool ColorBase::operator!=(ColorBase::Values aColor) const
 {
   return !((*this) == aColor);
 }
@@ -31,15 +29,14 @@ bool ColorBase::operator!=(const ColorBase &aColor) const
   return !((*this) == aColor);
 }
 
-unsigned char ColorBase::value() const
+ColorBase::Values ColorBase::value() const
 {
-  return m_value & color_mask;
+  return m_value() ? ColorBase::EWhite : ColorBase::EBlack;
 }
 
-void ColorBase::setValue(unsigned char aNewValue)
+void ColorBase::setValue(ColorBase::Values aNewValue)
 {
-  m_value &= ~color_mask;
-  m_value |= aNewValue & color_mask;
+  m_value.set(ColorBase::EWhite == aNewValue);
 }
 
 bool Checkers::Engine::operator==(ColorBase::Values aColor1, const ColorBase &aColor2)
