@@ -75,16 +75,10 @@ char CoordBase::digit() const
   return low_digit_bound + y();
 }
 
-void CoordBase::set(char aLetter, char aDigit)
+CoordBase & CoordBase::operator=(const CoordBase &aCoord)
 {
-  throwIfWrongCoord(aLetter, aDigit);
-  set(letterToX(aLetter), digitToY(aDigit));
-}
-
-void CoordBase::set(int aX, int aY)
-{
-  throwIfWrongCoord(aX, aY);
-  setValue(compressToChar(aX, aY));
+  setValue(aCoord.value());
+  return *this;
 }
 
 bool CoordBase::operator<(const CoordBase &aCoord) const
@@ -105,6 +99,18 @@ bool CoordBase::operator!=(const CoordBase &aCoord) const
 bool CoordBase::operator>(const CoordBase &aCoord) const
 {
   return value() > aCoord.value();
+}
+
+void CoordBase::set(char aLetter, char aDigit)
+{
+  throwIfWrongCoord(aLetter, aDigit);
+  set(letterToX(aLetter), digitToY(aDigit));
+}
+
+void CoordBase::set(int aX, int aY)
+{
+  throwIfWrongCoord(aX, aY);
+  setValue(compressToChar(aX, aY));
 }
 
 unsigned char CoordBase::value() const

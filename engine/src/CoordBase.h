@@ -38,8 +38,7 @@ namespace Checkers
       char letter() const;
       char digit() const;
 
-      void set(char aLetter, char aDigit);
-      void set(int aX, int aY);
+      CoordBase & operator=(const CoordBase &aCoord);
 
       bool operator<(const CoordBase &aCoord) const;
       bool operator==(const CoordBase &aCoord) const;
@@ -53,6 +52,9 @@ namespace Checkers
       };
 
     protected:
+      void set(char aLetter, char aDigit);
+      void set(int aX, int aY);
+
       unsigned char value() const;
       void setValue(unsigned char aNewValue);
 
