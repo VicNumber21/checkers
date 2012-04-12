@@ -11,6 +11,7 @@ set(engine_SRCS
     Coord.cpp
     ColorBase.cpp
     Color.cpp
+    Draught.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})
