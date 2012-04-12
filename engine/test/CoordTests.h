@@ -12,6 +12,7 @@ class CoordTests : public CppUnit::TestFixture
     CPPUNIT_TEST( noValueUse );
     CPPUNIT_TEST( less );
     CPPUNIT_TEST( equal );
+    CPPUNIT_TEST( notEqual );
     CPPUNIT_TEST( greater );
     CPPUNIT_TEST( setWrongIntCoord );
     CPPUNIT_TEST( setWrongCharCoord );
@@ -27,6 +28,7 @@ public:
   void noValueUse();
   void less();
   void equal();
+  void notEqual();
   void greater();
   void setWrongIntCoord();
   void setWrongCharCoord();

@@ -31,6 +31,13 @@ void CoordTests::noValueUse()
 {
   Coord c;
   CPPUNIT_ASSERT_THROW(c.x(), Coord::ErrorNoValue);
+  CPPUNIT_ASSERT_THROW(c.y(), Coord::ErrorNoValue);
+  CPPUNIT_ASSERT_THROW(c.letter(), Coord::ErrorNoValue);
+  CPPUNIT_ASSERT_THROW(c.digit(), Coord::ErrorNoValue);
+  CPPUNIT_ASSERT_THROW(c == c, Coord::ErrorNoValue);
+  CPPUNIT_ASSERT_THROW(c != c, Coord::ErrorNoValue);
+  CPPUNIT_ASSERT_THROW(c < c, Coord::ErrorNoValue);
+  CPPUNIT_ASSERT_THROW(c > c, Coord::ErrorNoValue);
 }
 
 void CoordTests::less()
@@ -51,6 +58,13 @@ void CoordTests::equal()
   Coord c3(c1);
   CPPUNIT_ASSERT(c1 == c2);
   CPPUNIT_ASSERT(c1 == c3);
+}
+
+void CoordTests::notEqual()
+{
+  Coord c1(5, 6);
+  Coord c2('a', '7');
+  CPPUNIT_ASSERT(c1 != c2);
 }
 
 void CoordTests::greater()

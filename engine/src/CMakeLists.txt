@@ -7,6 +7,7 @@ include_directories( ${CMAKE_BINARY_DIR} )
 #include_directories("../../logger")
 
 set(engine_SRCS
+    CoordBase.cpp
     Coord.cpp
     Color.cpp
    )
