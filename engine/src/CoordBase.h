@@ -38,7 +38,7 @@ namespace Checkers
       char letter() const;
       char digit() const;
 
-      CoordBase & operator=(const CoordBase &aCoord);
+      CoordBase & assign(const CoordBase &aCoord);
 
       bool operator<(const CoordBase &aCoord) const;
       bool operator==(const CoordBase &aCoord) const;

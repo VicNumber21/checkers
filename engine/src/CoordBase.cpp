@@ -75,7 +75,7 @@ char CoordBase::digit() const
   return low_digit_bound + y();
 }
 
-CoordBase & CoordBase::operator=(const CoordBase &aCoord)
+CoordBase & CoordBase::assign(const CoordBase &aCoord)
 {
   setValue(aCoord.value());
   return *this;

@@ -59,7 +59,7 @@ void CoordTests::equal()
   Coord c4(0,0);
   CPPUNIT_ASSERT(c1 == c2);
   CPPUNIT_ASSERT(c1 == c3);
-  c4 = c1;
+  c4.assign(c1);
   CPPUNIT_ASSERT(c1 == c4);
 }
 
@@ -84,15 +84,15 @@ void CoordTests::greater()
 void CoordTests::setWrongIntCoord()
 {
   Coord c;
-  CPPUNIT_ASSERT_THROW(c = Coord(-6, 3), Coord::ErrorIntWrongCoord);
-  CPPUNIT_ASSERT_THROW(c = Coord(4, -2), Coord::ErrorIntWrongCoord);
+  CPPUNIT_ASSERT_THROW(c.assign(Coord(-6, 3)), Coord::ErrorIntWrongCoord);
+  CPPUNIT_ASSERT_THROW(c.assign(Coord(4, -2)), Coord::ErrorIntWrongCoord);
 }
 
 void CoordTests::setWrongCharCoord()
 {
   Coord c;
-  CPPUNIT_ASSERT_THROW(c = Coord('c', 'd'), Coord::ErrorCharWrongCoord);
-  CPPUNIT_ASSERT_THROW(c = Coord('4', '8'), Coord::ErrorCharWrongCoord);
+  CPPUNIT_ASSERT_THROW(c.assign(Coord('c', 'd')), Coord::ErrorCharWrongCoord);
+  CPPUNIT_ASSERT_THROW(c.assign(Coord('4', '8')), Coord::ErrorCharWrongCoord);
 }
 
 void CoordTests::normalCase()
