@@ -11,8 +11,8 @@ namespace Checkers
     class Coord : public CoordBase
     {
     public:
-      Coord();
       Coord(const Coord &aCoord);
+      Coord(const CoordBase &aCoord);
       Coord(char aLetter, char aDigit);
       Coord(int aX, int aY);
     };

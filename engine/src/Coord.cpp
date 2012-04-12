@@ -3,14 +3,14 @@
 using namespace Checkers::Engine;
 
 
-Coord::Coord()
-{
-  setValue(CoordBase::ENoValue);
-}
-
 Coord::Coord(const Coord &aCoord)
 {
   setValue(aCoord.value());
+}
+
+Coord::Coord(const CoordBase &aCoord)
+{
+  setValue(static_cast<const Coord &>(aCoord).value());
 }
 
 Coord::Coord(char aLetter, char aDigit)

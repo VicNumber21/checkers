@@ -8,10 +8,6 @@ namespace Checkers
     class CoordBase
     {
     public:
-      class ErrorNoValue
-      {
-      };
-
       class ErrorIntWrongCoord
       {
       public:
@@ -44,12 +40,6 @@ namespace Checkers
       bool operator==(const CoordBase &aCoord) const;
       bool operator!=(const CoordBase &aCoord) const;
       bool operator>(const CoordBase &aCoord) const;
-
-    protected:
-      enum
-      {
-        ENoValue = 0x40
-      };
 
     protected:
       void set(char aLetter, char aDigit);

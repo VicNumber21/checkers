@@ -27,19 +27,6 @@ void CoordTests::wrongCharCoord()
   CPPUNIT_ASSERT_THROW(Coord('a', 'b'), Coord::ErrorCharWrongCoord);
 }
 
-void CoordTests::noValueUse()
-{
-  Coord c;
-  CPPUNIT_ASSERT_THROW(c.x(), Coord::ErrorNoValue);
-  CPPUNIT_ASSERT_THROW(c.y(), Coord::ErrorNoValue);
-  CPPUNIT_ASSERT_THROW(c.letter(), Coord::ErrorNoValue);
-  CPPUNIT_ASSERT_THROW(c.digit(), Coord::ErrorNoValue);
-  CPPUNIT_ASSERT_THROW(c == c, Coord::ErrorNoValue);
-  CPPUNIT_ASSERT_THROW(c != c, Coord::ErrorNoValue);
-  CPPUNIT_ASSERT_THROW(c < c, Coord::ErrorNoValue);
-  CPPUNIT_ASSERT_THROW(c > c, Coord::ErrorNoValue);
-}
-
 void CoordTests::less()
 {
   Coord l1(1,2);
@@ -83,14 +70,14 @@ void CoordTests::greater()
 
 void CoordTests::setWrongIntCoord()
 {
-  Coord c;
+  Coord c(0,0);
   CPPUNIT_ASSERT_THROW(c.assign(Coord(-6, 3)), Coord::ErrorIntWrongCoord);
   CPPUNIT_ASSERT_THROW(c.assign(Coord(4, -2)), Coord::ErrorIntWrongCoord);
 }
 
 void CoordTests::setWrongCharCoord()
 {
-  Coord c;
+  Coord c(0,0);
   CPPUNIT_ASSERT_THROW(c.assign(Coord('c', 'd')), Coord::ErrorCharWrongCoord);
   CPPUNIT_ASSERT_THROW(c.assign(Coord('4', '8')), Coord::ErrorCharWrongCoord);
 }

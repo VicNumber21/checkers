@@ -115,19 +115,11 @@ void CoordBase::set(int aX, int aY)
 
 unsigned char CoordBase::value() const
 {
-  if(m_value & CoordBase::ENoValue)
-    throw(CoordBase::ErrorNoValue());
-
   return m_value & (~coord_clean_mask);
 }
 
 void CoordBase::setValue(unsigned char aNewValue)
 {
-  if(aNewValue == CoordBase::ENoValue)
-    m_value |= CoordBase::ENoValue;
-  else
-  {
-    m_value &= (coord_clean_mask & ~CoordBase::ENoValue);
-    m_value |= (aNewValue & ~coord_clean_mask);
-  }
+  m_value &= coord_clean_mask;
+  m_value |= (aNewValue & ~coord_clean_mask);
 }
