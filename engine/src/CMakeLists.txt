@@ -12,6 +12,7 @@ set(engine_SRCS
     ColorBase.cpp
     Color.cpp
     Draught.cpp
+    Board.cpp
     Maybe.cpp
    )
 
