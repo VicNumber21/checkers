@@ -5,12 +5,16 @@
 using namespace Checkers::Engine;
 
 
+Draught::Draught()
+{
+}
+
 Draught::Draught(const Engine::Draught &aDraught)
 {
   m_value = aDraught.m_value;
 }
 
-Draught::Draught(const Engine::Coord &aCoord, const Engine::Color &aColor, bool aIsKing)
+Draught::Draught(const Engine::Coord &aCoord, const Engine::Color aColor, bool aIsKing)
 {
   coordRef().assign(aCoord);
   colorRef().assign(aColor);

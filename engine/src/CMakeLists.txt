@@ -12,6 +12,7 @@ set(engine_SRCS
     ColorBase.cpp
     Color.cpp
     Draught.cpp
+    Maybe.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})

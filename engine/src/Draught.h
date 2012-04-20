@@ -4,6 +4,7 @@
 #include "ColorBase.h"
 #include "CoordBase.h"
 #include "BitFlag.h"
+#include "Maybe.h"
 
 
 namespace Checkers
@@ -17,7 +18,7 @@ namespace Checkers
     {
     public:
       Draught(const Engine::Draught &aDraught);
-      Draught(const Engine::Coord &aCoord, const Engine::Color &aColor, bool aIsKing = false);
+      Draught(const Engine::Coord &aCoord, const Engine::Color aColor, bool aIsKing = false);
 
       Engine::Coord coord() const;
       Engine::Color color() const;
@@ -34,8 +35,10 @@ namespace Checkers
 
     private:
       typedef Engine::BitFlag<unsigned char, 0x40> KingFlag;
+      friend class Maybe<Engine::Draught>;
 
     private:
+      Draught();
       Engine::CoordBase & coordRef();
       Engine::ColorBase & colorRef();
       KingFlag & kingFlagRef();
