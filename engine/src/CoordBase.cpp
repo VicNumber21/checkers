@@ -10,7 +10,7 @@ const char low_digit_bound = '1';
 const char top_digit_bound = '8';
 
 const int low_int_bound = 0;
-const int top_int_bound = 8;
+const int top_int_bound = 7;
 
 const int bit_field_length = 3;
 const unsigned char coord_clean_mask = (~0) << (2*bit_field_length);
