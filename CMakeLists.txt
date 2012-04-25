@@ -25,4 +25,5 @@ message(STATUS "======================================")
 enable_testing()
 
 add_subdirectory(engine)
-#add_subdirectory(test)
+add_subdirectory(console-ui)
+add_subdirectory(console-app)
