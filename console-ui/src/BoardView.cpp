@@ -17,6 +17,8 @@ const char whiteKingDraught = 'W';
 const char blackDraught = 'b';
 const char blackKingDraught = 'B';
 
+const char noDraught = '!';
+
 BoardView::BoardView()
   : m_Board(0)
   , m_Rotation(ERotation0)
@@ -69,6 +71,42 @@ std::string BoardView::flushWhole()
   return ret;
 }
 
+char BoardView::draughtView(int i, int j) const
+{
+  char ret = noDraught;
+
+  if(m_Board)
+  {
+    Maybe<Draught> ijSquare = m_Board->testSquare(Coord(i,j));
+
+    if(!ijSquare.isNothing())
+    {
+      if(ijSquare().color() == Color::EWhite)
+      {
+        ret = ijSquare().isKing() ? whiteKingDraught : whiteDraught;
+      }
+      else
+      {
+        ret = ijSquare().isKing() ? blackKingDraught : blackDraught;
+      }
+    }
+  }
+
+  return ret;
+}
+
+char BoardView::emptySquareView(int i, int j) const
+{
+  char ret = blackSquareChar;
+
+  if((i + j) % 2)
+  {
+    ret = whiteSquareChar;
+  }
+
+  return ret;
+}
+
 std::string BoardView::flushLine(int aN) const
 {
   std::string ret;
@@ -83,32 +121,9 @@ std::string BoardView::flushLine(int aN) const
     for(int m = 0; m < width; ++m)
     {
       int j = m_Rotation == ERotation0 ? m : width - 1 - m;
+      char draughtChar = draughtView(i, j);
 
-      if((i + j) % 2)
-      {
-        ret += whiteSquareChar;
-      }
-      else if(m_Board)
-      {
-        Maybe<Draught> ijSquare = m_Board->testSquare(Coord(i,j));
-
-        if(ijSquare.isNothing())
-        {
-          ret += blackSquareChar;
-        }
-        else if(ijSquare().color() == Color::EWhite)
-        {
-          ret += ijSquare().isKing() ? whiteKingDraught : whiteDraught;
-        }
-        else
-        {
-          ret += ijSquare().isKing() ? blackKingDraught : blackDraught;
-        }
-      }
-      else
-      {
-        ret += blackSquareChar;
-      }
+      ret += draughtChar != noDraught ? draughtChar : emptySquareView(i, j);
     }
   }
 

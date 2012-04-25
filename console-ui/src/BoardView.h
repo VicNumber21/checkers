@@ -38,6 +38,8 @@ namespace Checkers
 
     private:
       std::string flushLine(int aN) const;
+      char draughtView(int i, int j) const;
+      char emptySquareView(int i, int j) const;
 
     private:
       const Engine::Board *m_Board;
