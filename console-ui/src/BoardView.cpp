@@ -130,11 +130,6 @@ std::string BoardView::flushLine(int aN) const
   return ret;
 }
 
-std::ostream & Checkers::ConsoleUi::operator<<(std::ostream &aOut, BoardView &aBoardView)
-{
-  return aOut << aBoardView.flushWhole();
-}
-
 std::ostream & Checkers::ConsoleUi::operator<<(std::ostream &aOut, const Board &aBoard)
 {
   BoardView view(aBoard);
