@@ -31,20 +31,14 @@ namespace Checkers
       Rotation rotation() const;
       void setRotation(Rotation aRotation);
 
-      virtual std::string firstLine();
-      virtual std::string nextLine();
-
-      virtual std::string flushWhole();
-
     private:
-      std::string flushLine(int aN) const;
+      virtual std::string flushLine(int aN);
       char draughtView(int i, int j) const;
       char emptySquareView(int i, int j) const;
 
     private:
       const Engine::Board *m_Board;
       Rotation m_Rotation;
-      int m_CurrentLine;
     };
 
     std::ostream & operator<<(std::ostream &aOut, const Engine::Board &aBoard);

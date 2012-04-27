@@ -22,14 +22,12 @@ const char noDraught = '!';
 BoardView::BoardView()
   : m_Board(0)
   , m_Rotation(ERotation0)
-  , m_CurrentLine(0)
 {
 }
 
 BoardView::BoardView(const Engine::Board &aBoard, Rotation aRotation)
   : m_Board(&aBoard)
   , m_Rotation(aRotation)
-  , m_CurrentLine(0)
 {
 }
 
@@ -46,29 +44,6 @@ BoardView::Rotation BoardView::rotation() const
 void BoardView::setRotation(Rotation aRotation)
 {
   m_Rotation = aRotation;
-}
-
-std::string BoardView::firstLine()
-{
-  m_CurrentLine = 0;
-  return flushLine(m_CurrentLine);
-}
-
-std::string BoardView::nextLine()
-{
-  return flushLine(++m_CurrentLine);
-}
-
-std::string BoardView::flushWhole()
-{
-  std::string ret;
-
-  for(std::string it = firstLine(); !it.empty(); it = nextLine())
-  {
-    ret += it += '\n';
-  }
-
-  return ret;
 }
 
 char BoardView::draughtView(int i, int j) const
@@ -107,7 +82,7 @@ char BoardView::emptySquareView(int i, int j) const
   return ret;
 }
 
-std::string BoardView::flushLine(int aN) const
+std::string BoardView::flushLine(int aN)
 {
   std::string ret;
 

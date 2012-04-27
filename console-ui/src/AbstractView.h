@@ -6,19 +6,22 @@
 
 namespace Checkers
 {
-  namespace Engine
-  {
-    class Board;
-  }
-
   namespace ConsoleUi
   {
     class AbstractView
     {
     public:
-      virtual std::string firstLine() = 0;
-      virtual std::string nextLine() = 0;
-      virtual std::string flushWhole() = 0;
+      AbstractView();
+
+      virtual std::string firstLine();
+      virtual std::string nextLine();
+      virtual std::string flushWhole();
+
+    protected:
+      virtual std::string flushLine(int aN) = 0;
+
+    private:
+      int m_CurrentLine;
     };
 
     std::ostream & operator<<(std::ostream &aOut, AbstractView &aView);

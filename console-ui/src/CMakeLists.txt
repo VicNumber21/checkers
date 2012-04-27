@@ -8,8 +8,8 @@ include_directories( ${CMAKE_BINARY_DIR} )
 #include_directories("../../logger")
 
 set(console_ui_SRCS
-    BoardView.cpp
     AbstractView.cpp
+    BoardView.cpp
    )
 
 add_library(console-ui SHARED ${console_ui_SRCS})
