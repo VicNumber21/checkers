@@ -10,6 +10,7 @@ include_directories( ${CMAKE_BINARY_DIR} )
 set(console_ui_SRCS
     AbstractView.cpp
     BoardView.cpp
+    FramedBoardView.cpp
    )
 
 add_library(console-ui SHARED ${console_ui_SRCS})
