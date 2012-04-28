@@ -56,7 +56,7 @@ std::string FramedBoardView::flushLine(int aN)
 
 std::string FramedBoardView::letterLine() const
 {
-  std::string ret("   ");
+  std::string ret("  ");
   int width = RulesOfGame::BoardBounds::width();
 
   for(int m = 0; m < width; ++m)
@@ -65,27 +65,32 @@ std::string FramedBoardView::letterLine() const
     ret += RulesOfGame::BoardBounds::columnName(j);
   }
 
+  ret += "  ";
+
   return ret;
 }
 
 std::string FramedBoardView::topBottomFrame() const
 {
-  std::string ret("  +");
+  std::string ret(" +");
   int countOfEdgeChar = RulesOfGame::BoardBounds::width();
 
   for(int j = 0; j < countOfEdgeChar; ++j)
     ret += '-';
 
-  ret += '+';
+  ret += "+ ";
 
   return ret;
 }
 
 std::string FramedBoardView::framedLine(int aN)
 {
-  std::string ret(" ");
+  std::string ret;
 
-  ret += RulesOfGame::BoardBounds::lineName(aN);
+  int height = RulesOfGame::BoardBounds::height();
+  int i = (rotation() == BoardView::ERotation0) ? (height - 1 - aN) : aN;
+
+  ret += RulesOfGame::BoardBounds::lineName(i);
   ret += '|';
 
   if(aN == 0)
@@ -98,7 +103,7 @@ std::string FramedBoardView::framedLine(int aN)
   }
 
   ret += '|';
-  ret += RulesOfGame::BoardBounds::lineName(aN);
+  ret += RulesOfGame::BoardBounds::lineName(i);
 
   return ret;
 }
