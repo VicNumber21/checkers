@@ -16,11 +16,12 @@ include_directories( ${CMAKE_BINARY_DIR} )
 
 set(test_console_ui_SRCS
     main.cpp
+    BoardViewTests.cpp
    )
 
 add_executable(test-console-ui ${test_console_ui_SRCS})
 
-target_link_libraries(test-console-ui cppunit engine)
+target_link_libraries(test-console-ui cppunit engine console-ui)
 
 # TODO
 # think about how to choose tests to be executed
