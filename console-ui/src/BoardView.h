@@ -19,7 +19,7 @@ namespace Checkers
       enum Rotation
       {
         ERotation0
-      , ERoatation180
+      , ERotation180
       };
 
     public:
