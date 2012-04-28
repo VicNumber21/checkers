@@ -52,7 +52,7 @@ char BoardView::draughtView(int i, int j) const
 
   if(m_Board)
   {
-    Maybe<Draught> ijSquare = m_Board->testSquare(Coord(i,j));
+    Maybe<Draught> ijSquare = m_Board->testSquare(Coord(j,i));
 
     if(!ijSquare.isNothing())
     {
