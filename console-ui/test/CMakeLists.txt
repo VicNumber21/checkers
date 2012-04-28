@@ -17,6 +17,7 @@ include_directories( ${CMAKE_BINARY_DIR} )
 set(test_console_ui_SRCS
     main.cpp
     BoardViewTests.cpp
+    FramedBoardViewTests.cpp
    )
 
 add_executable(test-console-ui ${test_console_ui_SRCS})
