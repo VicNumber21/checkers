@@ -5,6 +5,10 @@ using namespace Checkers::ConsoleUi;
 using namespace Checkers::Engine;
 
 
+const char frameCornerChar = '+';
+const char frameVerticalLineChar = '|';
+const char frameHorizontalLineChar = '-';
+
 FramedBoardView::FramedBoardView()
   : m_BoardView()
 {
@@ -72,13 +76,16 @@ std::string FramedBoardView::letterLine() const
 
 std::string FramedBoardView::topBottomFrame() const
 {
-  std::string ret(" +");
+  std::string ret(" ");
+  ret += frameCornerChar;
+
   int countOfEdgeChar = RulesOfGame::BoardBounds::width();
 
   for(int j = 0; j < countOfEdgeChar; ++j)
-    ret += '-';
+    ret += frameHorizontalLineChar;
 
-  ret += "+ ";
+  ret += frameCornerChar;
+  ret += " ";
 
   return ret;
 }
@@ -91,7 +98,7 @@ std::string FramedBoardView::framedLine(int aN)
   int i = (rotation() == BoardView::ERotation0) ? (height - 1 - aN) : aN;
 
   ret += RulesOfGame::BoardBounds::lineName(i);
-  ret += '|';
+  ret += frameVerticalLineChar;
 
   if(aN == 0)
   {
@@ -102,7 +109,7 @@ std::string FramedBoardView::framedLine(int aN)
     ret += m_BoardView.nextLine();
   }
 
-  ret += '|';
+  ret += frameVerticalLineChar;
   ret += RulesOfGame::BoardBounds::lineName(i);
 
   return ret;
