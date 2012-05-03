@@ -183,6 +183,11 @@ void MoveTests::boardPlusSimpleMoveToBusySquare()
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
 
+void MoveTests::boardPlusSimpleMoveJumpExist()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
 void MoveTests::boardPlusSimpleJump()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
@@ -284,6 +289,11 @@ void MoveTests::boardMinusSimpleMoveInWrongDirection()
 }
 
 void MoveTests::boardMinusSimpleMoveToBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleMoveJumpExist()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }

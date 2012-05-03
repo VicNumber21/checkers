@@ -24,6 +24,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardPlusSimpleMoveNoRequestedDraught );
     CPPUNIT_TEST( boardPlusSimpleMoveInWrongDirection );
     CPPUNIT_TEST( boardPlusSimpleMoveToBusySquare );
+    CPPUNIT_TEST( boardPlusSimpleMoveJumpExist );
 
     CPPUNIT_TEST( boardPlusSimpleJump );
     CPPUNIT_TEST( boardPlusSimpleJumpByKing );
@@ -48,6 +49,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardMinusSimpleMoveNoRequestedDraught );
     CPPUNIT_TEST( boardMinusSimpleMoveInWrongDirection );
     CPPUNIT_TEST( boardMinusSimpleMoveToBusySquare );
+    CPPUNIT_TEST( boardMinusSimpleMoveJumpExist );
 
     CPPUNIT_TEST( boardMinusSimpleJump );
     CPPUNIT_TEST( boardMinusSimpleJumpByKing );
@@ -94,6 +96,7 @@ public:
   void boardPlusSimpleMoveNoRequestedDraught();
   void boardPlusSimpleMoveInWrongDirection();
   void boardPlusSimpleMoveToBusySquare();
+  void boardPlusSimpleMoveJumpExist();
 
   void boardPlusSimpleJump();
   void boardPlusSimpleJumpByKing();
@@ -118,6 +121,7 @@ public:
   void boardMinusSimpleMoveNoRequestedDraught();
   void boardMinusSimpleMoveInWrongDirection();
   void boardMinusSimpleMoveToBusySquare();
+  void boardMinusSimpleMoveJumpExist();
 
   void boardMinusSimpleJump();
   void boardMinusSimpleJumpByKing();
