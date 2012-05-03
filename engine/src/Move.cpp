@@ -109,3 +109,27 @@ bool Move::isJumpBack(Iterator aLast, Iterator aThirdFromTail) const
 {
   return m_coord_list.size() > 2 && (*aLast == *aThirdFromTail);
 }
+
+Board operator+(const Board &aCurrent, const Move &aMove)
+{
+  (void)aCurrent;
+  (void)aMove;
+
+  return Board();
+}
+
+Board operator-(const Board &aNext, const Move &aMove)
+{
+  (void)aNext;
+  (void)aMove;
+
+  return Board();
+}
+
+Move operator-(const Board &aNext, const Board &aCurrent)
+{
+  (void)aCurrent;
+  (void)aNext;
+
+  return Move();
+}

@@ -17,6 +17,60 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( simpleMoveScore );
     CPPUNIT_TEST( simpleJumpScore );
     CPPUNIT_TEST( complexJumpScore );
+
+    CPPUNIT_TEST( boardPlusSimpleMove );
+    CPPUNIT_TEST( boardPlusSimpleMoveByKing );
+    CPPUNIT_TEST( boardPlusSimpleMoveGetKing );
+    CPPUNIT_TEST( boardPlusSimpleMoveNoRequestedDraught );
+    CPPUNIT_TEST( boardPlusSimpleMoveInWrongDirection );
+    CPPUNIT_TEST( boardPlusSimpleMoveToBusySquare );
+
+    CPPUNIT_TEST( boardPlusSimpleJump );
+    CPPUNIT_TEST( boardPlusSimpleJumpByKing );
+    CPPUNIT_TEST( boardPlusSimpleJumpGetKing );
+    CPPUNIT_TEST( boardPlusSimpleJumpNoRequestedDraught );
+    CPPUNIT_TEST( boardPlusSimpleJumpInWrongDirection );
+    CPPUNIT_TEST( boardPlusSimpleJumpToBusySquare );
+    CPPUNIT_TEST( boardPlusSimpleJumpMoreJumpExist );
+
+    CPPUNIT_TEST( boardPlusComplexJump );
+    CPPUNIT_TEST( boardPlusComplexJumpByKing );
+    CPPUNIT_TEST( boardPlusComplexJumpGetKing );
+    CPPUNIT_TEST( boardPlusComplexJumpNoRequestedDraught );
+    CPPUNIT_TEST( boardPlusComplexJumpInWrongDirection );
+    CPPUNIT_TEST( boardPlusComplexJumpToBusySquare );
+    CPPUNIT_TEST( boardPlusComplexJumpOverBusySquare );
+    CPPUNIT_TEST( boardPlusComplexJumpMoreJumpExist );
+
+    CPPUNIT_TEST( boardMinusSimpleMove );
+    CPPUNIT_TEST( boardMinusSimpleMoveByKing );
+    CPPUNIT_TEST( boardMinusSimpleMoveLoseKing );
+    CPPUNIT_TEST( boardMinusSimpleMoveNoRequestedDraught );
+    CPPUNIT_TEST( boardMinusSimpleMoveInWrongDirection );
+    CPPUNIT_TEST( boardMinusSimpleMoveToBusySquare );
+
+    CPPUNIT_TEST( boardMinusSimpleJump );
+    CPPUNIT_TEST( boardMinusSimpleJumpByKing );
+    CPPUNIT_TEST( boardMinusSimpleJumpLoseKing );
+    CPPUNIT_TEST( boardMinusSimpleJumpNoRequestedDraught );
+    CPPUNIT_TEST( boardMinusSimpleJumpInWrongDirection );
+    CPPUNIT_TEST( boardMinusSimpleJumpToBusySquare );
+    CPPUNIT_TEST( boardMinusSimpleJumpMoreJumpExist );
+
+    CPPUNIT_TEST( boardMinusComplexJump );
+    CPPUNIT_TEST( boardMinusComplexJumpByKing );
+    CPPUNIT_TEST( boardMinusComplexJumpLoseKing );
+    CPPUNIT_TEST( boardMinusComplexJumpNoRequestedDraught );
+    CPPUNIT_TEST( boardMinusComplexJumpInWrongDirection );
+    CPPUNIT_TEST( boardMinusComplexJumpToBusySquare );
+    CPPUNIT_TEST( boardMinusComplexJumpOverBusySquare );
+    CPPUNIT_TEST( boardMinusComplexJumpMoreJumpExist );
+
+    CPPUNIT_TEST( boardMinusPlusMoveToGetTheSameBoard );
+    CPPUNIT_TEST( boardPlusMinusMoveToGetTheSameBoard );
+
+    CPPUNIT_TEST( boardMinusBoard );
+    CPPUNIT_TEST( boardMinusMoveNotFound );
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -33,6 +87,60 @@ public:
   void simpleMoveScore();
   void simpleJumpScore();
   void complexJumpScore();
+
+  void boardPlusSimpleMove();
+  void boardPlusSimpleMoveByKing();
+  void boardPlusSimpleMoveGetKing();
+  void boardPlusSimpleMoveNoRequestedDraught();
+  void boardPlusSimpleMoveInWrongDirection();
+  void boardPlusSimpleMoveToBusySquare();
+
+  void boardPlusSimpleJump();
+  void boardPlusSimpleJumpByKing();
+  void boardPlusSimpleJumpGetKing();
+  void boardPlusSimpleJumpNoRequestedDraught();
+  void boardPlusSimpleJumpInWrongDirection();
+  void boardPlusSimpleJumpToBusySquare();
+  void boardPlusSimpleJumpMoreJumpExist();
+
+  void boardPlusComplexJump();
+  void boardPlusComplexJumpByKing();
+  void boardPlusComplexJumpGetKing();
+  void boardPlusComplexJumpNoRequestedDraught();
+  void boardPlusComplexJumpInWrongDirection();
+  void boardPlusComplexJumpToBusySquare();
+  void boardPlusComplexJumpOverBusySquare();
+  void boardPlusComplexJumpMoreJumpExist();
+
+  void boardMinusSimpleMove();
+  void boardMinusSimpleMoveByKing();
+  void boardMinusSimpleMoveLoseKing();
+  void boardMinusSimpleMoveNoRequestedDraught();
+  void boardMinusSimpleMoveInWrongDirection();
+  void boardMinusSimpleMoveToBusySquare();
+
+  void boardMinusSimpleJump();
+  void boardMinusSimpleJumpByKing();
+  void boardMinusSimpleJumpLoseKing();
+  void boardMinusSimpleJumpNoRequestedDraught();
+  void boardMinusSimpleJumpInWrongDirection();
+  void boardMinusSimpleJumpToBusySquare();
+  void boardMinusSimpleJumpMoreJumpExist();
+
+  void boardMinusComplexJump();
+  void boardMinusComplexJumpByKing();
+  void boardMinusComplexJumpLoseKing();
+  void boardMinusComplexJumpNoRequestedDraught();
+  void boardMinusComplexJumpInWrongDirection();
+  void boardMinusComplexJumpToBusySquare();
+  void boardMinusComplexJumpOverBusySquare();
+  void boardMinusComplexJumpMoreJumpExist();
+
+  void boardMinusPlusMoveToGetTheSameBoard();
+  void boardPlusMinusMoveToGetTheSameBoard();
+
+  void boardMinusBoard();
+  void boardMinusMoveNotFound();
 };
 
 #endif //H_MOVE_TESTS_H

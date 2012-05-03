@@ -2,6 +2,7 @@
 #define H_MOVE_H
 
 #include "Coord.h"
+#include "Board.h"
 
 #include <list>
 
@@ -67,6 +68,10 @@ namespace Checkers
       CoordList m_coord_list;
       Type m_type;
     };
+
+    Board operator+(const Board &aCurrent, const Move &aMove);
+    Board operator-(const Board &aNext, const Move &aMove);
+    Move operator-(const Board &aNext, const Board &aCurrent);
   };
 };
 

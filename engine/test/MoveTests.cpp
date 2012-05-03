@@ -1,5 +1,6 @@
 #include "MoveTests.h"
 #include "Move.h"
+#include "Board.h"
 
 using namespace Checkers::Engine;
 
@@ -150,4 +151,234 @@ void MoveTests::complexJumpScore()
   m.append(Coord('b', '6'));
   CPPUNIT_ASSERT_EQUAL(5, m.score());
 
+}
+
+void MoveTests::boardPlusSimpleMove()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleMoveByKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleMoveGetKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleMoveNoRequestedDraught()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleMoveInWrongDirection()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleMoveToBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleJump()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleJumpByKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleJumpGetKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleJumpNoRequestedDraught()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleJumpInWrongDirection()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleJumpToBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusSimpleJumpMoreJumpExist()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJump()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpByKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpGetKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpNoRequestedDraught()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpInWrongDirection()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpToBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpOverBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpMoreJumpExist()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleMove()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleMoveByKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleMoveLoseKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleMoveNoRequestedDraught()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleMoveInWrongDirection()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleMoveToBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleJump()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleJumpByKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleJumpLoseKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleJumpNoRequestedDraught()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleJumpInWrongDirection()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleJumpToBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusSimpleJumpMoreJumpExist()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJump()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpByKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpLoseKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpNoRequestedDraught()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpInWrongDirection()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpToBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpOverBusySquare()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpMoreJumpExist()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusPlusMoveToGetTheSameBoard()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusMinusMoveToGetTheSameBoard()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusBoard()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusMoveNotFound()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
