@@ -1,6 +1,8 @@
 #include "RulesOfGame.h"
+#include "Coord.h"
 
 #include <ctype.h>
+#include <stdlib.h>
 
 using namespace Checkers::Engine;
 
@@ -58,4 +60,20 @@ bool RulesOfGame::BoardBounds::isLineInBound(int aY)
 bool RulesOfGame::BoardBounds::isLineInBound(char aY)
 {
   return RulesOfGame::BoardBounds::lineIndex(aY) != intOutOfBound;
+}
+
+bool RulesOfGame::MoveValidator::isValidCoord(const Engine::Coord &aCoord)
+{
+  //TODO rework it to isBlackSquare() in BoardUtility
+  return 0 == ((aCoord.x() + aCoord.y()) % 2);
+}
+
+bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool isJump)
+{
+  int deltaX = abs(aFirst.x() - aSecond.x());
+  int deltaY = abs(aFirst.y() - aSecond.y());
+  int expectedDelta = isJump ? 2 : 1;
+
+  //TODO rework as IsOnSameDiagonal() && isDeltaInExpectedRange() from BoardUtility
+  return isValidCoord(aFirst) && isValidCoord(aSecond) && (deltaX == expectedDelta) && (deltaY == expectedDelta);
 }

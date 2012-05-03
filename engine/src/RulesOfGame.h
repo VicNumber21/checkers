@@ -6,6 +6,9 @@ namespace Checkers
 {
   namespace Engine
   {
+    class Move;
+    class Coord;
+
     class RulesOfGame
     {
     public:
@@ -26,6 +29,13 @@ namespace Checkers
 
         static bool isLineInBound(int aY);
         static bool isLineInBound(char aY);
+      };
+
+      class MoveValidator
+      {
+      public:
+        static bool isValidCoord(const Engine::Coord &aCoord);
+        static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool isJump);
       };
     };
   };
