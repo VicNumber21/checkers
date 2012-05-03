@@ -19,6 +19,7 @@ set(test_engine_SRCS
     ColorTests.cpp
     DraughtTests.cpp
     BoardTests.cpp
+    MoveTests.cpp
    )
 
 add_executable(test-engine ${test_engine_SRCS})
