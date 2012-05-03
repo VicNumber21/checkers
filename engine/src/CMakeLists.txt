@@ -15,6 +15,7 @@ set(engine_SRCS
     Board.cpp
     Maybe.cpp
     RulesOfGame.cpp
+    Move.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})
