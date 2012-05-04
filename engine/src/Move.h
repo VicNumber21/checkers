@@ -17,6 +17,22 @@ namespace Checkers
       typedef std::list<Engine::Coord> CoordList;
       typedef CoordList::const_iterator Iterator;
 
+      class ErrorNoRequestedDraught
+      {
+      };
+
+      class ErrorInWrongDirection
+      {
+      };
+
+      class ErrorToBusySquare
+      {
+      };
+
+      class ErrorJumpExist
+      {
+      };
+
       class ErrorUnexpectedAppend
       {
       };

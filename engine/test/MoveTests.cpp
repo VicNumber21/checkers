@@ -204,32 +204,194 @@ void MoveTests::boardPlusSimpleMove()
 
 void MoveTests::boardPlusSimpleMoveByKing()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cWhiteStart('c', '3');
+  const Coord cWhiteLeftForward('b', '4');
+  const Coord cWhiteRightForward('d', '4');
+  const Coord cWhiteLeftBack('b', '2');
+  const Coord cWhiteRightBack('d', '2');
+
+  const Coord cBlackStart('f', '6');
+  const Coord cBlackLeftForward('g', '5');
+  const Coord cBlackRightForward('e', '5');
+  const Coord cBlackLeftBack('g', '7');
+  const Coord cBlackRightBack('e', '7');
+
+  Board b;
+  b.put(Draught(cWhiteStart, Color::EWhite, true));
+  b.put(Draught(cBlackStart, Color::EBlack, true));
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
+  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack);
+  Board bAfterWhiteLeftBack;
+  bAfterWhiteLeftBack.put(Draught(cWhiteLeftBack, Color::EWhite, true));
+  bAfterWhiteLeftBack.put(Draught(cBlackStart, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftBack, b + mWhiteLeftBack);
+
+  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack);
+  Board bAfterWhiteRightBack;
+  bAfterWhiteRightBack.put(Draught(cWhiteRightBack, Color::EWhite, true));
+  bAfterWhiteRightBack.put(Draught(cBlackStart, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightBack, b + mWhiteRightBack);
+
+  Move mBlackRightForward(cBlackStart, cBlackRightForward);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite, true));
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+
+  Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
+  Board bAfterBlackLeftForward;
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite, true));
+  bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
+
+  Move mBlackRightBack(cBlackStart, cBlackRightBack);
+  Board bAfterBlackRightBack;
+  bAfterBlackRightBack.put(Draught(cWhiteStart, Color::EWhite, true));
+  bAfterBlackRightBack.put(Draught(cBlackRightBack, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightBack, b + mBlackRightBack);
+
+  Move mBlackLeftBack(cBlackStart, cBlackLeftBack);
+  Board bAfterBlackLeftBack;
+  bAfterBlackLeftBack.put(Draught(cWhiteStart, Color::EWhite, true));
+  bAfterBlackLeftBack.put(Draught(cBlackLeftBack, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftBack, b + mBlackLeftBack);
 }
 
 void MoveTests::boardPlusSimpleMoveGetKing()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cWhiteStart('c', '7');
+  const Coord cWhiteLeftForward('b', '8');
+  const Coord cWhiteRightForward('d', '8');
+
+  const Coord cBlackStart('f', '2');
+  const Coord cBlackLeftForward('g', '1');
+  const Coord cBlackRightForward('e', '1');
+
+  Board b;
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cBlackStart, Color::EBlack));
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
+  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mBlackRightForward(cBlackStart, cBlackRightForward);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+
+  Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
+  Board bAfterBlackLeftForward;
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
+  bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
 }
 
 void MoveTests::boardPlusSimpleMoveNoRequestedDraught()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cWhiteStart('c', '5');
+  const Coord cWhiteWrongStart('e', '5');
+  const Coord cWhiteMoveTo('d', '6');
+
+  Board b;
+  b.put(Draught(cWhiteStart, Color::EWhite));
+
+  Move mWhite(cWhiteWrongStart, cWhiteMoveTo);
+  CPPUNIT_ASSERT_THROW(b + mWhite, Move::ErrorNoRequestedDraught);
 }
 
 void MoveTests::boardPlusSimpleMoveInWrongDirection()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cWhiteStart('c', '7');
+  const Coord cWhiteLeftBack('b', '6');
+  const Coord cWhiteRightBack('d', '6');
+
+  const Coord cBlackStart('f', '2');
+  const Coord cBlackLeftBack('g', '3');
+  const Coord cBlackRightBack('e', '3');
+
+  Board b;
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cBlackStart, Color::EBlack));
+
+  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftBack, Move::ErrorInWrongDirection);
+
+  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack);
+  CPPUNIT_ASSERT_THROW(b + mWhiteRightBack, Move::ErrorInWrongDirection);
+
+  Move mBlackRightBack(cBlackStart, cBlackRightBack);
+  CPPUNIT_ASSERT_THROW(b + mBlackRightBack, Move::ErrorInWrongDirection);
+
+  Move mBlackLeftBack(cBlackStart, cBlackLeftBack);
+  CPPUNIT_ASSERT_THROW(b + mBlackLeftBack, Move::ErrorInWrongDirection);
 }
 
 void MoveTests::boardPlusSimpleMoveToBusySquare()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cWhiteStart('d', '4');
+  const Coord cWhiteLeftForward('c', '5');
+
+  const Coord cBlackStart('e', '5');
+  const Coord cBlackLeftForward('f', '4');
+
+  Board b;
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cWhiteLeftForward, Color::EWhite, true));
+  b.put(Draught(cBlackStart, Color::EBlack, true));
+  b.put(Draught(cBlackLeftForward, Color::EBlack));
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorToBusySquare);
+
+  Move mWhiteRightForward(cWhiteStart, cBlackStart);
+  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorToBusySquare);
+
+  Move mBlackRightForward(cBlackStart, cWhiteStart);
+  CPPUNIT_ASSERT_THROW(b + mBlackRightForward, Move::ErrorToBusySquare);
+
+  Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
+  CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorToBusySquare);
 }
 
 void MoveTests::boardPlusSimpleMoveJumpExist()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cWhiteStart('d', '4');
+  const Coord cWhiteLeftForward('c', '5');
+
+  const Coord cBlackStart('e', '5');
+  const Coord cBlackLeftForward('f', '4');
+
+  Board b;
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cBlackStart, Color::EBlack, true));
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorJumpExist);
+
+  Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
+  CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorJumpExist);
 }
 
 void MoveTests::boardPlusSimpleJump()
