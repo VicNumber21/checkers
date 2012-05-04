@@ -42,6 +42,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardPlusComplexJumpToBusySquare );
     CPPUNIT_TEST( boardPlusComplexJumpOverBusySquare );
     CPPUNIT_TEST( boardPlusComplexJumpMoreJumpExist );
+    CPPUNIT_TEST( boardPlusComplexJumpNotTerminatedAfterGetKing );
 
     CPPUNIT_TEST( boardMinusSimpleMove );
     CPPUNIT_TEST( boardMinusSimpleMoveByKing );
@@ -67,6 +68,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardMinusComplexJumpToBusySquare );
     CPPUNIT_TEST( boardMinusComplexJumpOverBusySquare );
     CPPUNIT_TEST( boardMinusComplexJumpMoreJumpExist );
+    CPPUNIT_TEST( boardMinusComplexJumpNotTerminatedAfterGetKing );
 
     CPPUNIT_TEST( boardMinusPlusMoveToGetTheSameBoard );
     CPPUNIT_TEST( boardPlusMinusMoveToGetTheSameBoard );
@@ -114,6 +116,7 @@ public:
   void boardPlusComplexJumpToBusySquare();
   void boardPlusComplexJumpOverBusySquare();
   void boardPlusComplexJumpMoreJumpExist();
+  void boardPlusComplexJumpNotTerminatedAfterGetKing();
 
   void boardMinusSimpleMove();
   void boardMinusSimpleMoveByKing();
@@ -139,6 +142,7 @@ public:
   void boardMinusComplexJumpToBusySquare();
   void boardMinusComplexJumpOverBusySquare();
   void boardMinusComplexJumpMoreJumpExist();
+  void boardMinusComplexJumpNotTerminatedAfterGetKing();
 
   void boardMinusPlusMoveToGetTheSameBoard();
   void boardPlusMinusMoveToGetTheSameBoard();

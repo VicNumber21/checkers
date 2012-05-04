@@ -307,6 +307,11 @@ void MoveTests::boardPlusComplexJumpMoreJumpExist()
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
 
+void MoveTests::boardPlusComplexJumpNotTerminatedAfterGetKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
 void MoveTests::boardMinusSimpleMove()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
@@ -413,6 +418,11 @@ void MoveTests::boardMinusComplexJumpOverBusySquare()
 }
 
 void MoveTests::boardMinusComplexJumpMoreJumpExist()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpNotTerminatedAfterGetKing()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
