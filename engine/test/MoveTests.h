@@ -33,6 +33,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardPlusSimpleJumpInWrongDirection );
     CPPUNIT_TEST( boardPlusSimpleJumpToBusySquare );
     CPPUNIT_TEST( boardPlusSimpleJumpMoreJumpExist );
+    CPPUNIT_TEST( boardPlusSimpleJumpOverSameColor );
 
     CPPUNIT_TEST( boardPlusComplexJump );
     CPPUNIT_TEST( boardPlusComplexJumpByKing );
@@ -43,6 +44,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardPlusComplexJumpOverBusySquare );
     CPPUNIT_TEST( boardPlusComplexJumpMoreJumpExist );
     CPPUNIT_TEST( boardPlusComplexJumpNotTerminatedAfterGetKing );
+    CPPUNIT_TEST( boardPlusComplexJumpOverSameColor );
 
     CPPUNIT_TEST( boardMinusSimpleMove );
     CPPUNIT_TEST( boardMinusSimpleMoveByKing );
@@ -59,6 +61,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardMinusSimpleJumpInWrongDirection );
     CPPUNIT_TEST( boardMinusSimpleJumpToBusySquare );
     CPPUNIT_TEST( boardMinusSimpleJumpMoreJumpExist );
+    CPPUNIT_TEST( boardMinusSimpleJumpOverSameColor );
 
     CPPUNIT_TEST( boardMinusComplexJump );
     CPPUNIT_TEST( boardMinusComplexJumpByKing );
@@ -69,6 +72,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardMinusComplexJumpOverBusySquare );
     CPPUNIT_TEST( boardMinusComplexJumpMoreJumpExist );
     CPPUNIT_TEST( boardMinusComplexJumpNotTerminatedAfterGetKing );
+    CPPUNIT_TEST( boardMinusComplexJumpOverSameColor );
 
     CPPUNIT_TEST( boardMinusPlusMoveToGetTheSameBoard );
     CPPUNIT_TEST( boardPlusMinusMoveToGetTheSameBoard );
@@ -107,6 +111,7 @@ public:
   void boardPlusSimpleJumpInWrongDirection();
   void boardPlusSimpleJumpToBusySquare();
   void boardPlusSimpleJumpMoreJumpExist();
+  void boardPlusSimpleJumpOverSameColor();
 
   void boardPlusComplexJump();
   void boardPlusComplexJumpByKing();
@@ -117,6 +122,7 @@ public:
   void boardPlusComplexJumpOverBusySquare();
   void boardPlusComplexJumpMoreJumpExist();
   void boardPlusComplexJumpNotTerminatedAfterGetKing();
+  void boardPlusComplexJumpOverSameColor();
 
   void boardMinusSimpleMove();
   void boardMinusSimpleMoveByKing();
@@ -133,6 +139,7 @@ public:
   void boardMinusSimpleJumpInWrongDirection();
   void boardMinusSimpleJumpToBusySquare();
   void boardMinusSimpleJumpMoreJumpExist();
+  void boardMinusSimpleJumpOverSameColor();
 
   void boardMinusComplexJump();
   void boardMinusComplexJumpByKing();
@@ -143,6 +150,7 @@ public:
   void boardMinusComplexJumpOverBusySquare();
   void boardMinusComplexJumpMoreJumpExist();
   void boardMinusComplexJumpNotTerminatedAfterGetKing();
+  void boardMinusComplexJumpOverSameColor();
 
   void boardMinusPlusMoveToGetTheSameBoard();
   void boardPlusMinusMoveToGetTheSameBoard();

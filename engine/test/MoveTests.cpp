@@ -429,6 +429,11 @@ void MoveTests::boardPlusSimpleJumpMoreJumpExist()
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
 
+void MoveTests::boardPlusSimpleJumpOverSameColor()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
 void MoveTests::boardPlusComplexJump()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
@@ -470,6 +475,11 @@ void MoveTests::boardPlusComplexJumpMoreJumpExist()
 }
 
 void MoveTests::boardPlusComplexJumpNotTerminatedAfterGetKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardPlusComplexJumpOverSameColor()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
@@ -544,6 +554,11 @@ void MoveTests::boardMinusSimpleJumpMoreJumpExist()
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
 
+void MoveTests::boardMinusSimpleJumpOverSameColor()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
 void MoveTests::boardMinusComplexJump()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
@@ -585,6 +600,11 @@ void MoveTests::boardMinusComplexJumpMoreJumpExist()
 }
 
 void MoveTests::boardMinusComplexJumpNotTerminatedAfterGetKing()
+{
+  CPPUNIT_FAIL("NOT IMPLEMENTED");
+}
+
+void MoveTests::boardMinusComplexJumpOverSameColor()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
