@@ -1,6 +1,9 @@
 #include "MoveTests.h"
 #include "Move.h"
 #include "Board.h"
+#include "Draught.h"
+#include "Color.h"
+#include "Coord.h"
 #include "FramedBoardView.h"
 
 using namespace Checkers::Engine;
@@ -162,7 +165,41 @@ void MoveTests::complexJumpScore()
 
 void MoveTests::boardPlusSimpleMove()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cWhiteStart('c', '3');
+  const Coord cWhiteLeftForward('b', '4');
+  const Coord cWhiteRightForward('d', '4');
+
+  const Coord cBlackStart('f', '6');
+  const Coord cBlackLeftForward('g', '5');
+  const Coord cBlackRightForward('e', '5');
+
+  Board b;
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cBlackStart, Color::EBlack));
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite));
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite));
+  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mBlackRightForward(cBlackStart, cBlackRightForward);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+
+  Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
+  Board bAfterBlackLeftForward;
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
+  bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
 }
 
 void MoveTests::boardPlusSimpleMoveByKing()
