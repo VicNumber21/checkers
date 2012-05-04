@@ -40,8 +40,6 @@ namespace Checkers
       const Engine::Board *m_Board;
       Rotation m_Rotation;
     };
-
-    std::ostream & operator<<(std::ostream &aOut, const Engine::Board &aBoard);
   };
 };
 

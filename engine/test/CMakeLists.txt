@@ -11,6 +11,7 @@ if(NOT cppunit_found)
 endif(NOT cppunit_found)
 
 include_directories("../src")
+include_directories("../../console-ui/src")
 include_directories( ${CMAKE_BINARY_DIR} )
 
 set(test_engine_SRCS
@@ -24,7 +25,7 @@ set(test_engine_SRCS
 
 add_executable(test-engine ${test_engine_SRCS})
 
-target_link_libraries(test-engine cppunit engine)
+target_link_libraries(test-engine cppunit engine console-ui)
 
 # TODO
 # think about how to choose tests to be executed

@@ -1,11 +1,18 @@
 #include "MoveTests.h"
 #include "Move.h"
 #include "Board.h"
+#include "FramedBoardView.h"
 
 using namespace Checkers::Engine;
 
 CPPUNIT_TEST_SUITE_REGISTRATION( MoveTests );
 
+
+std::ostream & operator<<(std::ostream &aOut, const Board &aBoard)
+{
+  Checkers::ConsoleUi::FramedBoardView view(aBoard);
+  return aOut << std::endl << view;
+}
 
 void MoveTests::setUp()
 {

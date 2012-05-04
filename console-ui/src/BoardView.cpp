@@ -104,9 +104,3 @@ std::string BoardView::flushLine(int aN)
 
   return ret;
 }
-
-std::ostream & Checkers::ConsoleUi::operator<<(std::ostream &aOut, const Board &aBoard)
-{
-  BoardView view(aBoard);
-  return aOut << view;
-}
