@@ -110,7 +110,7 @@ bool Move::isJumpBack(Iterator aLast, Iterator aThirdFromTail) const
   return m_coord_list.size() > 2 && (*aLast == *aThirdFromTail);
 }
 
-Board operator+(const Board &aCurrent, const Move &aMove)
+Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
 {
   (void)aCurrent;
   (void)aMove;
@@ -118,7 +118,7 @@ Board operator+(const Board &aCurrent, const Move &aMove)
   return Board();
 }
 
-Board operator-(const Board &aNext, const Move &aMove)
+Board Checkers::Engine::operator-(const Board &aNext, const Move &aMove)
 {
   (void)aNext;
   (void)aMove;
@@ -126,7 +126,7 @@ Board operator-(const Board &aNext, const Move &aMove)
   return Board();
 }
 
-Move operator-(const Board &aNext, const Board &aCurrent)
+Move Checkers::Engine::operator-(const Board &aNext, const Board &aCurrent)
 {
   (void)aCurrent;
   (void)aNext;
