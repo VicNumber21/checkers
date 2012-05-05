@@ -165,568 +165,568 @@ void MoveTests::complexJumpScore()
 
 void MoveTests::boardPlusSimpleMove()
 {
-  const Coord cWhiteStart('c', '3');
-  const Coord cWhiteLeftForward('b', '4');
-  const Coord cWhiteRightForward('d', '4');
+  const Coord cBlackStart('c', '3');
+  const Coord cBlackLeftForward('b', '4');
+  const Coord cBlackRightForward('d', '4');
 
-  const Coord cBlackStart('f', '6');
-  const Coord cBlackLeftForward('g', '5');
-  const Coord cBlackRightForward('e', '5');
+  const Coord cWhiteStart('f', '6');
+  const Coord cWhiteLeftForward('g', '5');
+  const Coord cWhiteRightForward('e', '5');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
   b.put(Draught(cBlackStart, Color::EBlack));
-
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
-  Board bAfterWhiteLeftForward;
-  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite));
-  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
-
-  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
-  Board bAfterWhiteRightForward;
-  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite));
-  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
-
-  Move mBlackRightForward(cBlackStart, cBlackRightForward);
-  Board bAfterBlackRightForward;
-  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
-  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+  b.put(Draught(cWhiteStart, Color::EWhite));
 
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
   Board bAfterBlackLeftForward;
-  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
   bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack));
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
+
+  Move mBlackRightForward(cBlackStart, cBlackRightForward);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack));
+  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
 }
 
 void MoveTests::boardPlusSimpleMoveByKing()
 {
-  const Coord cWhiteStart('c', '3');
-  const Coord cWhiteLeftForward('b', '4');
-  const Coord cWhiteRightForward('d', '4');
-  const Coord cWhiteLeftBack('b', '2');
-  const Coord cWhiteRightBack('d', '2');
+  const Coord cBlackStart('c', '3');
+  const Coord cBlackLeftForward('b', '4');
+  const Coord cBlackRightForward('d', '4');
+  const Coord cBlackLeftBack('b', '2');
+  const Coord cBlackRightBack('d', '2');
 
-  const Coord cBlackStart('f', '6');
-  const Coord cBlackLeftForward('g', '5');
-  const Coord cBlackRightForward('e', '5');
-  const Coord cBlackLeftBack('g', '7');
-  const Coord cBlackRightBack('e', '7');
+  const Coord cWhiteStart('f', '6');
+  const Coord cWhiteLeftForward('g', '5');
+  const Coord cWhiteRightForward('e', '5');
+  const Coord cWhiteLeftBack('g', '7');
+  const Coord cWhiteRightBack('e', '7');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite, true));
   b.put(Draught(cBlackStart, Color::EBlack, true));
-
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
-  Board bAfterWhiteLeftForward;
-  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
-  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
-
-  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
-  Board bAfterWhiteRightForward;
-  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
-  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
-
-  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack);
-  Board bAfterWhiteLeftBack;
-  bAfterWhiteLeftBack.put(Draught(cWhiteLeftBack, Color::EWhite, true));
-  bAfterWhiteLeftBack.put(Draught(cBlackStart, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftBack, b + mWhiteLeftBack);
-
-  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack);
-  Board bAfterWhiteRightBack;
-  bAfterWhiteRightBack.put(Draught(cWhiteRightBack, Color::EWhite, true));
-  bAfterWhiteRightBack.put(Draught(cBlackStart, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightBack, b + mWhiteRightBack);
-
-  Move mBlackRightForward(cBlackStart, cBlackRightForward);
-  Board bAfterBlackRightForward;
-  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite, true));
-  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+  b.put(Draught(cWhiteStart, Color::EWhite, true));
 
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
   Board bAfterBlackLeftForward;
-  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite, true));
   bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack, true));
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite, true));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
 
-  Move mBlackRightBack(cBlackStart, cBlackRightBack);
-  Board bAfterBlackRightBack;
-  bAfterBlackRightBack.put(Draught(cWhiteStart, Color::EWhite, true));
-  bAfterBlackRightBack.put(Draught(cBlackRightBack, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightBack, b + mBlackRightBack);
+  Move mBlackRightForward(cBlackStart, cBlackRightForward);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
+  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
 
   Move mBlackLeftBack(cBlackStart, cBlackLeftBack);
   Board bAfterBlackLeftBack;
-  bAfterBlackLeftBack.put(Draught(cWhiteStart, Color::EWhite, true));
   bAfterBlackLeftBack.put(Draught(cBlackLeftBack, Color::EBlack, true));
+  bAfterBlackLeftBack.put(Draught(cWhiteStart, Color::EWhite, true));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftBack, b + mBlackLeftBack);
+
+  Move mBlackRightBack(cBlackStart, cBlackRightBack);
+  Board bAfterBlackRightBack;
+  bAfterBlackRightBack.put(Draught(cBlackRightBack, Color::EBlack, true));
+  bAfterBlackRightBack.put(Draught(cWhiteStart, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightBack, b + mBlackRightBack);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack, true));
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack, true));
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
+
+  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack);
+  Board bAfterWhiteRightBack;
+  bAfterWhiteRightBack.put(Draught(cBlackStart, Color::EBlack, true));
+  bAfterWhiteRightBack.put(Draught(cWhiteRightBack, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightBack, b + mWhiteRightBack);
+
+  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack);
+  Board bAfterWhiteLeftBack;
+  bAfterWhiteLeftBack.put(Draught(cBlackStart, Color::EBlack, true));
+  bAfterWhiteLeftBack.put(Draught(cWhiteLeftBack, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftBack, b + mWhiteLeftBack);
 }
 
 void MoveTests::boardPlusSimpleMoveGetKing()
 {
-  const Coord cWhiteStart('c', '7');
-  const Coord cWhiteLeftForward('b', '8');
-  const Coord cWhiteRightForward('d', '8');
+  const Coord cBlackStart('c', '7');
+  const Coord cBlackLeftForward('b', '8');
+  const Coord cBlackRightForward('d', '8');
 
-  const Coord cBlackStart('f', '2');
-  const Coord cBlackLeftForward('g', '1');
-  const Coord cBlackRightForward('e', '1');
+  const Coord cWhiteStart('f', '2');
+  const Coord cWhiteLeftForward('g', '1');
+  const Coord cWhiteRightForward('e', '1');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
   b.put(Draught(cBlackStart, Color::EBlack));
-
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
-  Board bAfterWhiteLeftForward;
-  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
-  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
-
-  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
-  Board bAfterWhiteRightForward;
-  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
-  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
-
-  Move mBlackRightForward(cBlackStart, cBlackRightForward);
-  Board bAfterBlackRightForward;
-  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
-  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+  b.put(Draught(cWhiteStart, Color::EWhite));
 
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
   Board bAfterBlackLeftForward;
-  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
   bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack, true));
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
+
+  Move mBlackRightForward(cBlackStart, cBlackRightForward);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
+  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
 }
 
 void MoveTests::boardPlusSimpleMoveNoRequestedDraught()
 {
-  const Coord cWhiteStart('c', '5');
-  const Coord cWhiteWrongStart('e', '5');
-  const Coord cWhiteMoveTo('d', '6');
+  const Coord cBlackStart('c', '5');
+  const Coord cBlackWrongStart('e', '5');
+  const Coord cBlackMoveTo('d', '6');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cBlackStart, Color::EBlack));
 
-  Move mWhite(cWhiteWrongStart, cWhiteMoveTo);
-  CPPUNIT_ASSERT_THROW(b + mWhite, Move::ErrorNoRequestedDraught);
+  Move mBlack(cBlackWrongStart, cBlackMoveTo);
+  CPPUNIT_ASSERT_THROW(b + mBlack, Move::ErrorNoRequestedDraught);
 }
 
 void MoveTests::boardPlusSimpleMoveInWrongDirection()
 {
-  const Coord cWhiteStart('c', '7');
-  const Coord cWhiteLeftBack('b', '6');
-  const Coord cWhiteRightBack('d', '6');
+  const Coord cBlackStart('c', '7');
+  const Coord cBlackLeftBack('b', '6');
+  const Coord cBlackRightBack('d', '6');
 
-  const Coord cBlackStart('f', '2');
-  const Coord cBlackLeftBack('g', '3');
-  const Coord cBlackRightBack('e', '3');
+  const Coord cWhiteStart('f', '2');
+  const Coord cWhiteLeftBack('g', '3');
+  const Coord cWhiteRightBack('e', '3');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
   b.put(Draught(cBlackStart, Color::EBlack));
+  b.put(Draught(cWhiteStart, Color::EWhite));
 
-  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack);
-  CPPUNIT_ASSERT_THROW(b + mWhiteLeftBack, Move::ErrorInWrongDirection);
-
-  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack);
-  CPPUNIT_ASSERT_THROW(b + mWhiteRightBack, Move::ErrorInWrongDirection);
+  Move mBlackLeftBack(cBlackStart, cBlackLeftBack);
+  CPPUNIT_ASSERT_THROW(b + mBlackLeftBack, Move::ErrorInWrongDirection);
 
   Move mBlackRightBack(cBlackStart, cBlackRightBack);
   CPPUNIT_ASSERT_THROW(b + mBlackRightBack, Move::ErrorInWrongDirection);
 
-  Move mBlackLeftBack(cBlackStart, cBlackLeftBack);
-  CPPUNIT_ASSERT_THROW(b + mBlackLeftBack, Move::ErrorInWrongDirection);
+  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack);
+  CPPUNIT_ASSERT_THROW(b + mWhiteRightBack, Move::ErrorInWrongDirection);
+
+  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftBack, Move::ErrorInWrongDirection);
 }
 
 void MoveTests::boardPlusSimpleMoveToBusySquare()
 {
-  const Coord cWhiteStart('d', '4');
-  const Coord cWhiteLeftForward('c', '5');
+  const Coord cBlackStart('d', '4');
+  const Coord cBlackLeftForward('c', '5');
 
-  const Coord cBlackStart('e', '5');
-  const Coord cBlackLeftForward('f', '4');
+  const Coord cWhiteStart('e', '5');
+  const Coord cWhiteLeftForward('f', '4');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cWhiteLeftForward, Color::EWhite, true));
-  b.put(Draught(cBlackStart, Color::EBlack, true));
-  b.put(Draught(cBlackLeftForward, Color::EBlack));
+  b.put(Draught(cBlackStart, Color::EBlack));
+  b.put(Draught(cBlackLeftForward, Color::EBlack, true));
+  b.put(Draught(cWhiteStart, Color::EWhite, true));
+  b.put(Draught(cWhiteLeftForward, Color::EWhite));
 
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
-  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorToBusySquare);
-
-  Move mWhiteRightForward(cWhiteStart, cBlackStart);
-  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorToBusySquare);
+  Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
+  CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorToBusySquare);
 
   Move mBlackRightForward(cBlackStart, cWhiteStart);
   CPPUNIT_ASSERT_THROW(b + mBlackRightForward, Move::ErrorToBusySquare);
 
-  Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
-  CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorToBusySquare);
+  Move mWhiteRightForward(cWhiteStart, cBlackStart);
+  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorToBusySquare);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorToBusySquare);
 }
 
 void MoveTests::boardPlusSimpleMoveJumpExist()
 {
-  const Coord cWhiteStart('d', '4');
-  const Coord cWhiteLeftForward('c', '5');
+  const Coord cBlackStart('d', '4');
+  const Coord cBlackLeftForward('c', '5');
 
-  const Coord cBlackStart('e', '5');
-  const Coord cBlackLeftForward('f', '4');
+  const Coord cWhiteStart('e', '5');
+  const Coord cWhiteLeftForward('f', '4');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cBlackStart, Color::EBlack, true));
-
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
-  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorJumpExist);
+  b.put(Draught(cBlackStart, Color::EBlack));
+  b.put(Draught(cWhiteStart, Color::EWhite, true));
 
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward);
   CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorJumpExist);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorJumpExist);
 }
 
 void MoveTests::boardPlusSimpleJump()
 {
-  const Coord cWhiteStart('d', '4');
-  const Coord cAnotherWhite('f', '4');
-  const Coord cWhiteLeftForward('b', '6');
-  const Coord cWhiteRightForward('f', '6');
+  const Coord cBlackStart('d', '4');
+  const Coord cAnotherBlack('f', '4');
+  const Coord cBlackLeftForward('b', '6');
+  const Coord cBlackRightForward('f', '6');
 
-  const Coord cBlackStart('e', '5');
-  const Coord cAnotherBlack('c', '5');
-  const Coord cBlackLeftForward('c', '3');
-  const Coord cBlackRightForward('g', '3');
+  const Coord cWhiteStart('e', '5');
+  const Coord cAnotherWhite('c', '5');
+  const Coord cWhiteLeftForward('c', '3');
+  const Coord cWhiteRightForward('g', '3');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cAnotherWhite, Color::EWhite, true));
   b.put(Draught(cBlackStart, Color::EBlack));
   b.put(Draught(cAnotherBlack, Color::EBlack, true));
-
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
-  Board bAfterWhiteLeftForward;
-  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite));
-  bAfterWhiteLeftForward.put(Draught(cAnotherWhite, Color::EWhite, true));
-  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
-
-  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
-  Board bAfterWhiteRightForward;
-  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite));
-  bAfterWhiteRightForward.put(Draught(cAnotherWhite, Color::EWhite, true));
-  bAfterWhiteRightForward.put(Draught(cAnotherBlack, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
-
-  Move mBlackRightForward(cBlackStart, cBlackRightForward, Move::EJump);
-  Board bAfterBlackRightForward;
-  bAfterBlackRightForward.put(Draught(cAnotherWhite, Color::EWhite, true));
-  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack));
-  bAfterBlackRightForward.put(Draught(cAnotherBlack, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cAnotherWhite, Color::EWhite, true));
 
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward, Move::EJump);
   Board bAfterBlackLeftForward;
-  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
   bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack));
   bAfterBlackLeftForward.put(Draught(cAnotherBlack, Color::EBlack, true));
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
+
+  Move mBlackRightForward(cBlackStart, cBlackRightForward, Move::EJump);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack));
+  bAfterBlackRightForward.put(Draught(cAnotherBlack, Color::EBlack, true));
+  bAfterBlackRightForward.put(Draught(cAnotherWhite, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cAnotherBlack, Color::EBlack, true));
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite));
+  bAfterWhiteRightForward.put(Draught(cAnotherWhite, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite));
+  bAfterWhiteLeftForward.put(Draught(cAnotherWhite, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
 }
 
 void MoveTests::boardPlusSimpleJumpByKing()
 {
-  const Coord cWhiteStart('d', '4');
-  const Coord cAnotherWhite1('f', '4');
-  const Coord cAnotherWhite2('f', '6');
-  const Coord cAnotherWhite3('d', '6');
-  const Coord cWhiteLeftForward('b', '6');
-  const Coord cWhiteLeftBack('b', '2');
-  const Coord cWhiteRightBack('f', '2');
+  const Coord cBlackStart('d', '4');
+  const Coord cAnotherBlack1('f', '4');
+  const Coord cAnotherBlack2('f', '6');
+  const Coord cAnotherBlack3('d', '6');
+  const Coord cBlackLeftForward('b', '6');
+  const Coord cBlackLeftBack('b', '2');
+  const Coord cBlackRightBack('f', '2');
 
-  const Coord cBlackStart('e', '5');
-  const Coord cAnotherBlack1('c', '5');
-  const Coord cAnotherBlack2('c', '3');
-  const Coord cAnotherBlack3('e', '3');
-  const Coord cBlackLeftForward('g', '3');
-  const Coord cBlackLeftBack('g', '7');
-  const Coord cBlackRightBack('c', '7');
+  const Coord cWhiteStart('e', '5');
+  const Coord cAnotherWhite1('c', '5');
+  const Coord cAnotherWhite2('c', '3');
+  const Coord cAnotherWhite3('e', '3');
+  const Coord cWhiteLeftForward('g', '3');
+  const Coord cWhiteLeftBack('g', '7');
+  const Coord cWhiteRightBack('c', '7');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite, true));
-  b.put(Draught(cAnotherWhite1, Color::EWhite));
-  b.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  b.put(Draught(cAnotherWhite3, Color::EWhite));
   b.put(Draught(cBlackStart, Color::EBlack, true));
   b.put(Draught(cAnotherBlack1, Color::EBlack));
-  b.put(Draught(cAnotherBlack2, Color::EBlack));
-  b.put(Draught(cAnotherBlack3, Color::EBlack, true));
-
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
-  Board bAfterWhiteLeftForward;
-  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
-  bAfterWhiteLeftForward.put(Draught(cAnotherWhite1, Color::EWhite));
-  bAfterWhiteLeftForward.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  bAfterWhiteLeftForward.put(Draught(cAnotherWhite3, Color::EWhite));
-  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack, true));
-  bAfterWhiteLeftForward.put(Draught(cAnotherBlack2, Color::EBlack));
-  bAfterWhiteLeftForward.put(Draught(cAnotherBlack3, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
-
-  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack, Move::EJump);
-  Board bAfterWhiteLeftBack;
-  bAfterWhiteLeftBack.put(Draught(cWhiteLeftBack, Color::EWhite, true));
-  bAfterWhiteLeftBack.put(Draught(cAnotherWhite1, Color::EWhite));
-  bAfterWhiteLeftBack.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  bAfterWhiteLeftBack.put(Draught(cAnotherWhite3, Color::EWhite));
-  bAfterWhiteLeftBack.put(Draught(cBlackStart, Color::EBlack, true));
-  bAfterWhiteLeftBack.put(Draught(cAnotherBlack1, Color::EBlack));
-  bAfterWhiteLeftBack.put(Draught(cAnotherBlack3, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftBack, b + mWhiteLeftBack);
-
-  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack, Move::EJump);
-  Board bAfterWhiteRightBack;
-  bAfterWhiteRightBack.put(Draught(cWhiteRightBack, Color::EWhite, true));
-  bAfterWhiteRightBack.put(Draught(cAnotherWhite1, Color::EWhite));
-  bAfterWhiteRightBack.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  bAfterWhiteRightBack.put(Draught(cAnotherWhite3, Color::EWhite));
-  bAfterWhiteRightBack.put(Draught(cBlackStart, Color::EBlack, true));
-  bAfterWhiteRightBack.put(Draught(cAnotherBlack1, Color::EBlack));
-  bAfterWhiteRightBack.put(Draught(cAnotherBlack2, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightBack, b + mWhiteRightBack);
+  b.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  b.put(Draught(cAnotherBlack3, Color::EBlack));
+  b.put(Draught(cWhiteStart, Color::EWhite, true));
+  b.put(Draught(cAnotherWhite1, Color::EWhite));
+  b.put(Draught(cAnotherWhite2, Color::EWhite));
+  b.put(Draught(cAnotherWhite3, Color::EWhite, true));
 
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward, Move::EJump);
   Board bAfterBlackLeftForward;
-  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite, true));
-  bAfterBlackLeftForward.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  bAfterBlackLeftForward.put(Draught(cAnotherWhite3, Color::EWhite));
   bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack, true));
   bAfterBlackLeftForward.put(Draught(cAnotherBlack1, Color::EBlack));
-  bAfterBlackLeftForward.put(Draught(cAnotherBlack2, Color::EBlack));
-  bAfterBlackLeftForward.put(Draught(cAnotherBlack3, Color::EBlack, true));
+  bAfterBlackLeftForward.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterBlackLeftForward.put(Draught(cAnotherBlack3, Color::EBlack));
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite, true));
+  bAfterBlackLeftForward.put(Draught(cAnotherWhite2, Color::EWhite));
+  bAfterBlackLeftForward.put(Draught(cAnotherWhite3, Color::EWhite, true));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
-
-  Move mBlackRightBack(cBlackStart, cBlackRightBack, Move::EJump);
-  Board bAfterBlackRightBack;
-  bAfterBlackRightBack.put(Draught(cWhiteStart, Color::EWhite, true));
-  bAfterBlackRightBack.put(Draught(cAnotherWhite1, Color::EWhite));
-  bAfterBlackRightBack.put(Draught(cAnotherWhite3, Color::EWhite));
-  bAfterBlackRightBack.put(Draught(cBlackRightBack, Color::EBlack, true));
-  bAfterBlackRightBack.put(Draught(cAnotherBlack1, Color::EBlack));
-  bAfterBlackRightBack.put(Draught(cAnotherBlack2, Color::EBlack));
-  bAfterBlackRightBack.put(Draught(cAnotherBlack3, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightBack, b + mBlackRightBack);
 
   Move mBlackLeftBack(cBlackStart, cBlackLeftBack, Move::EJump);
   Board bAfterBlackLeftBack;
-  bAfterBlackLeftBack.put(Draught(cWhiteStart, Color::EWhite, true));
-  bAfterBlackLeftBack.put(Draught(cAnotherWhite1, Color::EWhite));
-  bAfterBlackLeftBack.put(Draught(cAnotherWhite2, Color::EWhite, true));
   bAfterBlackLeftBack.put(Draught(cBlackLeftBack, Color::EBlack, true));
   bAfterBlackLeftBack.put(Draught(cAnotherBlack1, Color::EBlack));
-  bAfterBlackLeftBack.put(Draught(cAnotherBlack2, Color::EBlack));
-  bAfterBlackLeftBack.put(Draught(cAnotherBlack3, Color::EBlack, true));
+  bAfterBlackLeftBack.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterBlackLeftBack.put(Draught(cAnotherBlack3, Color::EBlack));
+  bAfterBlackLeftBack.put(Draught(cWhiteStart, Color::EWhite, true));
+  bAfterBlackLeftBack.put(Draught(cAnotherWhite1, Color::EWhite));
+  bAfterBlackLeftBack.put(Draught(cAnotherWhite3, Color::EWhite, true));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftBack, b + mBlackLeftBack);
+
+  Move mBlackRightBack(cBlackStart, cBlackRightBack, Move::EJump);
+  Board bAfterBlackRightBack;
+  bAfterBlackRightBack.put(Draught(cBlackRightBack, Color::EBlack, true));
+  bAfterBlackRightBack.put(Draught(cAnotherBlack1, Color::EBlack));
+  bAfterBlackRightBack.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterBlackRightBack.put(Draught(cAnotherBlack3, Color::EBlack));
+  bAfterBlackRightBack.put(Draught(cWhiteStart, Color::EWhite, true));
+  bAfterBlackRightBack.put(Draught(cAnotherWhite1, Color::EWhite));
+  bAfterBlackRightBack.put(Draught(cAnotherWhite2, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightBack, b + mBlackRightBack);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack, true));
+  bAfterWhiteLeftForward.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterWhiteLeftForward.put(Draught(cAnotherBlack3, Color::EBlack));
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
+  bAfterWhiteLeftForward.put(Draught(cAnotherWhite1, Color::EWhite));
+  bAfterWhiteLeftForward.put(Draught(cAnotherWhite2, Color::EWhite));
+  bAfterWhiteLeftForward.put(Draught(cAnotherWhite3, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
+
+  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack, Move::EJump);
+  Board bAfterWhiteRightBack;
+  bAfterWhiteRightBack.put(Draught(cBlackStart, Color::EBlack, true));
+  bAfterWhiteRightBack.put(Draught(cAnotherBlack1, Color::EBlack));
+  bAfterWhiteRightBack.put(Draught(cAnotherBlack3, Color::EBlack));
+  bAfterWhiteRightBack.put(Draught(cWhiteRightBack, Color::EWhite, true));
+  bAfterWhiteRightBack.put(Draught(cAnotherWhite1, Color::EWhite));
+  bAfterWhiteRightBack.put(Draught(cAnotherWhite2, Color::EWhite));
+  bAfterWhiteRightBack.put(Draught(cAnotherWhite3, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightBack, b + mWhiteRightBack);
+
+  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack, Move::EJump);
+  Board bAfterWhiteLeftBack;
+  bAfterWhiteLeftBack.put(Draught(cBlackStart, Color::EBlack, true));
+  bAfterWhiteLeftBack.put(Draught(cAnotherBlack1, Color::EBlack));
+  bAfterWhiteLeftBack.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterWhiteLeftBack.put(Draught(cWhiteLeftBack, Color::EWhite, true));
+  bAfterWhiteLeftBack.put(Draught(cAnotherWhite1, Color::EWhite));
+  bAfterWhiteLeftBack.put(Draught(cAnotherWhite2, Color::EWhite));
+  bAfterWhiteLeftBack.put(Draught(cAnotherWhite3, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftBack, b + mWhiteLeftBack);
 }
 
 void MoveTests::boardPlusSimpleJumpGetKing()
 {
-  const Coord cWhiteStart('d', '6');
-  const Coord cAnotherWhite1('d', '2');
-  const Coord cAnotherWhite2('f', '2');
-  const Coord cWhiteLeftForward('b', '8');
-  const Coord cWhiteRightForward('f', '8');
+  const Coord cBlackStart('d', '6');
+  const Coord cAnotherBlack1('d', '2');
+  const Coord cAnotherBlack2('f', '2');
+  const Coord cBlackLeftForward('b', '8');
+  const Coord cBlackRightForward('f', '8');
 
-  const Coord cBlackStart('e', '3');
-  const Coord cAnotherBlack1('c', '7');
-  const Coord cAnotherBlack2('e', '7');
-  const Coord cBlackLeftForward('g', '1');
-  const Coord cBlackRightForward('c', '1');
+  const Coord cWhiteStart('e', '3');
+  const Coord cAnotherWhite1('c', '7');
+  const Coord cAnotherWhite2('e', '7');
+  const Coord cWhiteLeftForward('g', '1');
+  const Coord cWhiteRightForward('c', '1');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cAnotherWhite1, Color::EWhite));
-  b.put(Draught(cAnotherWhite2, Color::EWhite, true));
   b.put(Draught(cBlackStart, Color::EBlack));
-  b.put(Draught(cAnotherBlack1, Color::EBlack, true));
-  b.put(Draught(cAnotherBlack2, Color::EBlack));
-
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
-  Board bAfterWhiteLeftForward;
-  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
-  bAfterWhiteLeftForward.put(Draught(cAnotherWhite1, Color::EWhite));
-  bAfterWhiteLeftForward.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
-  bAfterWhiteLeftForward.put(Draught(cAnotherBlack2, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
-
-  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
-  Board bAfterWhiteRightForward;
-  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
-  bAfterWhiteRightForward.put(Draught(cAnotherWhite1, Color::EWhite));
-  bAfterWhiteRightForward.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
-  bAfterWhiteRightForward.put(Draught(cAnotherBlack1, Color::EBlack, true));
-  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
-
-  Move mBlackRightForward(cBlackStart, cBlackRightForward, Move::EJump);
-  Board bAfterBlackRightForward;
-  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
-  bAfterBlackRightForward.put(Draught(cAnotherWhite2, Color::EWhite, true));
-  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
-  bAfterBlackRightForward.put(Draught(cAnotherBlack1, Color::EBlack, true));
-  bAfterBlackRightForward.put(Draught(cAnotherBlack2, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+  b.put(Draught(cAnotherBlack1, Color::EBlack));
+  b.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cAnotherWhite1, Color::EWhite, true));
+  b.put(Draught(cAnotherWhite2, Color::EWhite));
 
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward, Move::EJump);
   Board bAfterBlackLeftForward;
-  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
-  bAfterBlackLeftForward.put(Draught(cAnotherWhite1, Color::EWhite));
   bAfterBlackLeftForward.put(Draught(cBlackLeftForward, Color::EBlack, true));
-  bAfterBlackLeftForward.put(Draught(cAnotherBlack1, Color::EBlack, true));
-  bAfterBlackLeftForward.put(Draught(cAnotherBlack2, Color::EBlack));
+  bAfterBlackLeftForward.put(Draught(cAnotherBlack1, Color::EBlack));
+  bAfterBlackLeftForward.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterBlackLeftForward.put(Draught(cWhiteStart, Color::EWhite));
+  bAfterBlackLeftForward.put(Draught(cAnotherWhite2, Color::EWhite));
   CPPUNIT_ASSERT_EQUAL(bAfterBlackLeftForward, b + mBlackLeftForward);
+
+  Move mBlackRightForward(cBlackStart, cBlackRightForward, Move::EJump);
+  Board bAfterBlackRightForward;
+  bAfterBlackRightForward.put(Draught(cBlackRightForward, Color::EBlack, true));
+  bAfterBlackRightForward.put(Draught(cAnotherBlack1, Color::EBlack));
+  bAfterBlackRightForward.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterBlackRightForward.put(Draught(cWhiteStart, Color::EWhite));
+  bAfterBlackRightForward.put(Draught(cAnotherWhite1, Color::EWhite, true));
+  CPPUNIT_ASSERT_EQUAL(bAfterBlackRightForward, b + mBlackRightForward);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
+  Board bAfterWhiteRightForward;
+  bAfterWhiteRightForward.put(Draught(cBlackStart, Color::EBlack));
+  bAfterWhiteRightForward.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterWhiteRightForward.put(Draught(cWhiteRightForward, Color::EWhite, true));
+  bAfterWhiteRightForward.put(Draught(cAnotherWhite1, Color::EWhite, true));
+  bAfterWhiteRightForward.put(Draught(cAnotherWhite2, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteRightForward, b + mWhiteRightForward);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
+  Board bAfterWhiteLeftForward;
+  bAfterWhiteLeftForward.put(Draught(cBlackStart, Color::EBlack));
+  bAfterWhiteLeftForward.put(Draught(cAnotherBlack1, Color::EBlack));
+  bAfterWhiteLeftForward.put(Draught(cWhiteLeftForward, Color::EWhite, true));
+  bAfterWhiteLeftForward.put(Draught(cAnotherWhite1, Color::EWhite, true));
+  bAfterWhiteLeftForward.put(Draught(cAnotherWhite2, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bAfterWhiteLeftForward, b + mWhiteLeftForward);
 }
 
 void MoveTests::boardPlusSimpleJumpNoRequestedDraught()
 {
-  const Coord cWhiteStart('c', '5');
-  const Coord cWhiteWrongStart('g', '5');
-  const Coord cWhiteMoveTo('e', '7');
+  const Coord cBlackStart('c', '5');
+  const Coord cBlackWrongStart('g', '5');
+  const Coord cBlackMoveTo('e', '7');
 
-  const Coord cBlack1('d', '6');
-  const Coord cBlack2('f', '6');
+  const Coord cWhite1('d', '6');
+  const Coord cWhite2('f', '6');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cBlack1, Color::EBlack));
-  b.put(Draught(cBlack1, Color::EBlack, true));
+  b.put(Draught(cBlackStart, Color::EBlack));
+  b.put(Draught(cWhite1, Color::EWhite));
+  b.put(Draught(cWhite1, Color::EWhite, true));
 
-  Move mWhite(cWhiteWrongStart, cWhiteMoveTo, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mWhite, Move::ErrorNoRequestedDraught);
+  Move mBlack(cBlackWrongStart, cBlackMoveTo, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mBlack, Move::ErrorNoRequestedDraught);
 }
 
 void MoveTests::boardPlusSimpleJumpInWrongDirection()
 {
-  const Coord cWhiteStart('c', '5');
-  const Coord cAnotherWhite('e', '5');
-  const Coord cWhiteLeftBack('a', '3');
-  const Coord cWhiteRightBack('e', '3');
+  const Coord cBlackStart('c', '5');
+  const Coord cAnotherBlack('e', '5');
+  const Coord cBlackLeftBack('a', '3');
+  const Coord cBlackRightBack('e', '3');
 
-  const Coord cBlackStart('d', '4');
-  const Coord cAnotherBlack('b', '4');
-  const Coord cBlackLeftBack('b', '6');
-  const Coord cBlackRightBack('f', '6');
+  const Coord cWhiteStart('d', '4');
+  const Coord cAnotherWhite('b', '4');
+  const Coord cWhiteLeftBack('b', '6');
+  const Coord cWhiteRightBack('f', '6');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cAnotherWhite, Color::EWhite, true));
   b.put(Draught(cBlackStart, Color::EBlack));
   b.put(Draught(cAnotherBlack, Color::EBlack, true));
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cAnotherWhite, Color::EWhite, true));
 
-  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mWhiteLeftBack, Move::ErrorInWrongDirection);
-
-  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mWhiteRightBack, Move::ErrorInWrongDirection);
+  Move mBlackLeftBack(cBlackStart, cBlackLeftBack, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mBlackLeftBack, Move::ErrorInWrongDirection);
 
   Move mBlackRightBack(cBlackStart, cBlackRightBack, Move::EJump);
   CPPUNIT_ASSERT_THROW(b + mBlackRightBack, Move::ErrorInWrongDirection);
 
-  Move mBlackLeftBack(cBlackStart, cBlackLeftBack, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mBlackLeftBack, Move::ErrorInWrongDirection);
+  Move mWhiteRightBack(cWhiteStart, cWhiteRightBack, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mWhiteRightBack, Move::ErrorInWrongDirection);
+
+  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftBack, Move::ErrorInWrongDirection);
 }
 
 void MoveTests::boardPlusSimpleJumpToBusySquare()
 {
-  const Coord cWhiteStart('d', '4');
-  const Coord cAnotherWhite1('f', '4');
-  const Coord cAnotherWhite2('e', '3');
-  const Coord cWhiteLeftForward('b', '6');
-  const Coord cWhiteRightForward('f', '6');
+  const Coord cBlackStart('d', '4');
+  const Coord cAnotherBlack1('f', '4');
+  const Coord cAnotherBlack2('e', '3');
+  const Coord cBlackLeftForward('b', '6');
+  const Coord cBlackRightForward('f', '6');
 
-  const Coord cBlackStart('e', '5');
-  const Coord cAnotherBlack1('c', '5');
-  const Coord cAnotherBlack2('d', '6');
-  const Coord cBlackLeftForward('g', '3');
-  const Coord cBlackRightForward('c', '3');
+  const Coord cWhiteStart('e', '5');
+  const Coord cAnotherWhite1('c', '5');
+  const Coord cAnotherWhite2('d', '6');
+  const Coord cWhiteLeftForward('g', '3');
+  const Coord cWhiteRightForward('c', '3');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cAnotherWhite1, Color::EWhite, true));
-  b.put(Draught(cAnotherWhite2, Color::EWhite));
-  b.put(Draught(cWhiteLeftForward, Color::EBlack, true));
-  b.put(Draught(cWhiteRightForward, Color::EWhite));
   b.put(Draught(cBlackStart, Color::EBlack));
-  b.put(Draught(cAnotherBlack1, Color::EBlack));
+  b.put(Draught(cAnotherBlack1, Color::EBlack, true));
   b.put(Draught(cAnotherBlack2, Color::EBlack));
-  b.put(Draught(cBlackLeftForward, Color::EWhite));
+  b.put(Draught(cBlackLeftForward, Color::EWhite, true));
   b.put(Draught(cBlackRightForward, Color::EBlack));
+  b.put(Draught(cWhiteStart, Color::EWhite));
+  b.put(Draught(cAnotherWhite1, Color::EWhite));
+  b.put(Draught(cAnotherWhite2, Color::EWhite));
+  b.put(Draught(cWhiteLeftForward, Color::EBlack));
+  b.put(Draught(cWhiteRightForward, Color::EWhite));
 
-  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorToBusySquare);
-
-  Move mWhiteRightForward(cWhiteStart, cBlackStart, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorToBusySquare);
+  Move mBlackLeftForward(cBlackStart, cBlackLeftForward, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorToBusySquare);
 
   Move mBlackRightForward(cBlackStart, cWhiteStart, Move::EJump);
   CPPUNIT_ASSERT_THROW(b + mBlackRightForward, Move::ErrorToBusySquare);
 
-  Move mBlackLeftForward(cBlackStart, cBlackLeftForward, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorToBusySquare);
+  Move mWhiteRightForward(cWhiteStart, cBlackStart, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorToBusySquare);
+
+  Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftForward, Move::ErrorToBusySquare);
 }
 
 void MoveTests::boardPlusSimpleJumpMoreJumpExist()
 {
-  const Coord cWhiteStart('d', '4');
-  const Coord cAnotherWhite('b', '4');
-  const Coord cWhiteRightForward('f', '6');
+  const Coord cBlackStart('d', '4');
+  const Coord cAnotherBlack('b', '4');
+  const Coord cBlackRightForward('f', '6');
 
-  const Coord cBlackStart('e', '5');
-  const Coord cAnotherBlack('g', '7');
-  const Coord cBlackRightForward('c', '3');
+  const Coord cWhiteStart('e', '5');
+  const Coord cAnotherWhite('g', '7');
+  const Coord cWhiteRightForward('c', '3');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cAnotherWhite, Color::EWhite));
-  b.put(Draught(cBlackStart, Color::EBlack, true));
-  b.put(Draught(cAnotherBlack, Color::EBlack, true));
-
-  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorJumpExist);
+  b.put(Draught(cBlackStart, Color::EBlack));
+  b.put(Draught(cAnotherBlack, Color::EBlack));
+  b.put(Draught(cWhiteStart, Color::EWhite, true));
+  b.put(Draught(cAnotherWhite, Color::EWhite, true));
 
   Move mBlackRightForward(cBlackStart, cBlackRightForward, Move::EJump);
   CPPUNIT_ASSERT_THROW(b + mBlackRightForward, Move::ErrorJumpExist);
+
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorJumpExist);
 }
 
 void MoveTests::boardPlusSimpleJumpOverSameColor()
 {
-  const Coord cWhiteStart('b', '4');
-  const Coord cAnotherWhite('c', '5');
-  const Coord cWhiteRightForward('d', '6');
+  const Coord cBlackStart('b', '4');
+  const Coord cAnotherBlack('c', '5');
+  const Coord cBlackRightForward('d', '6');
 
-  const Coord cBlackStart('f', '4');
-  const Coord cAnotherBlack('g', '5');
-  const Coord cBlackLeftBack('h', '6');
+  const Coord cWhiteStart('f', '4');
+  const Coord cAnotherWhite('g', '5');
+  const Coord cWhiteLeftBack('h', '6');
 
   Board b;
-  b.put(Draught(cWhiteStart, Color::EWhite));
-  b.put(Draught(cAnotherWhite, Color::EWhite));
-  b.put(Draught(cBlackStart, Color::EBlack, true));
-  b.put(Draught(cAnotherBlack, Color::EBlack, true));
+  b.put(Draught(cBlackStart, Color::EBlack));
+  b.put(Draught(cAnotherBlack, Color::EBlack));
+  b.put(Draught(cWhiteStart, Color::EWhite, true));
+  b.put(Draught(cAnotherWhite, Color::EWhite, true));
 
-  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorJumpOverSameColor);
+  Move mBlackRightForward(cBlackStart, cBlackRightForward, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mBlackRightForward, Move::ErrorJumpOverSameColor);
 
-  Move mBlackLeftBack(cBlackStart, cBlackLeftBack, Move::EJump);
-  CPPUNIT_ASSERT_THROW(b + mBlackLeftBack, Move::ErrorJumpOverSameColor);
+  Move mWhiteLeftBack(cWhiteStart, cWhiteLeftBack, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mWhiteLeftBack, Move::ErrorJumpOverSameColor);
 }
 
 void MoveTests::boardPlusComplexJump()
