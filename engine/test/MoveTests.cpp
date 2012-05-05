@@ -484,6 +484,7 @@ void MoveTests::boardPlusComplexJumpOverSameColor()
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
 
+/* TODO Remove if not needed
 void MoveTests::boardMinusSimpleMove()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
@@ -618,6 +619,7 @@ void MoveTests::boardPlusMinusMoveToGetTheSameBoard()
 {
   CPPUNIT_FAIL("NOT IMPLEMENTED");
 }
+*/
 
 void MoveTests::boardMinusBoard()
 {

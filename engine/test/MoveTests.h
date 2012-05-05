@@ -46,6 +46,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardPlusComplexJumpNotTerminatedAfterGetKing );
     CPPUNIT_TEST( boardPlusComplexJumpOverSameColor );
 
+    /* TODO Remove if not needed
     CPPUNIT_TEST( boardMinusSimpleMove );
     CPPUNIT_TEST( boardMinusSimpleMoveByKing );
     CPPUNIT_TEST( boardMinusSimpleMoveLoseKing );
@@ -76,6 +77,7 @@ class MoveTests : public CppUnit::TestFixture
 
     CPPUNIT_TEST( boardMinusPlusMoveToGetTheSameBoard );
     CPPUNIT_TEST( boardPlusMinusMoveToGetTheSameBoard );
+    */
 
     CPPUNIT_TEST( boardMinusBoard );
     CPPUNIT_TEST( boardMinusMoveNotFound );
@@ -124,6 +126,7 @@ public:
   void boardPlusComplexJumpNotTerminatedAfterGetKing();
   void boardPlusComplexJumpOverSameColor();
 
+  /* TODO Remove if not needed
   void boardMinusSimpleMove();
   void boardMinusSimpleMoveByKing();
   void boardMinusSimpleMoveLoseKing();
@@ -154,6 +157,7 @@ public:
 
   void boardMinusPlusMoveToGetTheSameBoard();
   void boardPlusMinusMoveToGetTheSameBoard();
+  */
 
   void boardMinusBoard();
   void boardMinusMoveNotFound();

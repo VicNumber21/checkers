@@ -118,6 +118,7 @@ Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
   return Board();
 }
 
+/* TODO Remove if not needed
 Board Checkers::Engine::operator-(const Board &aNext, const Move &aMove)
 {
   (void)aNext;
@@ -125,6 +126,7 @@ Board Checkers::Engine::operator-(const Board &aNext, const Move &aMove)
 
   return Board();
 }
+*/
 
 Move Checkers::Engine::operator-(const Board &aNext, const Board &aCurrent)
 {
