@@ -33,6 +33,10 @@ namespace Checkers
       {
       };
 
+      class ErrorJumpOverSameColor
+      {
+      };
+
       class ErrorUnexpectedAppend
       {
       };
