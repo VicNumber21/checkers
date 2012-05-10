@@ -613,6 +613,17 @@ void MoveTests::boardPlusSimpleJumpNoRequestedDraught()
   CPPUNIT_ASSERT_THROW(b + mBlack, Move::ErrorNoRequestedDraught);
 }
 
+void MoveTests::boardPlusSimpleJumpNothingToJumpOver()
+{
+  const Coord cBlackStart('c', '5');
+  const Coord cBlackMoveTo('e', '7');
+
+  Board b;
+  b.put(Draught(cBlackStart, Color::EBlack));
+  Move mBlack(cBlackStart, cBlackMoveTo, Move::EJump);
+  CPPUNIT_ASSERT_THROW(b + mBlack, Move::ErrorNothingToJumpOver);
+}
+
 void MoveTests::boardPlusSimpleJumpInWrongDirection()
 {
   const Coord cBlackStart('c', '5');

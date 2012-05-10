@@ -21,6 +21,10 @@ namespace Checkers
       {
       };
 
+      class ErrorNothingToJumpOver
+      {
+      };
+
       class ErrorInWrongDirection
       {
       };
