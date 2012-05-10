@@ -38,8 +38,10 @@ class MoveTests : public CppUnit::TestFixture
 
     CPPUNIT_TEST( boardPlusComplexJump );
     CPPUNIT_TEST( boardPlusComplexJumpByKing );
+    CPPUNIT_TEST( boardPlusComplexJumpByKingOverKingRow );
     CPPUNIT_TEST( boardPlusComplexJumpGetKing );
     CPPUNIT_TEST( boardPlusComplexJumpNoRequestedDraught );
+    CPPUNIT_TEST( boardPlusComplexJumpNothingToJumpOver );
     CPPUNIT_TEST( boardPlusComplexJumpInWrongDirection );
     CPPUNIT_TEST( boardPlusComplexJumpToBusySquare );
     CPPUNIT_TEST( boardPlusComplexJumpOverBusySquare );
@@ -119,8 +121,10 @@ public:
 
   void boardPlusComplexJump();
   void boardPlusComplexJumpByKing();
+  void boardPlusComplexJumpByKingOverKingRow();
   void boardPlusComplexJumpGetKing();
   void boardPlusComplexJumpNoRequestedDraught();
+  void boardPlusComplexJumpNothingToJumpOver();
   void boardPlusComplexJumpInWrongDirection();
   void boardPlusComplexJumpToBusySquare();
   void boardPlusComplexJumpOverBusySquare();

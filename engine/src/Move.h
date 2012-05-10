@@ -33,11 +33,19 @@ namespace Checkers
       {
       };
 
+      class ErrorJumpOverBusySquare
+      {
+      };
+
       class ErrorJumpExist
       {
       };
 
       class ErrorJumpOverSameColor
+      {
+      };
+
+      class ErrorGetKingButMoveFurther
       {
       };
 
