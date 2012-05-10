@@ -20,16 +20,17 @@ void BoardTests::tearDown()
 void BoardTests::put()
 {
   Board b;
-  Draught d1(Coord('g','3'), Color::EBlack);
+  Draught d1(Coord('b','8'), Color::EBlack, true);
   Draught d2(Coord('a','6'), Color::EWhite);
   Draught d3(Coord('a','6'), Color::EBlack);
   Draught d4(Coord('a','6'), Color::EWhite, true);
+  Draught d5(Coord('g','1'), Color::EWhite, true);
 
   CPPUNIT_ASSERT(b.put(d1));
   CPPUNIT_ASSERT_EQUAL(1, b.count());
   CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
   CPPUNIT_ASSERT_EQUAL(0, b.countWhite());
-  Maybe<Draught> md1 = b.testSquare(Coord('g','3'));
+  Maybe<Draught> md1 = b.testSquare(Coord('b','8'));
   CPPUNIT_ASSERT(!md1.isNothing());
   CPPUNIT_ASSERT(d1 == md1());
 
@@ -59,6 +60,24 @@ void BoardTests::put()
   CPPUNIT_ASSERT(d2 == md4());
   CPPUNIT_ASSERT(d3 != md4());
   CPPUNIT_ASSERT(d4 != md4());
+
+  CPPUNIT_ASSERT(b.put(d5));
+  CPPUNIT_ASSERT_EQUAL(3, b.count());
+  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(2, b.countWhite());
+  Maybe<Draught> md5 = b.testSquare(Coord('g','1'));
+  CPPUNIT_ASSERT(!md5.isNothing());
+  CPPUNIT_ASSERT(d5 == md5());
+}
+
+void BoardTests::putManOnKingRow()
+{
+  Board b;
+  Draught d1(Coord('g','1'), Color::EWhite);
+  Draught d2(Coord('b','8'), Color::EBlack);
+
+  CPPUNIT_ASSERT(!b.put(d1));
+  CPPUNIT_ASSERT(!b.put(d2));
 }
 
 void BoardTests::takeDraught()

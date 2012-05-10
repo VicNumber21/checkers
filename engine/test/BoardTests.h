@@ -8,6 +8,7 @@ class BoardTests : public CppUnit::TestFixture
 {
   CPPUNIT_TEST_SUITE( BoardTests );
     CPPUNIT_TEST( put );
+    CPPUNIT_TEST( putManOnKingRow );
     CPPUNIT_TEST( takeDraught );
     CPPUNIT_TEST( testSquare );
     CPPUNIT_TEST( equal );
@@ -24,6 +25,7 @@ public:
   virtual void tearDown();
 
   void put();
+  void putManOnKingRow();
   void takeDraught();
   void testSquare();
   void equal();
