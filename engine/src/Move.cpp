@@ -1,5 +1,6 @@
 #include "Move.h"
 #include "RulesOfGame.h"
+#include "ActionAtBoard.h"
 
 using namespace Checkers::Engine;
 
@@ -112,10 +113,15 @@ bool Move::isJumpBack(Iterator aLast, Iterator aThirdFromTail) const
 
 Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
 {
-  (void)aCurrent;
-  (void)aMove;
+  Board ret(aCurrent);
 
-  return Board();
+  ActionsAtBoard actions = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove);
+
+  typedef ActionsAtBoard::const_iterator It;
+  for(It it = actions.begin(); it != actions.end(); ++it)
+    (*it)->perform(ret);
+
+  return ret;
 }
 
 /* TODO Remove if not needed

@@ -77,3 +77,11 @@ bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirs
   //TODO rework as IsOnSameDiagonal() && isDeltaInExpectedRange() from BoardUtility
   return isValidCoord(aFirst) && isValidCoord(aSecond) && (deltaX == expectedDelta) && (deltaY == expectedDelta);
 }
+
+ActionsAtBoard RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove)
+{
+  (void) aBoard;
+  (void) aMove;
+  return ActionsAtBoard();
+
+}

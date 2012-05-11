@@ -1,6 +1,8 @@
 #ifndef H_RULES_OF_GAME_H
 #define H_RULES_OF_GAME_H
 
+#include "ActionAtBoard.h"
+
 
 namespace Checkers
 {
@@ -8,6 +10,7 @@ namespace Checkers
   {
     class Move;
     class Coord;
+    class Board;
 
     class RulesOfGame
     {
@@ -36,6 +39,7 @@ namespace Checkers
       public:
         static bool isValidCoord(const Engine::Coord &aCoord);
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool isJump);
+        static Engine::ActionsAtBoard transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
       };
     };
   };
