@@ -78,10 +78,11 @@ bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirs
   return isValidCoord(aFirst) && isValidCoord(aSecond) && (deltaX == expectedDelta) && (deltaY == expectedDelta);
 }
 
-ActionsAtBoard RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove)
+ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove)
 {
   (void) aBoard;
   (void) aMove;
-  return ActionsAtBoard();
 
+  ActionAtBoard::Ptr ret;
+  return ret;
 }

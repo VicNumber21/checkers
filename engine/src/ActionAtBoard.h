@@ -10,6 +10,7 @@ namespace Checkers
   namespace Engine
   {
     class Board;
+    class Move;
 
     class ActionAtBoard
     {
@@ -19,6 +20,7 @@ namespace Checkers
     public:
       virtual ~ActionAtBoard();
       virtual void perform(Board &aBoard) const = 0;
+      virtual ActionAtBoard::Ptr cloneIfNeeded(const Board &aBoard, const Move &aMove) const = 0;
     };
 
     typedef std::list<ActionAtBoard::Ptr> ActionsAtBoard;

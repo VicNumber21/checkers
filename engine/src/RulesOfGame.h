@@ -39,7 +39,7 @@ namespace Checkers
       public:
         static bool isValidCoord(const Engine::Coord &aCoord);
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool isJump);
-        static Engine::ActionsAtBoard transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
+        static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
       };
     };
   };

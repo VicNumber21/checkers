@@ -66,6 +66,10 @@ namespace Checkers
         Move::CoordList m_coord_list;
       };
 
+      class ErrorUnknown
+      {
+      };
+
       enum Type
       {
         EUndefined

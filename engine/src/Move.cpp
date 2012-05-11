@@ -113,13 +113,13 @@ bool Move::isJumpBack(Iterator aLast, Iterator aThirdFromTail) const
 
 Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
 {
+  ActionAtBoard::Ptr action = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove);
+
+  if(!action)
+    throw Move::ErrorUnknown();
+
   Board ret(aCurrent);
-
-  ActionsAtBoard actions = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove);
-
-  typedef ActionsAtBoard::const_iterator It;
-  for(It it = actions.begin(); it != actions.end(); ++it)
-    (*it)->perform(ret);
+  action->perform(ret);
 
   return ret;
 }
