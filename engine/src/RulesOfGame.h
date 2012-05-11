@@ -40,6 +40,13 @@ namespace Checkers
         static bool isValidCoord(const Engine::Coord &aCoord);
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool isJump);
         static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
+
+      private:
+        static void initPrototypes();
+        static const ActionsAtBoard & actionPrototypes();
+
+      private:
+        static ActionsAtBoard m_action_prototypes;
       };
     };
   };

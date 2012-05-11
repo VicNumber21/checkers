@@ -10,6 +10,8 @@ using namespace Checkers::Engine;
 const int intOutOfBound = -1;
 const char charOutOfBound = '!';
 
+ActionsAtBoard RulesOfGame::MoveValidator::m_action_prototypes;
+
 int RulesOfGame::BoardBounds::height()
 {
   return 8;
@@ -80,9 +82,33 @@ bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirs
 
 ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove)
 {
-  (void) aBoard;
-  (void) aMove;
+  initPrototypes();
 
   ActionAtBoard::Ptr ret;
+
+  typedef ActionsAtBoard::const_iterator It;
+  for(It it = actionPrototypes().begin(); !ret && it != actionPrototypes().end(); ++it)
+  {
+    ret = (*it)->cloneIfNeeded(aBoard, aMove);
+  }
+
   return ret;
+}
+
+void RulesOfGame::MoveValidator::initPrototypes()
+{
+  static bool wasDone = false;
+
+  if(!wasDone)
+  {
+    //TODO insert initialization of list of action prototypes here
+    m_action_prototypes = m_action_prototypes;
+
+    wasDone = true;
+  }
+}
+
+const ActionsAtBoard & RulesOfGame::MoveValidator::actionPrototypes()
+{
+  return m_action_prototypes;
 }
