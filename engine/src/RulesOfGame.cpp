@@ -1,5 +1,6 @@
 #include "RulesOfGame.h"
 #include "Coord.h"
+#include "ActionNoRequestedDraught.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -102,7 +103,7 @@ void RulesOfGame::MoveValidator::initPrototypes()
   if(!wasDone)
   {
     //TODO insert initialization of list of action prototypes here
-    m_action_prototypes = m_action_prototypes;
+    m_action_prototypes.push_back(ActionAtBoard::Ptr(new ActionNoRequestedDraught));
 
     wasDone = true;
   }
