@@ -1,7 +1,7 @@
 #ifndef H_RULES_OF_GAME_H
 #define H_RULES_OF_GAME_H
 
-#include "ActionAtBoard.h"
+#include "AmericanCheckersActionFactory.h"
 
 
 namespace Checkers
@@ -42,11 +42,10 @@ namespace Checkers
         static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
 
       private:
-        static void initPrototypes();
-        static const ActionsAtBoard & actionPrototypes();
+        static const AmericanCheckersActionFactory & actionFactory();
 
       private:
-        static ActionsAtBoard m_action_prototypes;
+        static AmericanCheckersActionFactory m_action_factory;
       };
     };
   };

@@ -1,6 +1,5 @@
 #include "RulesOfGame.h"
 #include "Coord.h"
-#include "ActionNoRequestedDraught.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -11,7 +10,7 @@ using namespace Checkers::Engine;
 const int intOutOfBound = -1;
 const char charOutOfBound = '!';
 
-ActionsAtBoard RulesOfGame::MoveValidator::m_action_prototypes;
+AmericanCheckersActionFactory RulesOfGame::MoveValidator::m_action_factory;
 
 int RulesOfGame::BoardBounds::height()
 {
@@ -83,33 +82,10 @@ bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirs
 
 ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove)
 {
-  initPrototypes();
-
-  ActionAtBoard::Ptr ret;
-
-  typedef ActionsAtBoard::const_iterator It;
-  for(It it = actionPrototypes().begin(); !ret && it != actionPrototypes().end(); ++it)
-  {
-    ret = (*it)->cloneIfNeeded(aBoard, aMove);
-  }
-
-  return ret;
+  return actionFactory().createAction(aBoard, aMove);
 }
 
-void RulesOfGame::MoveValidator::initPrototypes()
+const AmericanCheckersActionFactory & RulesOfGame::MoveValidator::actionFactory()
 {
-  static bool wasDone = false;
-
-  if(!wasDone)
-  {
-    //TODO insert initialization of list of action prototypes here
-    m_action_prototypes.push_back(ActionAtBoard::Ptr(new ActionNoRequestedDraught));
-
-    wasDone = true;
-  }
-}
-
-const ActionsAtBoard & RulesOfGame::MoveValidator::actionPrototypes()
-{
-  return m_action_prototypes;
+  return m_action_factory;
 }

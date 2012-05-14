@@ -684,10 +684,10 @@ void MoveTests::boardPlusSimpleJumpToBusySquare()
   Move mBlackLeftForward(cBlackStart, cBlackLeftForward, Move::EJump);
   CPPUNIT_ASSERT_THROW(b + mBlackLeftForward, Move::ErrorToBusySquare);
 
-  Move mBlackRightForward(cBlackStart, cWhiteStart, Move::EJump);
+  Move mBlackRightForward(cBlackStart, cBlackRightForward, Move::EJump);
   CPPUNIT_ASSERT_THROW(b + mBlackRightForward, Move::ErrorToBusySquare);
 
-  Move mWhiteRightForward(cWhiteStart, cBlackStart, Move::EJump);
+  Move mWhiteRightForward(cWhiteStart, cWhiteRightForward, Move::EJump);
   CPPUNIT_ASSERT_THROW(b + mWhiteRightForward, Move::ErrorToBusySquare);
 
   Move mWhiteLeftForward(cWhiteStart, cWhiteLeftForward, Move::EJump);

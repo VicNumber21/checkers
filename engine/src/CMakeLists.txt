@@ -16,8 +16,8 @@ set(engine_SRCS
     Maybe.cpp
     RulesOfGame.cpp
     Move.cpp
-    ActionAtBoard.cpp
-    ActionNoRequestedDraught.cpp
+    AmericanCheckersActionFactory.cpp
+    ActionThrowError.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})

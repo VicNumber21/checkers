@@ -18,9 +18,8 @@ namespace Checkers
       typedef std::tr1::shared_ptr<ActionAtBoard> Ptr;
 
     public:
-      virtual ~ActionAtBoard();
+      virtual ~ActionAtBoard() {}
       virtual void perform(Board &aBoard) const = 0;
-      virtual ActionAtBoard::Ptr cloneIfNeeded(const Board &aBoard, const Move &aMove) const = 0;
     };
 
     typedef std::list<ActionAtBoard::Ptr> ActionsAtBoard;
