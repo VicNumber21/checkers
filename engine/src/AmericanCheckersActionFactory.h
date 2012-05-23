@@ -25,6 +25,8 @@ namespace Checkers
       ActionAtBoard::Ptr noRequestedDraught(const Board &aBoard, const Move &aMove) const;
       ActionAtBoard::Ptr toBusySquare(const Board &aBoard, const Move &aMove) const;
       ActionAtBoard::Ptr overBusySquare(const Board &aBoard, const Move &aMove) const;
+
+      ActionAtBoard::Ptr simpleMove(const Board &aBoard, const Move &aMove) const;
     };
   }
 }

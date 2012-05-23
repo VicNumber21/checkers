@@ -15,3 +15,5 @@ void ActionThrowError<E>::perform(Board &aBoard) const
 template class ActionThrowError<Move::ErrorNoRequestedDraught>;
 template class ActionThrowError<Move::ErrorToBusySquare>;
 template class ActionThrowError<Move::ErrorJumpOverBusySquare>;
+template class ActionThrowError<Move::ErrorInWrongDirection>;
+template class ActionThrowError<Move::ErrorJumpExist>;

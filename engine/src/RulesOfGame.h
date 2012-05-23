@@ -11,6 +11,7 @@ namespace Checkers
     class Move;
     class Coord;
     class Board;
+    class Color;
 
     class RulesOfGame
     {
@@ -32,6 +33,9 @@ namespace Checkers
 
         static bool isLineInBound(int aY);
         static bool isLineInBound(char aY);
+
+        static bool isKingLine(int aY, const Engine::Color &aColor);
+        static bool isKingLine(char aY, const Engine::Color &aColor);
       };
 
       class MoveValidator
@@ -40,6 +44,9 @@ namespace Checkers
         static bool isValidCoord(const Engine::Coord &aCoord);
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool isJump);
         static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
+        static bool isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
+                                     , const Engine::Color &aColor, bool isKing);
+        static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor);
 
       private:
         static const AmericanCheckersActionFactory & actionFactory();

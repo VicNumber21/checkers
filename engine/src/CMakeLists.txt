@@ -18,6 +18,9 @@ set(engine_SRCS
     Move.cpp
     AmericanCheckersActionFactory.cpp
     ActionThrowError.cpp
+    ActionTake.cpp
+    ActionPut.cpp
+    ActionSequence.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})
