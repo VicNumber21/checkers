@@ -10,11 +10,17 @@ namespace Checkers
   {
     class Board;
     class Move;
+    class Coord;
+    class ActionTake;
 
     class AmericanCheckersActionFactory
     {
     private:
       typedef ActionAtBoard::Ptr (AmericanCheckersActionFactory::*ActionFactoryMethod)(const Board &aBoard, const Move &aMove) const;
+
+      class Error
+      {
+      };
 
     public:
       ActionAtBoard::Ptr createAction(const Board &aBoard, const Move &aMove) const;
@@ -28,6 +34,8 @@ namespace Checkers
 
       ActionAtBoard::Ptr simpleMove(const Board &aBoard, const Move &aMove) const;
       ActionAtBoard::Ptr simpleJump(const Board &aBoard, const Move &aMove) const;
+
+      ActionAtBoard::Ptr doJumpStep(Board &aBoard, const Coord &from, const Coord &to, ActionTake &aTake) const;
     };
   }
 }
