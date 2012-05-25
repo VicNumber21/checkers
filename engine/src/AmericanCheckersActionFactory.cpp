@@ -19,6 +19,7 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::createAction(const Board &aBoa
         , &AmericanCheckersActionFactory::toBusySquare
         , &AmericanCheckersActionFactory::overBusySquare
         , &AmericanCheckersActionFactory::simpleMove
+        , &AmericanCheckersActionFactory::simpleJump
         , 0
         };
   return whileNotCreated(factories, aBoard, aMove);
@@ -122,6 +123,77 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleMove(const Board &aBoard
       {
         ret.reset(new ActionThrowError<Move::ErrorInWrongDirection>);
       }
+    }
+  }
+
+  return ret;
+}
+
+ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleJump(const Board &aBoard, const Move &aMove) const
+{
+  ActionAtBoard::Ptr ret;
+
+  if(aMove.score() == 1)
+  {
+    Move::Iterator to = aMove.begin();
+    Move::Iterator from = to++;
+    Draught draught = aBoard.testSquare(*from)();
+    int deltaX = to->x() - from->x() > 0 ? 1 : -1;
+    int deltaY = to->y() - from->y() > 0 ? 1 : -1;
+    Coord between(from->x() + deltaX, from->y() + deltaY);
+    Maybe<Draught> maybeJumped = aBoard.testSquare(between);
+
+    if(!maybeJumped.isNothing())
+    {
+      if(maybeJumped().color() != draught.color())
+      {
+        if(RulesOfGame::MoveValidator::isValidDirection(*from, *to, draught.color(), draught.isKing()))
+        {
+          ActionTake *takeA = new ActionTake;
+          ActionAtBoard::Ptr takeAPtr(takeA);
+          takeA->append(*from);
+          takeA->append(between);
+
+          ActionPut *putA = new ActionPut;
+          ActionAtBoard::Ptr putAPtr(putA);
+          draught.moveTo(*to);
+          if(RulesOfGame::BoardBounds::isKingLine(to->y(), draught.color()))
+          {
+            draught.makeKing();
+          }
+          putA->append(draught);
+
+          ActionSequence *sequenceA = new ActionSequence;
+          ActionAtBoard::Ptr sequenceAPtr(sequenceA);
+          sequenceA->append(takeAPtr);
+          sequenceA->append(putAPtr);
+
+          Board testBoard(aBoard);
+          sequenceA->perform(testBoard);
+
+          if(RulesOfGame::MoveValidator::doesJumpExist(testBoard, draught))
+          {
+            ret.reset(new ActionThrowError<Move::ErrorJumpExist>);
+          }
+          else
+          {
+            ret = sequenceAPtr;
+          }
+          
+        }
+        else
+        {
+          ret.reset(new ActionThrowError<Move::ErrorInWrongDirection>);
+        }
+      }
+      else
+      {
+        ret.reset(new ActionThrowError<Move::ErrorJumpOverSameColor>);
+      }
+    }
+    else
+    {
+      ret.reset(new ActionThrowError<Move::ErrorNothingToJumpOver>);
     }
   }
 

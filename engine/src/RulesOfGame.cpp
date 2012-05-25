@@ -104,43 +104,60 @@ bool RulesOfGame::MoveValidator::isValidDirection(const Engine::Coord &aFirst, c
   return isKing || (deltaY * validDirectionSign > 0);
 }
 
-bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor)
+bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught)
 {
   //TODO move delta code & logic into class (probably make an iterator)
   //TODO add direct test for it
   const int deltaX[4] = {-1, 1, 1, -1};
   const int deltaY[4] = {1, 1, -1, -1};
 
+  bool ret = false;
+
+  int firstDeltaIndex = aDraught.isKing()? 0 : aDraught.color() == Color::EBlack ? 0 : 2;
+  int lastDeltaIndex = aDraught.isKing()? 3 : aDraught.color() == Color::EBlack ? 1 : 3;
+
+  for(int deltaIndex = firstDeltaIndex; deltaIndex <= lastDeltaIndex; ++deltaIndex)
+  {
+    try
+    {
+      Coord jumpedCoord(aDraught.coord().x() + deltaX[deltaIndex], aDraught.coord().y() + deltaY[deltaIndex]);
+      Coord jumpToCoord(aDraught.coord().x() + 2 * deltaX[deltaIndex], aDraught.coord().y() + 2 * deltaY[deltaIndex]);
+
+      Maybe<Draught> jumpedDraught = aBoard.testSquare(jumpedCoord);
+      Maybe<Draught> jumpToDraught = aBoard.testSquare(jumpToCoord);
+
+      if(!jumpedDraught.isNothing() && jumpedDraught().color() != aDraught.color() && jumpToDraught.isNothing())
+      {
+        ret = true;
+        break;
+      }
+    }
+    catch(Coord::ErrorIntWrongCoord e)
+    {
+      continue;
+    }
+  }
+
+  return ret;
+}
+
+bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor)
+{
+  bool ret = false;
+
   for(Board::Iterator it = aBoard.begin(); it != aBoard.end(); ++it)
   {
     if(it->color() == aColor)
     {
-      try
+      if(doesJumpExist(aBoard, *it))
       {
-        int firstDeltaIndex = it->isKing()? 0 : aColor == Color::EBlack ? 0 : 2;
-        int lastDeltaIndex = it->isKing()? 3 : aColor == Color::EBlack ? 1 : 3;
-
-        for(int deltaIndex = firstDeltaIndex; deltaIndex <= lastDeltaIndex; ++deltaIndex)
-        {
-          Coord jumpedCoord(it->coord().x() + deltaX[deltaIndex], it->coord().y() + deltaY[deltaIndex]);
-          Coord jumpToCoord(it->coord().x() + 2 * deltaX[deltaIndex], it->coord().y() + 2 * deltaY[deltaIndex]);
-          Maybe<Draught> jumpedDraught = aBoard.testSquare(jumpedCoord);
-          Maybe<Draught> jumpToDraught = aBoard.testSquare(jumpToCoord);
-
-          if(!jumpedDraught.isNothing() && jumpedDraught().color() != aColor && jumpToDraught.isNothing())
-          {
-            return true;
-          }
-        }
-      }
-      catch(Coord::ErrorIntWrongCoord e)
-      {
-        continue;
+        ret = true;
+        break;
       }
     }
   }
 
-  return false;
+  return ret;
 }
 
 ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove)

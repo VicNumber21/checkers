@@ -12,6 +12,7 @@ namespace Checkers
     class Coord;
     class Board;
     class Color;
+    class Draught;
 
     class RulesOfGame
     {
@@ -46,6 +47,7 @@ namespace Checkers
         static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
         static bool isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
                                      , const Engine::Color &aColor, bool isKing);
+        static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught);
         static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor);
 
       private:
