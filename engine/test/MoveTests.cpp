@@ -403,8 +403,8 @@ void MoveTests::boardPlusSimpleJump()
 
   const Coord cWhiteStart('e', '5');
   const Coord cAnotherWhite('c', '5');
-  const Coord cWhiteLeftForward('c', '3');
-  const Coord cWhiteRightForward('g', '3');
+  const Coord cWhiteLeftForward('g', '3');
+  const Coord cWhiteRightForward('c', '3');
 
   Board b;
   b.put(Draught(cBlackStart, Color::EBlack));
@@ -517,7 +517,7 @@ void MoveTests::boardPlusSimpleJumpByKing()
   Board bAfterWhiteRightBack;
   bAfterWhiteRightBack.put(Draught(cBlackStart, Color::EBlack, true));
   bAfterWhiteRightBack.put(Draught(cAnotherBlack1, Color::EBlack));
-  bAfterWhiteRightBack.put(Draught(cAnotherBlack3, Color::EBlack));
+  bAfterWhiteRightBack.put(Draught(cAnotherBlack2, Color::EBlack, true));
   bAfterWhiteRightBack.put(Draught(cWhiteRightBack, Color::EWhite, true));
   bAfterWhiteRightBack.put(Draught(cAnotherWhite1, Color::EWhite));
   bAfterWhiteRightBack.put(Draught(cAnotherWhite2, Color::EWhite));
@@ -528,7 +528,7 @@ void MoveTests::boardPlusSimpleJumpByKing()
   Board bAfterWhiteLeftBack;
   bAfterWhiteLeftBack.put(Draught(cBlackStart, Color::EBlack, true));
   bAfterWhiteLeftBack.put(Draught(cAnotherBlack1, Color::EBlack));
-  bAfterWhiteLeftBack.put(Draught(cAnotherBlack2, Color::EBlack, true));
+  bAfterWhiteLeftBack.put(Draught(cAnotherBlack3, Color::EBlack));
   bAfterWhiteLeftBack.put(Draught(cWhiteLeftBack, Color::EWhite, true));
   bAfterWhiteLeftBack.put(Draught(cAnotherWhite1, Color::EWhite));
   bAfterWhiteLeftBack.put(Draught(cAnotherWhite2, Color::EWhite));
