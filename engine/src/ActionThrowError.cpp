@@ -19,3 +19,4 @@ template class ActionThrowError<Move::ErrorInWrongDirection>;
 template class ActionThrowError<Move::ErrorJumpExist>;
 template class ActionThrowError<Move::ErrorNothingToJumpOver>;
 template class ActionThrowError<Move::ErrorJumpOverSameColor>;
+template class ActionThrowError<Move::ErrorGetKingButMoveFurther>;

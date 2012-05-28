@@ -33,9 +33,9 @@ namespace Checkers
       ActionAtBoard::Ptr overBusySquare(const Board &aBoard, const Move &aMove) const;
 
       ActionAtBoard::Ptr simpleMove(const Board &aBoard, const Move &aMove) const;
-      ActionAtBoard::Ptr simpleJump(const Board &aBoard, const Move &aMove) const;
+      ActionAtBoard::Ptr jump(const Board &aBoard, const Move &aMove) const;
 
-      ActionAtBoard::Ptr doJumpStep(Board &aBoard, const Coord &from, const Coord &to, ActionTake &aTake) const;
+      ActionAtBoard::Ptr doJumpStep(Board &aBoard, const Coord &from, const Coord &to, ActionTake &aTake, bool aIsLast) const;
     };
   }
 }

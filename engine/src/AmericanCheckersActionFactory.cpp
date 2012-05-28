@@ -19,7 +19,7 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::createAction(const Board &aBoa
         , &AmericanCheckersActionFactory::toBusySquare
         , &AmericanCheckersActionFactory::overBusySquare
         , &AmericanCheckersActionFactory::simpleMove
-        , &AmericanCheckersActionFactory::simpleJump
+        , &AmericanCheckersActionFactory::jump
         , 0
         };
   return whileNotCreated(factories, aBoard, aMove);
@@ -56,10 +56,16 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::toBusySquare(const Board &aBoa
 {
   ActionAtBoard::Ptr ret;
 
-  Maybe<Draught> testTo = aBoard.testSquare(*(--aMove.end()));
-  if(!testTo.isNothing())
+  Coord from(*aMove.begin());
+  Coord to(*(--aMove.end()));
+
+  if(to != from)
   {
-    ret.reset(new ActionThrowError<Move::ErrorToBusySquare>);
+    Maybe<Draught> testTo = aBoard.testSquare(to);
+    if(!testTo.isNothing())
+    {
+      ret.reset(new ActionThrowError<Move::ErrorToBusySquare>);
+    }
   }
 
   return ret;
@@ -70,8 +76,12 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::overBusySquare(const Board &aB
   ActionAtBoard::Ptr ret;
 
   int score = aMove.score() - 1;
+  Coord from(*aMove.begin());
   for(Move::Iterator it = ++aMove.begin(); score > 0; --score, ++it)
   {
+    if(from == *it)
+      continue;
+
     Maybe<Draught> testOver = aBoard.testSquare(*it);
     if(!testOver.isNothing())
     {
@@ -129,20 +139,28 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleMove(const Board &aBoard
   return ret;
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleJump(const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::jump(const Board &aBoard, const Move &aMove) const
 {
   ActionAtBoard::Ptr ret;
 
-  if(aMove.score() == 1)
+  if(aMove.score() > 0)
   {
     Board testBoard(aBoard);
-    Coord from(*aMove.begin());
-    Coord to(*(++aMove.begin()));
+
     ActionTake *takeA = new ActionTake;
     ActionAtBoard::Ptr takeAPtr(takeA);
-    takeA->append(from);
+    takeA->append(*aMove.begin());
 
-    ActionAtBoard::Ptr error = doJumpStep(testBoard, from, to, *takeA);
+    ActionAtBoard::Ptr error;
+    Move::Iterator lastIt = --aMove.end();
+
+    for(Move::Iterator toIt = ++aMove.begin(); !error && toIt != aMove.end(); ++toIt)
+    {
+      Move::Iterator fromIt = toIt;
+      --fromIt;
+
+      error = doJumpStep(testBoard, *fromIt, *toIt, *takeA, toIt == lastIt);
+    }
 
     if(error)
     {
@@ -150,6 +168,8 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleJump(const Board &aBoard
     }
     else
     {
+      Coord to(*(--aMove.end()));
+
       ActionPut *putA = new ActionPut;
       ActionAtBoard::Ptr putAPtr(putA);
       putA->append(testBoard.testSquare(to)());
@@ -166,7 +186,7 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleJump(const Board &aBoard
   return ret;
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::doJumpStep(Board &aBoard, const Coord &from, const Coord &to, ActionTake &aTake) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::doJumpStep(Board &aBoard, const Coord &from, const Coord &to, ActionTake &aTake, bool aIsLast) const
 {
   ActionAtBoard::Ptr ret;
 
@@ -185,7 +205,8 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::doJumpStep(Board &aBoard, cons
         aTake.append(between);
 
         draught.moveTo(to);
-        if(RulesOfGame::BoardBounds::isKingLine(to.y(), draught.color()))
+        bool makeKing = !draught.isKing() && RulesOfGame::BoardBounds::isKingLine(to.y(), draught.color());
+        if(makeKing)
         {
           draught.makeKing();
         }
@@ -194,7 +215,11 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::doJumpStep(Board &aBoard, cons
           throw AmericanCheckersActionFactory::Error();
         }
 
-        if(RulesOfGame::MoveValidator::doesJumpExist(aBoard, draught))
+        if(makeKing && !aIsLast)
+        {
+          ret.reset(new ActionThrowError<Move::ErrorGetKingButMoveFurther>);
+        }
+        else if(!makeKing && aIsLast && RulesOfGame::MoveValidator::doesJumpExist(aBoard, draught))
         {
           ret.reset(new ActionThrowError<Move::ErrorJumpExist>);
         }
