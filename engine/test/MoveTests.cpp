@@ -808,8 +808,8 @@ void MoveTests::boardPlusComplexJump()
 
   Board bWhiteAtTheEndLeftForward;
   bWhiteAtTheEndLeftForward.put(Draught(cBlackStart, Color::EBlack));
-  bWhiteAtTheEndLeftForward.put(Draught(cAnotherBlack2, Color::EBlack));
-  bWhiteAtTheEndLeftForward.put(Draught(cWhiteStart, Color::EWhite));
+  bWhiteAtTheEndLeftForward.put(Draught(cAnotherBlack1, Color::EBlack));
+  bWhiteAtTheEndLeftForward.put(Draught(cWhiteJump3LeftForward, Color::EWhite));
   bWhiteAtTheEndLeftForward.put(Draught(cAnotherWhite1, Color::EWhite));
   bWhiteAtTheEndLeftForward.put(Draught(cAnotherWhite2, Color::EWhite, true));
   bWhiteAtTheEndLeftForward.put(Draught(cAnotherWhite3, Color::EWhite));
@@ -818,8 +818,8 @@ void MoveTests::boardPlusComplexJump()
 
   Board bWhiteAtTheEndRightForward;
   bWhiteAtTheEndRightForward.put(Draught(cBlackStart, Color::EBlack));
-  bWhiteAtTheEndRightForward.put(Draught(cAnotherBlack1, Color::EBlack));
-  bWhiteAtTheEndRightForward.put(Draught(cWhiteStart, Color::EWhite));
+  bWhiteAtTheEndRightForward.put(Draught(cAnotherBlack2, Color::EBlack));
+  bWhiteAtTheEndRightForward.put(Draught(cWhiteJump3RightForward, Color::EWhite));
   bWhiteAtTheEndRightForward.put(Draught(cAnotherWhite1, Color::EWhite));
   bWhiteAtTheEndRightForward.put(Draught(cAnotherWhite2, Color::EWhite, true));
   bWhiteAtTheEndRightForward.put(Draught(cAnotherWhite3, Color::EWhite));
@@ -1000,45 +1000,113 @@ void MoveTests::boardPlusComplexJumpByKingOverKingRow()
   mBlackD4B6_D4.append(cBlackJumpD8);
   mBlackD4B6_D4.append(cBlackJumpF6);
   mBlackD4B6_D4.append(cBlackStartD4);
-  Board bBlackD4B6_D4;
-  bBlackD4B6_D4.put(Draught(cBlackStartD4, Color::EBlack, true));
-  bBlackD4B6_D4.put(Draught(cBlackD2, Color::EBlack));
-  bBlackD4B6_D4.put(Draught(cBlackF4, Color::EBlack));
-  bBlackD4B6_D4.put(Draught(cBlackF2, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bBlackD4B6_D4, b + mBlackD4B6_D4);
+  Board bBlackD4_D4;
+  bBlackD4_D4.put(Draught(cBlackStartD4, Color::EBlack, true));
+  bBlackD4_D4.put(Draught(cBlackD2, Color::EBlack));
+  bBlackD4_D4.put(Draught(cBlackF4, Color::EBlack));
+  bBlackD4_D4.put(Draught(cBlackF2, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(bBlackD4_D4, b + mBlackD4B6_D4);
 
   Move mBlackD4F6_D4(cBlackStartD4, cBlackJumpF6, Move::EJump);
   mBlackD4F6_D4.append(cBlackJumpD8);
   mBlackD4F6_D4.append(cBlackJumpB6);
   mBlackD4F6_D4.append(cBlackStartD4);
-  Board bBlackD4F6_D4;
-  bBlackD4B6_D4.put(Draught(cBlackStartD4, Color::EBlack, true));
-  bBlackD4F6_D4.put(Draught(cBlackD2, Color::EBlack));
-  bBlackD4F6_D4.put(Draught(cBlackF4, Color::EBlack));
-  bBlackD4F6_D4.put(Draught(cBlackF2, Color::EBlack));
-  CPPUNIT_ASSERT_EQUAL(bBlackD4F6_D4, b + mBlackD4F6_D4);
+  CPPUNIT_ASSERT_EQUAL(bBlackD4_D4, b + mBlackD4F6_D4);
 
   Move mWhiteE5C3_E5(cWhiteStartE5, cWhiteJumpC3, Move::EJump);
   mWhiteE5C3_E5.append(cWhiteJumpE1);
   mWhiteE5C3_E5.append(cWhiteJumpG3);
   mWhiteE5C3_E5.append(cWhiteStartE5);
-  Board bWhiteE5C3_E5;
-  bWhiteE5C3_E5.put(Draught(cWhiteStartE5, Color::EWhite, true));
-  bWhiteE5C3_E5.put(Draught(cWhiteE7, Color::EWhite));
-  bWhiteE5C3_E5.put(Draught(cWhiteC5, Color::EWhite));
-  bWhiteE5C3_E5.put(Draught(cWhiteC7, Color::EWhite));
-  CPPUNIT_ASSERT_EQUAL(bWhiteE5C3_E5, b + mWhiteE5C3_E5);
+  Board bWhiteE5_E5;
+  bWhiteE5_E5.put(Draught(cWhiteStartE5, Color::EWhite, true));
+  bWhiteE5_E5.put(Draught(cWhiteE7, Color::EWhite));
+  bWhiteE5_E5.put(Draught(cWhiteC5, Color::EWhite));
+  bWhiteE5_E5.put(Draught(cWhiteC7, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bWhiteE5_E5, b + mWhiteE5C3_E5);
 
   Move mWhiteE5G3_E5(cWhiteStartE5, cWhiteJumpG3, Move::EJump);
   mWhiteE5G3_E5.append(cWhiteJumpE1);
   mWhiteE5G3_E5.append(cWhiteJumpC3);
   mWhiteE5G3_E5.append(cWhiteStartE5);
-  Board bWhiteE5G3_E5;
-  bWhiteE5C3_E5.put(Draught(cWhiteStartE5, Color::EWhite, true));
-  bWhiteE5G3_E5.put(Draught(cWhiteE7, Color::EWhite));
-  bWhiteE5G3_E5.put(Draught(cWhiteC5, Color::EWhite));
-  bWhiteE5G3_E5.put(Draught(cWhiteC7, Color::EWhite));
-  CPPUNIT_ASSERT_EQUAL(bWhiteE5G3_E5, b + mWhiteE5G3_E5);
+  CPPUNIT_ASSERT_EQUAL(bWhiteE5_E5, b + mWhiteE5G3_E5);
+}
+void MoveTests::boardPlusComplexJumpByKingOverStartSquare()
+{
+  const Coord cBlackStartE3('e', '3');
+  const Coord cBlackG3('g', '3');
+  const Coord cBlackE5('e', '5');
+  const Coord cBlackG5('g', '5');
+  const Coord cBlackE7('e', '7');
+  const Coord cBlackG7('g', '7');
+  const Coord cBlackC7('c', '7');
+  const Coord cBlackJumpC1('c', '1');
+  const Coord cBlackJumpA3('a', '3');
+  const Coord cBlackJumpC5('c', '5');
+  const Coord cBlackJumpG1('g', '1');
+
+  const Coord cWhiteStartD6('d', '6');
+  const Coord cWhiteB6('b', '6');
+  const Coord cWhiteB4('b', '4');
+  const Coord cWhiteD4('d', '4');
+  const Coord cWhiteB2('b', '2');
+  const Coord cWhiteD2('d', '2');
+  const Coord cWhiteF2('f', '2');
+  const Coord cWhiteJumpF8('f', '8');
+  const Coord cWhiteJumpH6('h', '6');
+  const Coord cWhiteJumpF4('f', '4');
+  const Coord cWhiteJumpB8('b', '8');
+
+  Board b;
+  b.put(Draught(cBlackStartE3, Color::EBlack, true));
+  b.put(Draught(cBlackG3, Color::EBlack));
+  b.put(Draught(cBlackG5, Color::EBlack));
+  b.put(Draught(cBlackG7, Color::EBlack, true));
+  b.put(Draught(cBlackE5, Color::EBlack));
+  b.put(Draught(cBlackE7, Color::EBlack));
+  b.put(Draught(cBlackC7, Color::EBlack, true));
+  b.put(Draught(cWhiteStartD6, Color::EWhite, true));
+  b.put(Draught(cWhiteB6, Color::EWhite));
+  b.put(Draught(cWhiteB4, Color::EWhite, true));
+  b.put(Draught(cWhiteB2, Color::EWhite));
+  b.put(Draught(cWhiteD4, Color::EWhite));
+  b.put(Draught(cWhiteD2, Color::EWhite));
+  b.put(Draught(cWhiteF2, Color::EWhite));
+
+  Move mBlackE3C1_G1(cBlackStartE3, cBlackJumpC1, Move::EJump);
+  mBlackE3C1_G1.append(cBlackJumpA3);
+  mBlackE3C1_G1.append(cBlackJumpC5);
+  mBlackE3C1_G1.append(cBlackStartE3);
+  mBlackE3C1_G1.append(cBlackJumpG1);
+
+  Board bBlackE3C1_G1;
+  bBlackE3C1_G1.put(Draught(cBlackJumpG1, Color::EBlack, true));
+  bBlackE3C1_G1.put(Draught(cBlackG3, Color::EBlack));
+  bBlackE3C1_G1.put(Draught(cBlackG5, Color::EBlack));
+  bBlackE3C1_G1.put(Draught(cBlackG7, Color::EBlack, true));
+  bBlackE3C1_G1.put(Draught(cBlackE5, Color::EBlack));
+  bBlackE3C1_G1.put(Draught(cBlackE7, Color::EBlack));
+  bBlackE3C1_G1.put(Draught(cBlackC7, Color::EBlack, true));
+  bBlackE3C1_G1.put(Draught(cWhiteStartD6, Color::EWhite, true));
+  bBlackE3C1_G1.put(Draught(cWhiteB6, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bBlackE3C1_G1, b + mBlackE3C1_G1);
+
+  Move mWhiteD6F8_B8(cWhiteStartD6, cWhiteJumpF8, Move::EJump);
+  mWhiteD6F8_B8.append(cWhiteJumpH6);
+  mWhiteD6F8_B8.append(cWhiteJumpF4);
+  mWhiteD6F8_B8.append(cWhiteStartD6);
+  mWhiteD6F8_B8.append(cWhiteJumpB8);
+
+  Board bWhiteD6F8_B8;
+  bWhiteD6F8_B8.put(Draught(cBlackStartE3, Color::EBlack, true));
+  bWhiteD6F8_B8.put(Draught(cBlackG3, Color::EBlack));
+  bWhiteD6F8_B8.put(Draught(cWhiteJumpB8, Color::EWhite, true));
+  bWhiteD6F8_B8.put(Draught(cWhiteB6, Color::EWhite));
+  bWhiteD6F8_B8.put(Draught(cWhiteB4, Color::EWhite, true));
+  bWhiteD6F8_B8.put(Draught(cWhiteB2, Color::EWhite));
+  bWhiteD6F8_B8.put(Draught(cWhiteD4, Color::EWhite));
+  bWhiteD6F8_B8.put(Draught(cWhiteD2, Color::EWhite));
+  bWhiteD6F8_B8.put(Draught(cWhiteF2, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(bWhiteD6F8_B8, b + mWhiteD6F8_B8);
 }
 
 void MoveTests::boardPlusComplexJumpGetKing()
@@ -1089,7 +1157,7 @@ void MoveTests::boardPlusComplexJumpGetKing()
   Move mBlackD4F6_D8(cBlackStartD4, cBlackJumpF6, Move::EJump);
   mBlackD4F6_D8.append(cBlackJumpD8);
   Board bBlackD4F6_D8;
-  bBlackD4B6_D8.put(Draught(cBlackJumpD8, Color::EBlack, true));
+  bBlackD4F6_D8.put(Draught(cBlackJumpD8, Color::EBlack, true));
   bBlackD4F6_D8.put(Draught(cBlackD2, Color::EBlack));
   bBlackD4F6_D8.put(Draught(cBlackF4, Color::EBlack));
   bBlackD4F6_D8.put(Draught(cBlackF2, Color::EBlack));
@@ -1100,9 +1168,9 @@ void MoveTests::boardPlusComplexJumpGetKing()
   Move mBlackF4D6_B8(cBlackF4, cBlackJumpD6, Move::EJump);
   mBlackF4D6_B8.append(cBlackJumpB8);
   Board bBlackF4D6_B8;
-  bBlackD4B6_D8.put(Draught(cBlackJumpB8, Color::EBlack, true));
+  bBlackF4D6_B8.put(Draught(cBlackJumpB8, Color::EBlack, true));
   bBlackF4D6_B8.put(Draught(cBlackD2, Color::EBlack));
-  bBlackF4D6_B8.put(Draught(cBlackF4, Color::EBlack));
+  bBlackF4D6_B8.put(Draught(cBlackStartD4, Color::EBlack));
   bBlackF4D6_B8.put(Draught(cBlackF2, Color::EBlack));
   bBlackF4D6_B8.put(Draught(cWhiteE7, Color::EWhite));
   bBlackF4D6_B8.put(Draught(cWhiteC5, Color::EWhite));
@@ -1111,9 +1179,9 @@ void MoveTests::boardPlusComplexJumpGetKing()
   Move mBlackF4D6_F8(cBlackF4, cBlackJumpD6, Move::EJump);
   mBlackF4D6_F8.append(cBlackJumpF8);
   Board bBlackF4D6_F8;
-  bBlackD4B6_D8.put(Draught(cBlackJumpF8, Color::EBlack, true));
+  bBlackF4D6_F8.put(Draught(cBlackJumpF8, Color::EBlack, true));
   bBlackF4D6_F8.put(Draught(cBlackD2, Color::EBlack));
-  bBlackF4D6_F8.put(Draught(cBlackF4, Color::EBlack));
+  bBlackF4D6_F8.put(Draught(cBlackStartD4, Color::EBlack));
   bBlackF4D6_F8.put(Draught(cBlackF2, Color::EBlack));
   bBlackF4D6_F8.put(Draught(cWhiteC5, Color::EWhite));
   bBlackF4D6_F8.put(Draught(cWhiteC7, Color::EWhite));
@@ -1135,7 +1203,7 @@ void MoveTests::boardPlusComplexJumpGetKing()
   Board bWhiteE5G3_E1;
   bWhiteE5G3_E1.put(Draught(cBlackStartD4, Color::EBlack));
   bWhiteE5G3_E1.put(Draught(cBlackD2, Color::EBlack));
-  bWhiteE5C3_E1.put(Draught(cWhiteJumpE1, Color::EWhite, true));
+  bWhiteE5G3_E1.put(Draught(cWhiteJumpE1, Color::EWhite, true));
   bWhiteE5G3_E1.put(Draught(cWhiteE7, Color::EWhite));
   bWhiteE5G3_E1.put(Draught(cWhiteC5, Color::EWhite));
   bWhiteE5G3_E1.put(Draught(cWhiteC7, Color::EWhite));
@@ -1146,9 +1214,9 @@ void MoveTests::boardPlusComplexJumpGetKing()
   Board bWhiteC5E3_C1;
   bWhiteC5E3_C1.put(Draught(cBlackF4, Color::EBlack));
   bWhiteC5E3_C1.put(Draught(cBlackF2, Color::EBlack));
-  bWhiteE5C3_E1.put(Draught(cWhiteJumpC1, Color::EWhite, true));
+  bWhiteC5E3_C1.put(Draught(cWhiteJumpC1, Color::EWhite, true));
   bWhiteC5E3_C1.put(Draught(cWhiteE7, Color::EWhite));
-  bWhiteC5E3_C1.put(Draught(cWhiteC5, Color::EWhite));
+  bWhiteC5E3_C1.put(Draught(cWhiteStartE5, Color::EWhite));
   bWhiteC5E3_C1.put(Draught(cWhiteC7, Color::EWhite));
   CPPUNIT_ASSERT_EQUAL(bWhiteC5E3_C1, b + mWhiteC5E3_C1);
 
@@ -1157,9 +1225,9 @@ void MoveTests::boardPlusComplexJumpGetKing()
   Board bWhiteC5E3_G1;
   bWhiteC5E3_G1.put(Draught(cBlackD2, Color::EBlack));
   bWhiteC5E3_G1.put(Draught(cBlackF4, Color::EBlack));
-  bWhiteE5C3_E1.put(Draught(cWhiteJumpE1, Color::EWhite, true));
+  bWhiteC5E3_G1.put(Draught(cWhiteJumpG1, Color::EWhite, true));
   bWhiteC5E3_G1.put(Draught(cWhiteE7, Color::EWhite));
-  bWhiteC5E3_G1.put(Draught(cWhiteC5, Color::EWhite));
+  bWhiteC5E3_G1.put(Draught(cWhiteStartE5, Color::EWhite));
   bWhiteC5E3_G1.put(Draught(cWhiteC7, Color::EWhite));
   CPPUNIT_ASSERT_EQUAL(bWhiteC5E3_G1, b + mWhiteC5E3_G1);
 }
