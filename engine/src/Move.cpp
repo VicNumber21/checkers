@@ -70,16 +70,10 @@ bool Move::operator!=(const Engine::Move &aMove) const
   return !(*this == aMove);
 }
 
-Move::Iterator Move::begin() const
+const CoordSequence & Move::coords() const
 {
   throwIfUndefined();
-  return m_coords.begin();
-}
-
-Move::Iterator Move::end() const
-{
-  throwIfUndefined();
-  return m_coords.end();
+  return m_coords;
 }
 
 void Move::throwIfUndefined() const
@@ -90,7 +84,7 @@ void Move::throwIfUndefined() const
 
 Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
 {
-  ActionAtBoard::Ptr action = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove);
+  ActionAtBoard::Ptr action = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove.coords());
 
   if(!action)
     throw Move::ErrorUnknown();

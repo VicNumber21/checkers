@@ -1,5 +1,5 @@
 #include "AmericanCheckersActionFactory.h"
-#include "Move.h"
+#include "CoordSequence.h"
 #include "Board.h"
 #include "Color.h"
 #include "ActionThrowError.h"
@@ -7,11 +7,12 @@
 #include "ActionPut.h"
 #include "ActionSequence.h"
 #include "RulesOfGame.h"
+#include "Move.h"
 
 using namespace Checkers::Engine;
 
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::createAction(const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::createAction(const Board &aBoard, const CoordSequence &aCoordSequence) const
 {
   ActionFactoryMethod factories[] = 
         {
@@ -22,25 +23,25 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::createAction(const Board &aBoa
         , &AmericanCheckersActionFactory::jump
         , 0
         };
-  return whileNotCreated(factories, aBoard, aMove);
+  return whileNotCreated(factories, aBoard, aCoordSequence);
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::whileNotCreated(const ActionFactoryMethod *aFactoryMethods, const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::whileNotCreated(const ActionFactoryMethod *aFactoryMethods, const Board &aBoard, const CoordSequence &aCoordSequence) const
 {
   ActionAtBoard::Ptr ret;
 
   int i = 0;
   for(ActionFactoryMethod f = aFactoryMethods[i]; ret == 0 && f != 0; f = aFactoryMethods[++i])
   {
-    ret = (this->*f)(aBoard, aMove);
+    ret = (this->*f)(aBoard, aCoordSequence);
   }
 
   return ret;
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::noRequestedDraught(const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::noRequestedDraught(const Board &aBoard, const CoordSequence &aCoordSequence) const
 {
-  Maybe<Draught> test = aBoard.testSquare(*aMove.begin());
+  Maybe<Draught> test = aBoard.testSquare(*aCoordSequence.begin());
 
   ActionAtBoard::Ptr ret;
 
@@ -52,12 +53,12 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::noRequestedDraught(const Board
   return ret;
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::toBusySquare(const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::toBusySquare(const Board &aBoard, const CoordSequence &aCoordSequence) const
 {
   ActionAtBoard::Ptr ret;
 
-  Coord from(*aMove.begin());
-  Coord to(*(--aMove.end()));
+  Coord from(*aCoordSequence.begin());
+  Coord to(*aCoordSequence.last());
 
   if(to != from)
   {
@@ -71,13 +72,13 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::toBusySquare(const Board &aBoa
   return ret;
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::overBusySquare(const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::overBusySquare(const Board &aBoard, const CoordSequence &aCoordSequence) const
 {
   ActionAtBoard::Ptr ret;
 
-  int score = aMove.score() - 1;
-  Coord from(*aMove.begin());
-  for(Move::Iterator it = ++aMove.begin(); score > 0; --score, ++it)
+  int count = aCoordSequence.count() - 2;
+  Coord from(*aCoordSequence.begin());
+  for(CoordSequence::Iterator it = aCoordSequence.second(); count > 0; --count, ++it)
   {
     if(from == *it)
       continue;
@@ -93,45 +94,51 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::overBusySquare(const Board &aB
   return ret;
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleMove(const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleMove(const Board &aBoard, const CoordSequence &aCoordSequence) const
 {
   ActionAtBoard::Ptr ret;
 
-  if(aMove.score() == 0)
+  if(aCoordSequence.count() == 2)
   {
-    Move::Iterator to = aMove.begin();
-    Move::Iterator from = to++;
-    Draught draught = aBoard.testSquare(*from)();
+    CoordSequence::Iterator from = aCoordSequence.begin();
+    CoordSequence::Iterator to = aCoordSequence.last();
+    
+    //TODO remove if block after refactoring
+    int deltaX = from->x() - to->x();
+    if(deltaX * deltaX == 1)
+    {
+      Draught draught = aBoard.testSquare(*from)();
 
-    if(RulesOfGame::MoveValidator::doesJumpExist(aBoard, draught.color()))
-    {
-      ret.reset(new ActionThrowError<Move::ErrorJumpExist>);
-    }
-    else
-    {
-      if(RulesOfGame::MoveValidator::isValidDirection(*from, *to, draught.color(), draught.isKing()))
+      if(RulesOfGame::MoveValidator::doesJumpExist(aBoard, draught.color()))
       {
-        ActionTake *takeA = new ActionTake;
-        ActionAtBoard::Ptr takeAPtr(takeA);
-        takeA->append(*from);
-
-        ActionPut *putA = new ActionPut;
-        ActionAtBoard::Ptr putAPtr(putA);
-        draught.moveTo(*to);
-        if(RulesOfGame::BoardBounds::isKingLine(to->y(), draught.color()))
-        {
-          draught.makeKing();
-        }
-        putA->append(draught);
-
-        ActionSequence *sequenceA = new ActionSequence;
-        ret.reset(sequenceA);
-        sequenceA->append(takeAPtr);
-        sequenceA->append(putAPtr);
+        ret.reset(new ActionThrowError<Move::ErrorJumpExist>);
       }
       else
       {
-        ret.reset(new ActionThrowError<Move::ErrorInWrongDirection>);
+        if(RulesOfGame::MoveValidator::isValidDirection(*from, *to, draught.color(), draught.isKing()))
+        {
+          ActionTake *takeA = new ActionTake;
+          ActionAtBoard::Ptr takeAPtr(takeA);
+          takeA->append(*from);
+
+          ActionPut *putA = new ActionPut;
+          ActionAtBoard::Ptr putAPtr(putA);
+          draught.moveTo(*to);
+          if(RulesOfGame::BoardBounds::isKingLine(to->y(), draught.color()))
+          {
+            draught.makeKing();
+          }
+          putA->append(draught);
+
+          ActionSequence *sequenceA = new ActionSequence;
+          ret.reset(sequenceA);
+          sequenceA->append(takeAPtr);
+          sequenceA->append(putAPtr);
+        }
+        else
+        {
+          ret.reset(new ActionThrowError<Move::ErrorInWrongDirection>);
+        }
       }
     }
   }
@@ -139,24 +146,24 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::simpleMove(const Board &aBoard
   return ret;
 }
 
-ActionAtBoard::Ptr AmericanCheckersActionFactory::jump(const Board &aBoard, const Move &aMove) const
+ActionAtBoard::Ptr AmericanCheckersActionFactory::jump(const Board &aBoard, const CoordSequence &aCoordSequence) const
 {
   ActionAtBoard::Ptr ret;
 
-  if(aMove.score() > 0)
+  if(aCoordSequence.count() >= 2)
   {
     Board testBoard(aBoard);
 
     ActionTake *takeA = new ActionTake;
     ActionAtBoard::Ptr takeAPtr(takeA);
-    takeA->append(*aMove.begin());
+    takeA->append(*aCoordSequence.begin());
 
     ActionAtBoard::Ptr error;
-    Move::Iterator lastIt = --aMove.end();
+    CoordSequence::Iterator lastIt = aCoordSequence.last();
 
-    for(Move::Iterator toIt = ++aMove.begin(); !error && toIt != aMove.end(); ++toIt)
+    for(CoordSequence::Iterator toIt = aCoordSequence.second(); !error && toIt != aCoordSequence.end(); ++toIt)
     {
-      Move::Iterator fromIt = toIt;
+      CoordSequence::Iterator fromIt = toIt;
       --fromIt;
 
       error = doJumpStep(testBoard, *fromIt, *toIt, *takeA, toIt == lastIt);
@@ -168,7 +175,7 @@ ActionAtBoard::Ptr AmericanCheckersActionFactory::jump(const Board &aBoard, cons
     }
     else
     {
-      Coord to(*(--aMove.end()));
+      Coord to(*aCoordSequence.last());
 
       ActionPut *putA = new ActionPut;
       ActionAtBoard::Ptr putAPtr(putA);

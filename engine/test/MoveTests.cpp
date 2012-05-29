@@ -30,8 +30,7 @@ void MoveTests::undefinedUsage()
   Move m;
   CPPUNIT_ASSERT_THROW(m.append(Coord('a', '1')), Move::ErrorUndefinedUsage);
   CPPUNIT_ASSERT_THROW(m.score(), Move::ErrorUndefinedUsage);
-  CPPUNIT_ASSERT_THROW(m.begin(), Move::ErrorUndefinedUsage);
-  CPPUNIT_ASSERT_THROW(m.end(), Move::ErrorUndefinedUsage);
+  CPPUNIT_ASSERT_THROW(m.coords(), Move::ErrorUndefinedUsage);
 }
 
 void MoveTests::unexpectedAppend()

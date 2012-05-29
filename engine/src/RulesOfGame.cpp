@@ -181,9 +181,9 @@ bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, cons
   return ret;
 }
 
-ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove)
+ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::CoordSequence &aCoordSequence)
 {
-  return actionFactory().createAction(aBoard, aMove);
+  return actionFactory().createAction(aBoard, aCoordSequence);
 }
 
 const AmericanCheckersActionFactory & RulesOfGame::MoveValidator::actionFactory()

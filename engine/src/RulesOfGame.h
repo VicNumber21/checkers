@@ -8,7 +8,7 @@ namespace Checkers
 {
   namespace Engine
   {
-    class Move;
+    class CoordSequence;
     class Coord;
     class Board;
     class Color;
@@ -49,7 +49,7 @@ namespace Checkers
 
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond);
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, const Engine::Coord &aThird);
-        static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::Move &aMove);
+        static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::CoordSequence &aCoordSequence);
         static bool isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
                                      , const Engine::Color &aColor, bool isKing);
         static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught);

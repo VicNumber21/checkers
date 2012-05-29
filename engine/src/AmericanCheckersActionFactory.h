@@ -9,31 +9,31 @@ namespace Checkers
   namespace Engine
   {
     class Board;
-    class Move;
+    class CoordSequence;
     class Coord;
     class ActionTake;
 
     class AmericanCheckersActionFactory
     {
     private:
-      typedef ActionAtBoard::Ptr (AmericanCheckersActionFactory::*ActionFactoryMethod)(const Board &aBoard, const Move &aMove) const;
+      typedef ActionAtBoard::Ptr (AmericanCheckersActionFactory::*ActionFactoryMethod)(const Board &aBoard, const CoordSequence &aCoordSequence) const;
 
       class Error
       {
       };
 
     public:
-      ActionAtBoard::Ptr createAction(const Board &aBoard, const Move &aMove) const;
+      ActionAtBoard::Ptr createAction(const Board &aBoard, const CoordSequence &aCoordSequence) const;
 
     private:
-      ActionAtBoard::Ptr whileNotCreated(const ActionFactoryMethod *aFactoryMethods, const Board &aBoard, const Move &aMove) const;
+      ActionAtBoard::Ptr whileNotCreated(const ActionFactoryMethod *aFactoryMethods, const Board &aBoard, const CoordSequence &aCoordSequence) const;
 
-      ActionAtBoard::Ptr noRequestedDraught(const Board &aBoard, const Move &aMove) const;
-      ActionAtBoard::Ptr toBusySquare(const Board &aBoard, const Move &aMove) const;
-      ActionAtBoard::Ptr overBusySquare(const Board &aBoard, const Move &aMove) const;
+      ActionAtBoard::Ptr noRequestedDraught(const Board &aBoard, const CoordSequence &aCoordSequence) const;
+      ActionAtBoard::Ptr toBusySquare(const Board &aBoard, const CoordSequence &aCoordSequence) const;
+      ActionAtBoard::Ptr overBusySquare(const Board &aBoard, const CoordSequence &aCoordSequence) const;
 
-      ActionAtBoard::Ptr simpleMove(const Board &aBoard, const Move &aMove) const;
-      ActionAtBoard::Ptr jump(const Board &aBoard, const Move &aMove) const;
+      ActionAtBoard::Ptr simpleMove(const Board &aBoard, const CoordSequence &aCoordSequence) const;
+      ActionAtBoard::Ptr jump(const Board &aBoard, const CoordSequence &aCoordSequence) const;
 
       ActionAtBoard::Ptr doJumpStep(Board &aBoard, const Coord &from, const Coord &to, ActionTake &aTake, bool aIsLast) const;
     };

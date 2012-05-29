@@ -12,8 +12,6 @@ namespace Checkers
     class Move
     {
     public:
-      typedef CoordSequence::Iterator Iterator;
-
       class ErrorNoRequestedDraught
       {
       };
@@ -82,13 +80,10 @@ namespace Checkers
       bool operator==(const Engine::Move &aMove) const;
       bool operator!=(const Engine::Move &aMove) const;
 
-      Move::Iterator begin() const;
-      Move::Iterator end() const;
+      const CoordSequence & coords() const;
 
     private:
-      void validateTail() const;
       void throwIfUndefined() const;
-      bool isJumpBack(Iterator aLast, Iterator aThirdFromTail) const;
 
     private:
       CoordSequence m_coords;
