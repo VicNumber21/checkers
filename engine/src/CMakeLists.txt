@@ -9,6 +9,7 @@ include_directories( ${CMAKE_BINARY_DIR} )
 set(engine_SRCS
     CoordBase.cpp
     Coord.cpp
+    CoordSequence.cpp
     ColorBase.cpp
     Color.cpp
     Draught.cpp

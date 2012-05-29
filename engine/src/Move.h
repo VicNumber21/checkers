@@ -1,10 +1,8 @@
 #ifndef H_MOVE_H
 #define H_MOVE_H
 
-#include "Coord.h"
+#include "CoordSequence.h"
 #include "Board.h"
-
-#include <list>
 
 
 namespace Checkers
@@ -14,8 +12,7 @@ namespace Checkers
     class Move
     {
     public:
-      typedef std::list<Engine::Coord> CoordList;
-      typedef CoordList::const_iterator Iterator;
+      typedef CoordSequence::Iterator Iterator;
 
       class ErrorNoRequestedDraught
       {
@@ -57,14 +54,7 @@ namespace Checkers
       {
       };
 
-      class ErrorCoordSequence
-      {
-      public:
-        ErrorCoordSequence(const Move::CoordList &aCoordList);
-
-      public:
-        Move::CoordList m_coord_list;
-      };
+      typedef CoordSequence::Error ErrorCoordSequence;
 
       class ErrorUnknown
       {
@@ -101,7 +91,7 @@ namespace Checkers
       bool isJumpBack(Iterator aLast, Iterator aThirdFromTail) const;
 
     private:
-      CoordList m_coord_list;
+      CoordSequence m_coords;
       Type m_type;
     };
 

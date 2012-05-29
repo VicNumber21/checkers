@@ -85,14 +85,35 @@ bool RulesOfGame::MoveValidator::isValidCoord(const Engine::Coord &aCoord)
   return 0 == ((aCoord.x() + aCoord.y()) % 2);
 }
 
-bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool isJump)
+bool isValidCoordSequenceInternal(const Coord &aFirst, const Coord &aSecond, int aMinDelta = 1, int aMaxDelta = 2)
 {
   int deltaX = abs(aFirst.x() - aSecond.x());
   int deltaY = abs(aFirst.y() - aSecond.y());
-  int expectedDelta = isJump ? 2 : 1;
 
   //TODO rework as IsOnSameDiagonal() && isDeltaInExpectedRange() from BoardUtility
-  return isValidCoord(aFirst) && isValidCoord(aSecond) && (deltaX == expectedDelta) && (deltaY == expectedDelta);
+  return (aFirst != aSecond)
+         && RulesOfGame::MoveValidator::isValidCoord(aFirst)
+         && RulesOfGame::MoveValidator::isValidCoord(aSecond)
+         && (aMinDelta <= deltaX && deltaX <= aMaxDelta)
+         && (aMinDelta <= deltaY && deltaY <= aMaxDelta);
+}
+
+bool RulesOfGame::MoveValidator::isValidCoordSequenceDepricated(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool aIsJump)
+{
+  return isValidCoordSequenceInternal(aFirst, aSecond, aIsJump? 2: 1, aIsJump? 2: 1);
+}
+
+bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond)
+{
+  return isValidCoordSequenceInternal(aFirst, aSecond);
+}
+
+bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, const Engine::Coord &aThird)
+{
+  const int minDeltaForJump = 2;
+  return (aFirst != aThird)
+         && isValidCoordSequenceInternal(aFirst, aSecond, minDeltaForJump)
+         && isValidCoordSequenceInternal(aSecond, aThird, minDeltaForJump);
 }
 
 bool RulesOfGame::MoveValidator::isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
