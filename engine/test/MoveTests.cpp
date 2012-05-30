@@ -63,7 +63,7 @@ void MoveTests::equal()
   Move m2;
   Move m3(Coord('h', '8'), Coord('f', '6'), Move::EJump);
   Move m4(Coord('f', '6'), Coord('g', '5'));
-  CPPUNIT_ASSERT(m1 == m2);
+  CPPUNIT_ASSERT(!(m1 == m2));
   CPPUNIT_ASSERT(!(m1 == m3));
   CPPUNIT_ASSERT(!(m1 == m4));
 
@@ -95,7 +95,7 @@ void MoveTests::notEqual()
   Move m2;
   Move m3(Coord('h', '8'), Coord('f', '6'), Move::EJump);
   Move m4(Coord('f', '6'), Coord('g', '5'));
-  CPPUNIT_ASSERT(!(m1 != m2));
+  CPPUNIT_ASSERT(m1 != m2);
   CPPUNIT_ASSERT(m1 != m3);
   CPPUNIT_ASSERT(m1 != m4);
 

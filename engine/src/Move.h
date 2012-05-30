@@ -3,6 +3,7 @@
 
 #include "CoordSequence.h"
 #include "Board.h"
+#include "Error.h"
 
 
 namespace Checkers
@@ -12,50 +13,105 @@ namespace Checkers
     class Move
     {
     public:
-      class ErrorNoRequestedDraught
+      class ErrorNoRequestedDraught : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorNothingToJumpOver
+      class ErrorNothingToJumpOver : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorInWrongDirection
+      class ErrorInWrongDirection : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorToBusySquare
+      class ErrorToBusySquare : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorJumpOverBusySquare
+      class ErrorJumpOverBusySquare : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorJumpExist
+      class ErrorJumpExist : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorJumpOverSameColor
+      class ErrorJumpOverSameColor : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorGetKingButMoveFurther
+      class ErrorGetKingButMoveFurther : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorUnexpectedAppend
+      class ErrorUnexpectedAppend : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
-      class ErrorUndefinedUsage
+      class ErrorUndefinedUsage : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
       typedef CoordSequence::Error ErrorCoordSequence;
 
-      class ErrorUnknown
+      class ErrorUnknown : public Engine::Error
       {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
       };
 
       enum Type
@@ -67,6 +123,8 @@ namespace Checkers
 
     public:
       Move();
+      Move(const Engine::Board &aFrom, const Engine::Board &aTo);
+      Move(const Engine::Error::Ptr aError);
       Move(const Engine::Coord &aStart, const Engine::Coord &aNext, Type aType = ESimple);
       Move(const Engine::Move &aMove);
 
@@ -81,11 +139,20 @@ namespace Checkers
       bool operator!=(const Engine::Move &aMove) const;
 
       const CoordSequence & coords() const;
+      const Board &from() const;
+      const Board &to() const;
+
+      bool isValid() const;
+      Engine::Error::Ptr error() const;
 
     private:
-      void throwIfUndefined() const;
+      void throwIfInvalid() const;
 
     private:
+      Board m_from;
+      Board m_to;
+      Error::Ptr m_error;
+
       CoordSequence m_coords;
       Type m_type;
     };

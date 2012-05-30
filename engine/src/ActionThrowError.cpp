@@ -9,7 +9,7 @@ void ActionThrowError<E>::perform(Board &aBoard) const
 {
   (void) aBoard;
 
-  throw E();
+  throw Engine::Error::Ptr(new E);
 }
 
 template class ActionThrowError<Move::ErrorNoRequestedDraught>;

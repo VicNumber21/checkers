@@ -6,7 +6,19 @@ using namespace Checkers::Engine;
 
 
 Move::Move()
-  : m_type(EUndefined)
+  : m_error(new ErrorUndefinedUsage)
+  , m_type(EUndefined)
+{
+}
+
+Move::Move(const Engine::Board &aFrom, const Engine::Board &aTo)
+  : m_from(aFrom)
+  , m_to(aTo)
+{
+}
+
+Move::Move(const Engine::Error::Ptr aError)
+  : m_error(aError)
 {
 }
 
@@ -19,14 +31,17 @@ Move::Move(const Engine::Coord &aStart, const Engine::Coord &aNext, Type aType)
 }
 
 Move::Move(const Engine::Move &aMove)
-  : m_coords(aMove.m_coords)
+  : m_from(aMove.m_from)
+  , m_to(aMove.m_to)
+  , m_error(aMove.m_error)
+  , m_coords(aMove.m_coords)
   , m_type(aMove.m_type)
 {
 }
 
 void Move::append(const Engine::Coord &aNext)
 {
-  throwIfUndefined();
+  throwIfInvalid();
 
   if(m_type != EJump)
     throw ErrorUnexpectedAppend();
@@ -36,7 +51,7 @@ void Move::append(const Engine::Coord &aNext)
 
 int Move::score() const
 {
-  throwIfUndefined();
+  throwIfInvalid();
 
   int ret = 0;
 
@@ -55,6 +70,9 @@ Move::Type Move::type() const
 
 Move & Move::operator=(const Engine::Move &aMove)
 {
+  m_from = aMove.m_from;
+  m_to = aMove.m_to;
+  m_error = aMove.m_error;
   m_coords = aMove.m_coords;
   m_type = aMove.m_type;
   return *this;
@@ -62,7 +80,8 @@ Move & Move::operator=(const Engine::Move &aMove)
 
 bool Move::operator==(const Engine::Move &aMove) const
 {
-  return  (m_type == aMove.m_type) && (m_coords == aMove.m_coords);
+  return isValid() && aMove.isValid() && (m_from == aMove.m_from) && (m_to == aMove.m_to)
+         && (m_type == aMove.m_type) && (m_coords == aMove.m_coords);
 }
 
 bool Move::operator!=(const Engine::Move &aMove) const
@@ -72,27 +91,59 @@ bool Move::operator!=(const Engine::Move &aMove) const
 
 const CoordSequence & Move::coords() const
 {
-  throwIfUndefined();
+  throwIfInvalid();
   return m_coords;
 }
 
-void Move::throwIfUndefined() const
+const Board & Move::from() const
 {
-  if(m_type == EUndefined)
-    throw ErrorUndefinedUsage();
+  throwIfInvalid();
+  return m_from;
+}
+
+const Board & Move::to() const
+{
+  throwIfInvalid();
+  return m_to;
+}
+
+bool Move::isValid() const
+{
+  return m_error == 0;
+}
+
+Checkers::Engine::Error::Ptr Move::error() const
+{
+  return m_error;
+}
+
+void Move::throwIfInvalid() const
+{
+  if(!isValid())
+    m_error->raise();
 }
 
 Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
 {
-  ActionAtBoard::Ptr action = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove.coords());
-
-  if(!action)
-    throw Move::ErrorUnknown();
-
   Board ret(aCurrent);
-  action->perform(ret);
+  Move move;
 
-  return ret;
+  try
+  {
+    ActionAtBoard::Ptr action = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove.coords());
+
+    if(!action)
+      throw Engine::Error::Ptr(new Move::ErrorUnknown);
+
+    action->perform(ret);
+    move = Move(aCurrent, ret);
+  }
+  catch(Engine::Error::Ptr e)
+  {
+    move = Move(e);
+  }
+
+  return move.to();
 }
 
 /* TODO Remove if not needed
