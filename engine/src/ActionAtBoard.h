@@ -10,7 +10,6 @@ namespace Checkers
   namespace Engine
   {
     class Board;
-    class Move;
 
     class ActionAtBoard
     {

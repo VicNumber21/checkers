@@ -2,6 +2,7 @@
 #include "Coord.h"
 #include "Color.h"
 #include "Board.h"
+#include "AmericanCheckersActionFactory.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -11,8 +12,6 @@ using namespace Checkers::Engine;
 
 const int intOutOfBound = -1;
 const char charOutOfBound = '!';
-
-AmericanCheckersActionFactory RulesOfGame::MoveValidator::m_action_factory;
 
 int RulesOfGame::BoardBounds::height()
 {
@@ -188,5 +187,6 @@ ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine
 
 const AmericanCheckersActionFactory & RulesOfGame::MoveValidator::actionFactory()
 {
-  return m_action_factory;
+  static AmericanCheckersActionFactory actionFactiory;
+  return actionFactiory;
 }

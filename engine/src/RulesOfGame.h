@@ -1,7 +1,7 @@
 #ifndef H_RULES_OF_GAME_H
 #define H_RULES_OF_GAME_H
 
-#include "AmericanCheckersActionFactory.h"
+#include "ActionAtBoard.h"
 
 
 namespace Checkers
@@ -13,6 +13,7 @@ namespace Checkers
     class Board;
     class Color;
     class Draught;
+    class AmericanCheckersActionFactory;
 
     class RulesOfGame
     {
@@ -57,9 +58,6 @@ namespace Checkers
 
       private:
         static const AmericanCheckersActionFactory & actionFactory();
-
-      private:
-        static AmericanCheckersActionFactory m_action_factory;
       };
     };
   };
