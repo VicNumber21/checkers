@@ -1,6 +1,7 @@
 #include "Move.h"
 #include "RulesOfGame.h"
 #include "ActionAtBoard.h"
+#include "PositionAnalyser.h"
 
 using namespace Checkers::Engine;
 
@@ -125,23 +126,7 @@ void Move::throwIfInvalid() const
 
 Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
 {
-  Board ret(aCurrent);
-  Move move;
-
-  try
-  {
-    ActionAtBoard::Ptr action = RulesOfGame::MoveValidator::transformIntoActions(aCurrent, aMove.coords());
-
-    if(!action)
-      throw Engine::Error::Ptr(new Move::ErrorUnknown);
-
-    action->perform(ret);
-    move = Move(aCurrent, ret);
-  }
-  catch(Engine::Error::Ptr e)
-  {
-    move = Move(e);
-  }
+  Move move = RulesOfGame::MoveValidator::positionAnalyser().createMove(aMove.coords(), aCurrent);
 
   return move.to();
 }

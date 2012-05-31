@@ -13,6 +13,7 @@ namespace Checkers
     class Board;
     class Color;
     class Draught;
+    class PositionAnalyser;
     class AmericanCheckersActionFactory;
 
     class RulesOfGame
@@ -55,6 +56,8 @@ namespace Checkers
                                      , const Engine::Color &aColor, bool isKing);
         static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught);
         static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor);
+
+        static PositionAnalyser & positionAnalyser();
 
       private:
         static const AmericanCheckersActionFactory & actionFactory();

@@ -2,7 +2,9 @@
 #include "Coord.h"
 #include "Color.h"
 #include "Board.h"
+#include "Move.h"
 #include "AmericanCheckersActionFactory.h"
+#include "AmericanCheckersPositionAnalyser.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -183,6 +185,12 @@ bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, cons
 ActionAtBoard::Ptr RulesOfGame::MoveValidator::transformIntoActions(const Engine::Board &aBoard, const Engine::CoordSequence &aCoordSequence)
 {
   return actionFactory().createAction(aBoard, aCoordSequence);
+}
+
+PositionAnalyser & RulesOfGame::MoveValidator::positionAnalyser()
+{
+  static AmericanCheckersPositionAnalyser postionAnalyser;
+  return postionAnalyser;
 }
 
 const AmericanCheckersActionFactory & RulesOfGame::MoveValidator::actionFactory()

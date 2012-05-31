@@ -19,6 +19,8 @@ set(engine_SRCS
     RulesOfGame.cpp
     Move.cpp
     AmericanCheckersActionFactory.cpp
+    PositionAnalyser.cpp
+    AmericanCheckersPositionAnalyser.cpp
     ActionThrowError.cpp
     ActionTake.cpp
     ActionPut.cpp
