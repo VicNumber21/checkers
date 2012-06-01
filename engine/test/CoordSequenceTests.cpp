@@ -1,15 +1,11 @@
 #include "CoordSequenceTests.h"
 #include "CoordSequence.h"
+#include "PrettyPrint.h"
 
 using namespace Checkers::Engine;
 
 CPPUNIT_TEST_SUITE_REGISTRATION( CoordSequenceTests );
 
-
-std::ostream & operator<<(std::ostream &aOut, const Coord &aCoord)
-{
-  return aOut << std::endl << "(" << aCoord.letter() << ", " << aCoord.digit() << ")";
-}
 
 void CoordSequenceTests::setUp()
 {

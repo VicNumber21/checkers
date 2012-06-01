@@ -4,18 +4,12 @@
 #include "Draught.h"
 #include "Color.h"
 #include "Coord.h"
-#include "FramedBoardView.h"
+#include "PrettyPrint.h"
 
 using namespace Checkers::Engine;
 
 CPPUNIT_TEST_SUITE_REGISTRATION( MoveTests );
 
-
-std::ostream & operator<<(std::ostream &aOut, const Board &aBoard)
-{
-  Checkers::ConsoleUi::FramedBoardView view(aBoard);
-  return aOut << std::endl << view;
-}
 
 void MoveTests::setUp()
 {
