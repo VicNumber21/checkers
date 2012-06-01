@@ -49,42 +49,6 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( boardPlusComplexJumpMoreJumpExist );
     CPPUNIT_TEST( boardPlusComplexJumpNotTerminatedAfterGetKing );
     CPPUNIT_TEST( boardPlusComplexJumpOverSameColor );
-
-    /* TODO Remove if not needed
-    CPPUNIT_TEST( boardMinusSimpleMove );
-    CPPUNIT_TEST( boardMinusSimpleMoveByKing );
-    CPPUNIT_TEST( boardMinusSimpleMoveLoseKing );
-    CPPUNIT_TEST( boardMinusSimpleMoveNoRequestedDraught );
-    CPPUNIT_TEST( boardMinusSimpleMoveInWrongDirection );
-    CPPUNIT_TEST( boardMinusSimpleMoveToBusySquare );
-    CPPUNIT_TEST( boardMinusSimpleMoveJumpExist );
-
-    CPPUNIT_TEST( boardMinusSimpleJump );
-    CPPUNIT_TEST( boardMinusSimpleJumpByKing );
-    CPPUNIT_TEST( boardMinusSimpleJumpLoseKing );
-    CPPUNIT_TEST( boardMinusSimpleJumpNoRequestedDraught );
-    CPPUNIT_TEST( boardMinusSimpleJumpInWrongDirection );
-    CPPUNIT_TEST( boardMinusSimpleJumpToBusySquare );
-    CPPUNIT_TEST( boardMinusSimpleJumpMoreJumpExist );
-    CPPUNIT_TEST( boardMinusSimpleJumpOverSameColor );
-
-    CPPUNIT_TEST( boardMinusComplexJump );
-    CPPUNIT_TEST( boardMinusComplexJumpByKing );
-    CPPUNIT_TEST( boardMinusComplexJumpLoseKing );
-    CPPUNIT_TEST( boardMinusComplexJumpNoRequestedDraught );
-    CPPUNIT_TEST( boardMinusComplexJumpInWrongDirection );
-    CPPUNIT_TEST( boardMinusComplexJumpToBusySquare );
-    CPPUNIT_TEST( boardMinusComplexJumpOverBusySquare );
-    CPPUNIT_TEST( boardMinusComplexJumpMoreJumpExist );
-    CPPUNIT_TEST( boardMinusComplexJumpNotTerminatedAfterGetKing );
-    CPPUNIT_TEST( boardMinusComplexJumpOverSameColor );
-
-    CPPUNIT_TEST( boardMinusPlusMoveToGetTheSameBoard );
-    CPPUNIT_TEST( boardPlusMinusMoveToGetTheSameBoard );
-    */
-
-    CPPUNIT_TEST( boardMinusBoard );
-    CPPUNIT_TEST( boardMinusMoveNotFound );
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -133,42 +97,6 @@ public:
   void boardPlusComplexJumpMoreJumpExist();
   void boardPlusComplexJumpNotTerminatedAfterGetKing();
   void boardPlusComplexJumpOverSameColor();
-
-  /* TODO Remove if not needed
-  void boardMinusSimpleMove();
-  void boardMinusSimpleMoveByKing();
-  void boardMinusSimpleMoveLoseKing();
-  void boardMinusSimpleMoveNoRequestedDraught();
-  void boardMinusSimpleMoveInWrongDirection();
-  void boardMinusSimpleMoveToBusySquare();
-  void boardMinusSimpleMoveJumpExist();
-
-  void boardMinusSimpleJump();
-  void boardMinusSimpleJumpByKing();
-  void boardMinusSimpleJumpLoseKing();
-  void boardMinusSimpleJumpNoRequestedDraught();
-  void boardMinusSimpleJumpInWrongDirection();
-  void boardMinusSimpleJumpToBusySquare();
-  void boardMinusSimpleJumpMoreJumpExist();
-  void boardMinusSimpleJumpOverSameColor();
-
-  void boardMinusComplexJump();
-  void boardMinusComplexJumpByKing();
-  void boardMinusComplexJumpLoseKing();
-  void boardMinusComplexJumpNoRequestedDraught();
-  void boardMinusComplexJumpInWrongDirection();
-  void boardMinusComplexJumpToBusySquare();
-  void boardMinusComplexJumpOverBusySquare();
-  void boardMinusComplexJumpMoreJumpExist();
-  void boardMinusComplexJumpNotTerminatedAfterGetKing();
-  void boardMinusComplexJumpOverSameColor();
-
-  void boardMinusPlusMoveToGetTheSameBoard();
-  void boardPlusMinusMoveToGetTheSameBoard();
-  */
-
-  void boardMinusBoard();
-  void boardMinusMoveNotFound();
 };
 
 #endif //H_MOVE_TESTS_H
