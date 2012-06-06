@@ -11,6 +11,63 @@ using namespace Checkers::Engine;
 CPPUNIT_TEST_SUITE_REGISTRATION( MoveTests );
 
 
+MoveTests::MoveTests()
+{
+  m_error_move_1 = Move(Error::Ptr(new Move::ErrorGetKingButMoveFurther));
+  m_error_move_2 = Move(Error::Ptr(new Move::ErrorNoRequestedDraught));
+
+  Coord cA3('a', '3');
+  Coord cA5('a', '5');
+  Coord cB4('b', '4');
+  Coord cC5('c', '5');
+  Coord cD4('d', '4');
+  Coord cD6('d', '6');
+  Coord cE3('e', '3');
+  Coord cE7('e', '7');
+  Coord cF6('f', '6');
+  Coord cG5('g', '5');
+
+  Board bSimpleMoveFrom;
+  bSimpleMoveFrom.put(Draught(cB4, Color::EBlack));
+  Board bSimpleMoveTo;
+  bSimpleMoveTo.put(Draught(cC5, Color::EBlack));
+  m_simple_move_1 = Move(bSimpleMoveFrom, bSimpleMoveTo);
+
+  Board bAnotherSimpleMoveTo;
+  bAnotherSimpleMoveTo.put(Draught(cA5, Color::EBlack));
+  m_simple_move_2 = Move(bSimpleMoveFrom, bAnotherSimpleMoveTo);
+
+  Board bSimpleJumpFrom;
+  bSimpleJumpFrom.put(Draught(cA3, Color::EBlack));
+  bSimpleJumpFrom.put(Draught(cB4, Color::EWhite));
+  Board bSimpleJumpTo;
+  bSimpleJumpTo.put(Draught(cC5, Color::EBlack));
+  m_simple_jump_1 = Move(bSimpleJumpFrom, bSimpleJumpTo);
+
+  Board bAnotherSimpleJumpFrom;
+  bAnotherSimpleJumpFrom.put(Draught(cE3, Color::EBlack));
+  bAnotherSimpleJumpFrom.put(Draught(cD4, Color::EWhite));
+  m_simple_jump_2 = Move(bAnotherSimpleJumpFrom, bSimpleJumpTo);
+
+  Board bComplexJumpFrom;
+  bComplexJumpFrom.put(Draught(cA3, Color::EBlack));
+  bComplexJumpFrom.put(Draught(cB4, Color::EWhite));
+  bComplexJumpFrom.put(Draught(cD6, Color::EWhite));
+  Board bComplexJumpTo;
+  bComplexJumpTo.put(Draught(cE7, Color::EBlack));
+  m_complex_jump_1 = Move(bComplexJumpFrom, bComplexJumpTo);
+
+  Board bAnotherComplexJumpFrom;
+  bAnotherComplexJumpFrom.put(Draught(cE3, Color::EBlack, true));
+  bAnotherComplexJumpFrom.put(Draught(cD4, Color::EWhite));
+  bAnotherComplexJumpFrom.put(Draught(cD6, Color::EWhite));
+  bAnotherComplexJumpFrom.put(Draught(cF6, Color::EWhite));
+
+  Board bAnotherComplexJumpTo;
+  bAnotherComplexJumpTo.put(Draught(cG5, Color::EBlack, true));
+  m_complex_jump_2 = Move(bAnotherComplexJumpFrom, bAnotherComplexJumpTo);
+}
+
 void MoveTests::setUp()
 {
 }
@@ -21,137 +78,190 @@ void MoveTests::tearDown()
 
 void MoveTests::undefinedUsage()
 {
+  CPPUNIT_ASSERT_THROW(m_empty_move.from(), Move::ErrorUndefinedUsage);
+  CPPUNIT_ASSERT_THROW(m_empty_move.to(), Move::ErrorUndefinedUsage);
+  CPPUNIT_ASSERT_THROW(m_empty_move.type(), Move::ErrorUndefinedUsage);
+  CPPUNIT_ASSERT_THROW(m_empty_move.score(), Move::ErrorUndefinedUsage);
+}
+
+void MoveTests::equalError()
+{
   Move m;
-  CPPUNIT_ASSERT_THROW(m.append(Coord('a', '1')), Move::ErrorUndefinedUsage);
-  CPPUNIT_ASSERT_THROW(m.score(), Move::ErrorUndefinedUsage);
-  CPPUNIT_ASSERT_THROW(m.coords(), Move::ErrorUndefinedUsage);
+  //Wrong move are different ever
+  CPPUNIT_ASSERT(!(m == m_empty_move));
+  CPPUNIT_ASSERT(!(m_empty_move == m_empty_move));
+  CPPUNIT_ASSERT(!(m_empty_move == m_error_move_1));
+  CPPUNIT_ASSERT(!(m_empty_move == m_simple_move_2));
+  CPPUNIT_ASSERT(!(m_empty_move == m_simple_jump_2));
+  CPPUNIT_ASSERT(!(m_empty_move == m_complex_jump_2));
+  CPPUNIT_ASSERT(!(m_error_move_1 == m_error_move_2));
+  CPPUNIT_ASSERT(!(m_error_move_1 == m_simple_move_2));
+  CPPUNIT_ASSERT(!(m_error_move_1 == m_simple_jump_2));
+  CPPUNIT_ASSERT(!(m_error_move_1 == m_complex_jump_2));
 }
 
-void MoveTests::unexpectedAppend()
+void MoveTests::equalSimpleMove()
 {
-  Move m(Coord('a', '1'), Coord('b', '2'));
-  CPPUNIT_ASSERT_THROW(m.append(Coord('c', '3')), Move::ErrorUnexpectedAppend);
+  Move m;
+  m = m_simple_move_1;
+  CPPUNIT_ASSERT(m == m_simple_move_1);
+
+  Move mCopy(m_simple_move_2);
+  CPPUNIT_ASSERT(mCopy == m_simple_move_2);
+
+  CPPUNIT_ASSERT(m_simple_move_1 == m_simple_move_1);
+  CPPUNIT_ASSERT(m_simple_move_2 == m_simple_move_2);
+  CPPUNIT_ASSERT(!(m_simple_move_1 == m_simple_move_2));
+  CPPUNIT_ASSERT(!(m_simple_move_1 == m_simple_jump_2));
+  CPPUNIT_ASSERT(!(m_simple_move_1 == m_complex_jump_2));
 }
 
-void MoveTests::wrongSequenceForSimpleMove()
+void MoveTests::equalSimpleJump()
 {
-  CPPUNIT_ASSERT_THROW(Move m(Coord('a', '5'), Coord('b', '2')), Move::ErrorCoordSequence);
-  CPPUNIT_ASSERT_THROW(Move m(Coord('a', '1'), Coord('c', '3')), Move::ErrorCoordSequence);
-  CPPUNIT_ASSERT_THROW(Move m(Coord('a', '2'), Coord('b', '3')), Move::ErrorCoordSequence);
+  Move m;
+  m = m_simple_jump_1;
+  CPPUNIT_ASSERT(m == m_simple_jump_1);
+
+  Move mCopy(m_simple_jump_2);
+  CPPUNIT_ASSERT(mCopy == m_simple_jump_2);
+
+  CPPUNIT_ASSERT(m_simple_jump_1 == m_simple_jump_1);
+  CPPUNIT_ASSERT(m_simple_jump_2 == m_simple_jump_2);
+  CPPUNIT_ASSERT(!(m_simple_jump_1 == m_simple_move_2));
+  CPPUNIT_ASSERT(!(m_simple_jump_1 == m_simple_jump_2));
+  CPPUNIT_ASSERT(!(m_simple_jump_1 == m_complex_jump_2));
 }
 
-void MoveTests::wrongSequenceForJump()
+void MoveTests::equalComplexJump()
 {
-  CPPUNIT_ASSERT_THROW(Move m1(Coord('a', '1'), Coord('b', '2'), Move::EJump), Move::ErrorCoordSequence);
+  Move m;
+  m = m_complex_jump_1;
+  CPPUNIT_ASSERT(m == m_complex_jump_1);
 
-  Move m2(Coord('f', '2'), Coord('d', '4'), Move::EJump);
-  CPPUNIT_ASSERT_THROW(m2.append(Coord('e', '5')), Move::ErrorCoordSequence);
+  Move mCopy(m_complex_jump_2);
+  CPPUNIT_ASSERT(mCopy == m_complex_jump_2);
 
-  Move m3(Coord('f', '2'), Coord('d', '4'), Move::EJump);
-  CPPUNIT_ASSERT_THROW(m3.append(Coord('f', '2')), Move::ErrorCoordSequence);
+  CPPUNIT_ASSERT(m_complex_jump_1 == m_complex_jump_1);
+  CPPUNIT_ASSERT(m_complex_jump_2 == m_complex_jump_2);
+  CPPUNIT_ASSERT(!(m_complex_jump_1 == m_simple_move_2));
+  CPPUNIT_ASSERT(!(m_complex_jump_1 == m_simple_jump_2));
+  CPPUNIT_ASSERT(!(m_complex_jump_1 == m_complex_jump_2));
 }
 
-void MoveTests::equal()
+void MoveTests::notEqualError()
 {
-  Move m1;
-  Move m2;
-  Move m3(Coord('h', '8'), Coord('f', '6'), Move::EJump);
-  Move m4(Coord('f', '6'), Coord('g', '5'));
-  CPPUNIT_ASSERT(!(m1 == m2));
-  CPPUNIT_ASSERT(!(m1 == m3));
-  CPPUNIT_ASSERT(!(m1 == m4));
-
-  m1 = Move(Coord('a', '3'), Coord('b', '4'));
-  m2 = Move(Coord('a', '3'), Coord('b', '4'));
-  CPPUNIT_ASSERT(m1 == m2);
-  CPPUNIT_ASSERT(!(m1 == m3));
-  CPPUNIT_ASSERT(!(m1 == m4));
-
-  m1 = Move(Coord('c', '5'), Coord('a', '3'), Move::EJump);
-  m2 = Move(Coord('c', '5'), Coord('a', '3'), Move::EJump);
-  CPPUNIT_ASSERT(m1 == m2);
-  CPPUNIT_ASSERT(!(m1 == m3));
-  CPPUNIT_ASSERT(!(m1 == m4));
-
-  m1.append(Coord('c', '1'));
-  m2.append(Coord('c', '1'));
-  CPPUNIT_ASSERT(m1 == m2);
-  CPPUNIT_ASSERT(!(m1 == m3));
-  CPPUNIT_ASSERT(!(m1 == m4));
-
-  m2.append(Coord('e', '3'));
-  CPPUNIT_ASSERT(!(m1 == m2));
+  Move m;
+  //Wrong move are different ever
+  CPPUNIT_ASSERT(m != m_empty_move);
+  CPPUNIT_ASSERT(m_empty_move != m_empty_move);
+  CPPUNIT_ASSERT(m_empty_move != m_error_move_1);
+  CPPUNIT_ASSERT(m_empty_move != m_simple_move_1);
+  CPPUNIT_ASSERT(m_empty_move != m_simple_jump_1);
+  CPPUNIT_ASSERT(m_empty_move != m_complex_jump_1);
+  CPPUNIT_ASSERT(m_error_move_1 != m_error_move_2);
+  CPPUNIT_ASSERT(m_error_move_1 != m_simple_move_1);
+  CPPUNIT_ASSERT(m_error_move_1 != m_simple_jump_1);
+  CPPUNIT_ASSERT(m_error_move_1 != m_complex_jump_1);
 }
 
-void MoveTests::notEqual()
+void MoveTests::notEqualSimpleMove()
 {
-  Move m1;
-  Move m2;
-  Move m3(Coord('h', '8'), Coord('f', '6'), Move::EJump);
-  Move m4(Coord('f', '6'), Coord('g', '5'));
-  CPPUNIT_ASSERT(m1 != m2);
-  CPPUNIT_ASSERT(m1 != m3);
-  CPPUNIT_ASSERT(m1 != m4);
+  Move m;
+  m = m_simple_move_1;
+  CPPUNIT_ASSERT(!(m != m_simple_move_1));
 
-  m1 = Move(Coord('a', '3'), Coord('b', '4'));
-  m2 = Move(Coord('a', '3'), Coord('b', '4'));
-  CPPUNIT_ASSERT(!(m1 != m2));
-  CPPUNIT_ASSERT(m1 != m3);
-  CPPUNIT_ASSERT(m1 != m4);
+  Move mCopy(m_simple_move_2);
+  CPPUNIT_ASSERT(!(mCopy != m_simple_move_2));
 
-  m1 = Move(Coord('c', '5'), Coord('a', '3'), Move::EJump);
-  m2 = Move(Coord('c', '5'), Coord('a', '3'), Move::EJump);
-  CPPUNIT_ASSERT(!(m1 != m2));
-  CPPUNIT_ASSERT(m1 != m3);
-  CPPUNIT_ASSERT(m1 != m4);
+  CPPUNIT_ASSERT(!(m_simple_move_1 != m_simple_move_1));
+  CPPUNIT_ASSERT(!(m_simple_move_2 != m_simple_move_2));
+  CPPUNIT_ASSERT(m_simple_move_1 != m_simple_move_2);
+  CPPUNIT_ASSERT(m_simple_move_1 != m_simple_jump_2);
+  CPPUNIT_ASSERT(m_simple_move_1 != m_complex_jump_2);
+}
 
-  m1.append(Coord('c', '1'));
-  m2.append(Coord('c', '1'));
-  CPPUNIT_ASSERT(!(m1 != m2));
-  CPPUNIT_ASSERT(m1 != m3);
-  CPPUNIT_ASSERT(m1 != m4);
+void MoveTests::notEqualSimpleJump()
+{
+  Move m;
+  m = m_simple_jump_1;
+  CPPUNIT_ASSERT(!(m != m_simple_jump_1));
 
-  m2.append(Coord('e', '3'));
-  CPPUNIT_ASSERT(m1 != m2);
+  Move mCopy(m_simple_jump_2);
+  CPPUNIT_ASSERT(!(mCopy != m_simple_jump_2));
+
+  CPPUNIT_ASSERT(!(m_simple_jump_1 != m_simple_jump_1));
+  CPPUNIT_ASSERT(!(m_simple_jump_2 != m_simple_jump_2));
+  CPPUNIT_ASSERT(m_simple_jump_1 != m_simple_move_2);
+  CPPUNIT_ASSERT(m_simple_jump_1 != m_simple_jump_2);
+  CPPUNIT_ASSERT(m_simple_jump_1 != m_complex_jump_2);
+}
+
+void MoveTests::notEqualComplexJump()
+{
+  Move m;
+  m = m_complex_jump_1;
+  CPPUNIT_ASSERT(!(m != m_complex_jump_1));
+
+  Move mCopy(m_complex_jump_2);
+  CPPUNIT_ASSERT(!(mCopy != m_complex_jump_2));
+
+  CPPUNIT_ASSERT(!(m_complex_jump_1 != m_complex_jump_1));
+  CPPUNIT_ASSERT(!(m_complex_jump_2 != m_complex_jump_2));
+  CPPUNIT_ASSERT(m_complex_jump_1 != m_simple_move_2);
+  CPPUNIT_ASSERT(m_complex_jump_1 != m_simple_jump_2);
+  CPPUNIT_ASSERT(m_complex_jump_1 != m_complex_jump_2);
 }
 
 void MoveTests::type()
 {
-  Move m1;
-  CPPUNIT_ASSERT_EQUAL(Move::EUndefined, m1.type());
+  CPPUNIT_ASSERT_EQUAL(Move::ESimple, m_simple_move_1.type());
+  CPPUNIT_ASSERT_EQUAL(Move::ESimple, m_simple_move_2.type());
+  CPPUNIT_ASSERT_EQUAL(Move::EJump, m_simple_jump_1.type());
+  CPPUNIT_ASSERT_EQUAL(Move::EJump, m_simple_jump_2.type());
+  CPPUNIT_ASSERT_EQUAL(Move::EJump, m_complex_jump_1.type());
+  CPPUNIT_ASSERT_EQUAL(Move::EJump, m_complex_jump_2.type());
+}
 
-  Move m2(Coord('b', '6'), Coord('c', '7'));
-  CPPUNIT_ASSERT_EQUAL(Move::ESimple, m2.type());
+void MoveTests::isValid()
+{
+  CPPUNIT_ASSERT(!m_empty_move.isValid());
+  CPPUNIT_ASSERT(!m_error_move_1.isValid());
+  CPPUNIT_ASSERT(!m_error_move_2.isValid());
+  CPPUNIT_ASSERT(m_simple_move_1.isValid());
+  CPPUNIT_ASSERT(m_simple_move_2.isValid());
+  CPPUNIT_ASSERT(m_simple_jump_1.isValid());
+  CPPUNIT_ASSERT(m_simple_jump_2.isValid());
+  CPPUNIT_ASSERT(m_complex_jump_1.isValid());
+  CPPUNIT_ASSERT(m_complex_jump_2.isValid());
+}
 
-  Move m3(Coord('d', '4'), Coord('f', '6'), Move::EJump);
-  CPPUNIT_ASSERT_EQUAL(Move::EJump, m3.type());
+void MoveTests::error()
+{
+  CPPUNIT_ASSERT(m_empty_move.error());
+  CPPUNIT_ASSERT(m_error_move_1.error());
+  CPPUNIT_ASSERT(m_error_move_2.error());
+  CPPUNIT_ASSERT(!m_simple_move_1.error());
+  CPPUNIT_ASSERT(!m_simple_move_2.error());
+  CPPUNIT_ASSERT(!m_simple_jump_1.error());
+  CPPUNIT_ASSERT(!m_simple_jump_2.error());
+  CPPUNIT_ASSERT(!m_complex_jump_1.error());
+  CPPUNIT_ASSERT(!m_complex_jump_2.error());
 }
 
 void MoveTests::simpleMoveScore()
 {
-  Move m(Coord('b', '6'), Coord('c', '7'));
-  CPPUNIT_ASSERT_EQUAL(0, m.score());
+  CPPUNIT_ASSERT_EQUAL(0, m_simple_move_1.score());
+  CPPUNIT_ASSERT_EQUAL(0, m_simple_move_2.score());
 }
 
 void MoveTests::simpleJumpScore()
 {
-  Move m(Coord('d', '4'), Coord('f', '6'), Move::EJump);
-  CPPUNIT_ASSERT_EQUAL(1, m.score());
+  CPPUNIT_ASSERT_EQUAL(1, m_simple_jump_1.score());
+  CPPUNIT_ASSERT_EQUAL(1, m_simple_jump_2.score());
 }
 
 void MoveTests::complexJumpScore()
 {
-  Move m(Coord('d', '4'), Coord('f', '6'), Move::EJump);
-  m.append(Coord('h', '4'));
-  CPPUNIT_ASSERT_EQUAL(2, m.score());
-
-  m.append(Coord('f', '2'));
-  CPPUNIT_ASSERT_EQUAL(3, m.score());
-
-  m.append(Coord('d', '4'));
-  CPPUNIT_ASSERT_EQUAL(4, m.score());
-
-  m.append(Coord('b', '6'));
-  CPPUNIT_ASSERT_EQUAL(5, m.score());
-
+  CPPUNIT_ASSERT_EQUAL(2, m_complex_jump_1.score());
+  CPPUNIT_ASSERT_EQUAL(3, m_complex_jump_2.score());
 }

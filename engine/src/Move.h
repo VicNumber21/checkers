@@ -116,8 +116,7 @@ namespace Checkers
 
       enum Type
       {
-        EUndefined
-      , ESimple
+        ESimple
       , EJump
       };
 
@@ -125,10 +124,7 @@ namespace Checkers
       Move();
       Move(const Engine::Board &aFrom, const Engine::Board &aTo);
       Move(const Engine::Error::Ptr aError);
-      Move(const Engine::Coord &aStart, const Engine::Coord &aNext, Type aType = ESimple);
       Move(const Engine::Move &aMove);
-
-      void append(const Engine::Coord &aNext);
 
       int score() const;
       Type type() const;
@@ -138,7 +134,6 @@ namespace Checkers
       bool operator==(const Engine::Move &aMove) const;
       bool operator!=(const Engine::Move &aMove) const;
 
-      const CoordSequence & coords() const;
       const Board &from() const;
       const Board &to() const;
 
@@ -152,9 +147,6 @@ namespace Checkers
       Board m_from;
       Board m_to;
       Error::Ptr m_error;
-
-      CoordSequence m_coords;
-      Type m_type;
     };
   };
 };
