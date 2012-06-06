@@ -99,11 +99,6 @@ bool isValidCoordSequenceInternal(const Coord &aFirst, const Coord &aSecond, int
          && (aMinDelta <= deltaY && deltaY <= aMaxDelta);
 }
 
-bool RulesOfGame::MoveValidator::isValidCoordSequenceDepricated(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool aIsJump)
-{
-  return isValidCoordSequenceInternal(aFirst, aSecond, aIsJump? 2: 1, aIsJump? 2: 1);
-}
-
 bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond)
 {
   return isValidCoordSequenceInternal(aFirst, aSecond);

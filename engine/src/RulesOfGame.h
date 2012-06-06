@@ -46,9 +46,6 @@ namespace Checkers
       public:
         static bool isValidCoord(const Engine::Coord &aCoord);
 
-        //TODO remove this after refactoring
-        static bool isValidCoordSequenceDepricated(const Engine::Coord &aFirst, const Engine::Coord &aSecond, bool aIsJump);
-
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond);
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, const Engine::Coord &aThird);
         static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::CoordSequence &aCoordSequence);

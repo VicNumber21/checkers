@@ -46,9 +46,6 @@ namespace Checkers
       CoordSequence::Iterator last() const;
       CoordSequence::Iterator end() const;
 
-      //TODO remove this after refactoring
-      void depricatedValidation(bool aIsJump) const;
-
     private:
       CoordSequence::Iterator at(int aI) const;
       void validateTail() const;

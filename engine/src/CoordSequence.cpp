@@ -117,11 +117,3 @@ void CoordSequence::validateTail() const
     throw CoordSequence::Error(m_coord_list);
   }
 }
-
-void CoordSequence::depricatedValidation(bool aIsJump) const
-{
-  if(!RulesOfGame::MoveValidator::isValidCoordSequenceDepricated(*begin(), *second(), aIsJump))
-  {
-    throw CoordSequence::Error(m_coord_list);
-  }
-}
