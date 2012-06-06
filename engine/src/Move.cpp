@@ -123,28 +123,3 @@ void Move::throwIfInvalid() const
   if(!isValid())
     m_error->raise();
 }
-
-Board Checkers::Engine::operator+(const Board &aCurrent, const Move &aMove)
-{
-  Move move = RulesOfGame::MoveValidator::positionAnalyser().createMove(aMove.coords(), aCurrent);
-
-  return move.to();
-}
-
-/* TODO Remove if not needed
-Board Checkers::Engine::operator-(const Board &aNext, const Move &aMove)
-{
-  (void)aNext;
-  (void)aMove;
-
-  return Board();
-}
-*/
-
-Move Checkers::Engine::operator-(const Board &aNext, const Board &aCurrent)
-{
-  (void)aCurrent;
-  (void)aNext;
-
-  return Move();
-}

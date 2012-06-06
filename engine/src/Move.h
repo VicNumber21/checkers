@@ -156,10 +156,6 @@ namespace Checkers
       CoordSequence m_coords;
       Type m_type;
     };
-
-    Board operator+(const Board &aCurrent, const Move &aMove);
-    // TODO remove if not needed -> Board operator-(const Board &aNext, const Move &aMove);
-    Move operator-(const Board &aNext, const Board &aCurrent);
   };
 };
 
