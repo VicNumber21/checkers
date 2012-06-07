@@ -1,5 +1,6 @@
 #include "RulesOfGame.h"
 #include "Coord.h"
+#include "CoordDelta.h"
 #include "Color.h"
 #include "Board.h"
 #include "Move.h"
@@ -88,15 +89,12 @@ bool RulesOfGame::MoveValidator::isValidCoord(const Engine::Coord &aCoord)
 
 bool isValidCoordSequenceInternal(const Coord &aFirst, const Coord &aSecond, int aMinDelta = 1, int aMaxDelta = 2)
 {
-  int deltaX = abs(aFirst.x() - aSecond.x());
-  int deltaY = abs(aFirst.y() - aSecond.y());
+  CoordDelta delta = aFirst - aSecond;
 
-  //TODO rework as IsOnSameDiagonal() && isDeltaInExpectedRange() from BoardUtility
   return (aFirst != aSecond)
          && RulesOfGame::MoveValidator::isValidCoord(aFirst)
          && RulesOfGame::MoveValidator::isValidCoord(aSecond)
-         && (aMinDelta <= deltaX && deltaX <= aMaxDelta)
-         && (aMinDelta <= deltaY && deltaY <= aMaxDelta);
+         && (aMinDelta <= delta.distance() && delta.distance() <= aMaxDelta);
 }
 
 bool RulesOfGame::MoveValidator::isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond)
@@ -116,29 +114,32 @@ bool RulesOfGame::MoveValidator::isValidDirection(const Engine::Coord &aFirst, c
                                                   , const Engine::Color &aColor, bool isKing)
 {
   //TODO add direct test for it
-  int deltaY = aSecond.y() - aFirst.y();
-  int validDirectionSign = (aColor == Color::EBlack)? 1 : -1;
-  return isKing || (deltaY * validDirectionSign > 0);
+  CoordDelta delta = aSecond - aFirst;
+  bool manValidDirection = (aColor == Color::EBlack)? delta.isNorth(): delta.isSouth();
+  return isKing || manValidDirection;
 }
 
 bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught)
 {
-  //TODO move delta code & logic into class (probably make an iterator)
   //TODO add direct test for it
-  const int deltaX[4] = {-1, 1, 1, -1};
-  const int deltaY[4] = {1, 1, -1, -1};
+  CoordDelta::Direction directions[4] = {
+                          CoordDelta::ENorthWest
+                        , CoordDelta::ENorthEast
+                        , CoordDelta::ESouthEast
+                        , CoordDelta::ESouthWest
+                        };
+
+  int firstDirectionIndex = aDraught.isKing()? 0 : aDraught.color() == Color::EBlack ? 0 : 2;
+  int lastDirectionIndex = aDraught.isKing()? 3 : aDraught.color() == Color::EBlack ? 1 : 3;
 
   bool ret = false;
 
-  int firstDeltaIndex = aDraught.isKing()? 0 : aDraught.color() == Color::EBlack ? 0 : 2;
-  int lastDeltaIndex = aDraught.isKing()? 3 : aDraught.color() == Color::EBlack ? 1 : 3;
-
-  for(int deltaIndex = firstDeltaIndex; deltaIndex <= lastDeltaIndex; ++deltaIndex)
+  for(int directionIndex = firstDirectionIndex; directionIndex <= lastDirectionIndex; ++directionIndex)
   {
     try
     {
-      Coord jumpedCoord(aDraught.coord().x() + deltaX[deltaIndex], aDraught.coord().y() + deltaY[deltaIndex]);
-      Coord jumpToCoord(aDraught.coord().x() + 2 * deltaX[deltaIndex], aDraught.coord().y() + 2 * deltaY[deltaIndex]);
+      Coord jumpToCoord = aDraught.coord() + CoordDelta(directions[directionIndex], 2);
+      Coord jumpedCoord = aDraught.coord() + CoordDelta(directions[directionIndex], 1);
 
       Maybe<Draught> jumpedDraught = aBoard.testSquare(jumpedCoord);
       Maybe<Draught> jumpToDraught = aBoard.testSquare(jumpToCoord);
