@@ -18,6 +18,7 @@ set(test_engine_SRCS
     main.cpp
     PrettyPrint.cpp
     CoordTests.cpp
+    CoordDeltaTests.cpp
     CoordSequenceTests.cpp
     ColorTests.cpp
     DraughtTests.cpp

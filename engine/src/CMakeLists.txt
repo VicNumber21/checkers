@@ -10,6 +10,7 @@ set(engine_SRCS
     Error.cpp
     CoordBase.cpp
     Coord.cpp
+    CoordDelta.cpp
     CoordSequence.cpp
     ColorBase.cpp
     Color.cpp

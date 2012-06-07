@@ -1,6 +1,8 @@
 #ifndef H_COORD_BASE_H
 #define H_COORD_BASE_H
 
+#include "Error.h"
+
 namespace Checkers
 {
   namespace Engine
@@ -8,7 +10,7 @@ namespace Checkers
     class CoordBase
     {
     public:
-      class ErrorIntWrongCoord
+      class ErrorIntWrongCoord : public Engine::Error
       {
       public:
         ErrorIntWrongCoord(int aX, int aY);
@@ -18,7 +20,7 @@ namespace Checkers
         int m_y;
       };
 
-      class ErrorCharWrongCoord
+      class ErrorCharWrongCoord : public Engine::Error
       {
       public:
         ErrorCharWrongCoord(char aLetter, char aDigit);
