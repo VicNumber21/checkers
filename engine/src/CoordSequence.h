@@ -38,6 +38,8 @@ namespace Checkers
       bool operator==(const Engine::CoordSequence &aCoordSequence) const;
       bool operator!=(const Engine::CoordSequence &aCoordSequence) const;
 
+      bool operator<(const Engine::CoordSequence &aCoordSequence) const;
+
       int count() const;
 
       CoordSequence::Iterator begin() const;

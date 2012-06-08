@@ -51,6 +51,12 @@ bool CoordSequence::operator!=(const Engine::CoordSequence &aCoordSequence) cons
   return !(*this == aCoordSequence);
 }
 
+//TODO add test for it
+bool CoordSequence::operator<(const Engine::CoordSequence &aCoordSequence) const
+{
+  return (m_coord_list < aCoordSequence.m_coord_list);
+}
+
 int CoordSequence::count() const
 {
   return m_coord_list.size();

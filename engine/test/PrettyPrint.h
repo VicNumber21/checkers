@@ -11,11 +11,13 @@ namespace Checkers
     class Board;
     class Coord;
     class CoordDelta;
+    class CoordSequence;
   }
 }
 
 std::ostream & operator<<(std::ostream &aOut, const Checkers::Engine::Board &aBoard);
 std::ostream & operator<<(std::ostream &aOut, const Checkers::Engine::Coord &aCoord);
 std::ostream & operator<<(std::ostream &aOut, const Checkers::Engine::CoordDelta &aDelta);
+std::ostream & operator<<(std::ostream &aOut, const Checkers::Engine::CoordSequence &aCoorsSequence);
 
 #endif //H_PRETTY_PRINT_H
