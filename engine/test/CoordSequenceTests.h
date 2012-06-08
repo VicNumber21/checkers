@@ -17,6 +17,7 @@ class CoordSequenceTests : public CppUnit::TestFixture
     CPPUNIT_TEST( secondFromEnd );
     CPPUNIT_TEST( last );
     CPPUNIT_TEST( count );
+    CPPUNIT_TEST( pop );
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -33,6 +34,7 @@ public:
   void secondFromEnd();
   void last();
   void count();
+  void pop();
 };
 
 #endif //H_COORD_SEQUENCE_TESTS_H

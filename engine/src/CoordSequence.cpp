@@ -30,6 +30,11 @@ void CoordSequence::append(const Engine::Coord &aNext)
   validateTail();
 }
 
+void CoordSequence::pop()
+{
+  m_coord_list.pop_back();
+}
+
 CoordSequence & CoordSequence::operator=(const Engine::CoordSequence &aCoordSequence)
 {
   m_coord_list = aCoordSequence.m_coord_list;

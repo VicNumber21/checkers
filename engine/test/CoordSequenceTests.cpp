@@ -204,3 +204,19 @@ void CoordSequenceTests::count()
   cs.append(Coord('g', '7'));
   CPPUNIT_ASSERT_EQUAL(4, cs.count());
 }
+
+void CoordSequenceTests::pop()
+{
+  CoordSequence cs;
+  cs.append(Coord('a', '1'));
+  cs.append(Coord('c', '3'));
+  cs.append(Coord('e', '5'));
+  cs.append(Coord('g', '7'));
+
+  cs.pop();
+  cs.pop();
+  CPPUNIT_ASSERT_EQUAL(2, cs.count());
+
+  CoordSequence testCs(Coord('a', '1'), Coord('c', '3'));
+  CPPUNIT_ASSERT(cs == testCs);
+}

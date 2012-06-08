@@ -31,6 +31,7 @@ namespace Checkers
       CoordSequence(const Engine::CoordSequence &aCoordSequence);
 
       void append(const Engine::Coord &aNext);
+      void pop();
 
       CoordSequence & operator=(const Engine::CoordSequence &aCoordSequence);
 
