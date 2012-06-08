@@ -11,6 +11,7 @@ namespace Checkers
     class Move;
     class CoordSequence;
     class Board;
+    class Color;
 
     class PositionAnalyser
     {
@@ -18,13 +19,13 @@ namespace Checkers
       typedef std::list<Move> MoveList;
 
     public:
-      virtual void setPosition(const Engine::Board &aBoard) = 0;
+      void setPosition(const Engine::Board &aBoard);
+      virtual Engine::Move createMove(const Engine::CoordSequence &aCoorsSequence, bool aUpdateColorIfNeeded = true) = 0;
+      Engine::Move createMove(const Engine::CoordSequence &aCoorsSequence, const Engine::Board &aBoard, bool aUpdateColorIfNeeded = true);
 
-      virtual Engine::Move createMove(const Engine::CoordSequence &aCoorsSequence) const = 0;
-      Engine::Move createMove(const Engine::CoordSequence &aCoorsSequence, const Engine::Board &aBoard);
-
-      virtual MoveList validMoves() const = 0;
-      MoveList validMoves(const Engine::Board &aBoard);
+      virtual void setPosition(const Engine::Board &aBoard, const Engine::Color &aColor) = 0;
+      virtual const MoveList &validMoves() = 0;
+      const MoveList &validMoves(const Engine::Board &aBoard, const Engine::Color &aColor);
     };
   };
 };
