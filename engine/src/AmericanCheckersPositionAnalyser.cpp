@@ -93,6 +93,7 @@ void AmericanCheckersPositionAnalyser::reset()
     m_valid_moves.clear();
     m_seq_board_map.clear();
     m_tos.clear();
+    searchReset();
 }
 
 void AmericanCheckersPositionAnalyser::updateValidMovesIfNeeded(const Engine::Color &aColor, bool aForced)
@@ -229,4 +230,100 @@ void AmericanCheckersPositionAnalyser::searchForSimpleMoves(const Engine::Board 
       continue;
     }
   }
+}
+
+void AmericanCheckersPositionAnalyser::initSearchFilter()
+{
+  if(stepCount() < 0)
+  {
+    SearchMap zeroMap;
+
+    for(CoordSequenceToBoardMap::const_iterator it = m_seq_board_map.begin(); it != m_seq_board_map.end(); ++it)
+    {
+      zeroMap.insert(SearchMap::value_type(it->first.begin(), it));
+    }
+
+    m_search_filter.push_back(zeroMap);
+  }
+  else
+  {
+    backToZeroStep();
+  }
+}
+
+void AmericanCheckersPositionAnalyser::searchReset()
+{
+    m_search_filter.clear();
+}
+
+
+void AmericanCheckersPositionAnalyser::backToZeroStep()
+{
+  while(stepCount() > 0)
+    undoSearchStep();
+}
+
+bool AmericanCheckersPositionAnalyser::doSearchStep(const Engine::CoordSequence::Iterator &aCoordI)
+{
+  typedef std::pair<SearchMap::const_iterator, SearchMap::const_iterator> FoundRange;
+  FoundRange foundRange = lastStep()->equal_range(aCoordI);
+
+  SearchMap nextMap;
+
+  for(SearchMap::const_iterator it = foundRange.first; it != foundRange.second; ++it)
+  {
+    CoordSequence::Iterator tempIter = it->first;
+    nextMap.insert(SearchMap::value_type(++tempIter, it->second));
+  }
+
+  m_search_filter.push_back(nextMap);
+
+  return isFound();
+}
+
+void AmericanCheckersPositionAnalyser::undoSearchStep()
+{
+  if(stepCount() < 0)
+    throw Engine::Error();
+
+  m_search_filter.pop_back();
+}
+
+bool AmericanCheckersPositionAnalyser::isFound() const
+{
+  return lastStep()->size() == 1;
+}
+
+bool AmericanCheckersPositionAnalyser::noVariant() const
+{
+  return lastStep()->size() == 0;
+}
+
+const Board & AmericanCheckersPositionAnalyser::fountTo() const
+{
+  if(!isFound())
+    throw Engine::Error();
+
+  return *(lastStep()->begin()->second->second);
+}
+
+const CoordSequence & AmericanCheckersPositionAnalyser::foundSequence() const
+{
+  if(!isFound())
+    throw Engine::Error();
+
+  return lastStep()->begin()->second->first;
+}
+
+AmericanCheckersPositionAnalyser::SearchFilter::const_iterator AmericanCheckersPositionAnalyser::lastStep() const
+{
+  if(stepCount() < 0)
+    throw Engine::Error();
+
+  return --m_search_filter.end();
+}
+
+int AmericanCheckersPositionAnalyser::stepCount() const
+{
+  return m_search_filter.size() - 1;
 }
