@@ -41,7 +41,7 @@ namespace Checkers
 
       virtual void setPosition(const Engine::Board &aBoard, const Engine::Color &aColor = Engine::Color(Color::EBlack));
 
-      virtual Engine::Move createMove(const Engine::CoordSequence &aCoorsSequence, bool aUpdateColorIfNeeded = true);
+      virtual Engine::Move createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded = true);
 
       virtual const MoveList &validMoves();
 

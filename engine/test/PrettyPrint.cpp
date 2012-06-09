@@ -23,13 +23,13 @@ std::ostream & operator<<(std::ostream &aOut, const CoordDelta &aDelta)
   return aOut << std::endl << "CoordDelta(" << aDelta.x() << ", " << aDelta.y() << ")";
 }
 
-std::ostream & operator<<(std::ostream &aOut, const Checkers::Engine::CoordSequence &aCoorsSequence)
+std::ostream & operator<<(std::ostream &aOut, const Checkers::Engine::CoordSequence &aCoordSequence)
 {
   aOut << std::endl << "CoordSequence(";
 
-  for(CoordSequence::Iterator it = aCoorsSequence.begin(); it != aCoorsSequence.end(); ++it)
+  for(CoordSequence::Iterator it = aCoordSequence.begin(); it != aCoordSequence.end(); ++it)
   {
-    if(it != aCoorsSequence.begin())
+    if(it != aCoordSequence.begin())
     {
       aOut << '-';
     }

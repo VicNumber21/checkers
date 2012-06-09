@@ -10,10 +10,10 @@ void PositionAnalyser::setPosition(const Engine::Board &aBoard)
   setPosition(aBoard, Color(Color(Color::EBlack)));
 }
 
-Move PositionAnalyser::createMove(const Engine::CoordSequence &aCoorsSequence, const Engine::Board &aBoard, bool aUpdateColorIfNeeded)
+Move PositionAnalyser::createMove(const Engine::CoordSequence &aCoordSequence, const Engine::Board &aBoard, bool aUpdateColorIfNeeded)
 {
   setPosition(aBoard);
-  return createMove(aCoorsSequence, aUpdateColorIfNeeded);
+  return createMove(aCoordSequence, aUpdateColorIfNeeded);
 }
 
 const PositionAnalyser::MoveList & PositionAnalyser::validMoves(const Engine::Board &aBoard, const Engine::Color &aColor)
