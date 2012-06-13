@@ -1,8 +1,6 @@
 #ifndef H_RULES_OF_GAME_H
 #define H_RULES_OF_GAME_H
 
-#include "ActionAtBoard.h"
-
 
 namespace Checkers
 {
@@ -14,7 +12,6 @@ namespace Checkers
     class Color;
     class Draught;
     class PositionAnalyser;
-    class AmericanCheckersActionFactory;
 
     class RulesOfGame
     {
@@ -48,16 +45,12 @@ namespace Checkers
 
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond);
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, const Engine::Coord &aThird);
-        static Engine::ActionAtBoard::Ptr transformIntoActions(const Engine::Board &aBoard, const Engine::CoordSequence &aCoordSequence);
         static bool isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
                                      , const Engine::Color &aColor, bool isKing);
         static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught);
         static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor);
 
         static PositionAnalyser & positionAnalyser();
-
-      private:
-        static const AmericanCheckersActionFactory & actionFactory();
       };
     };
   };

@@ -19,13 +19,8 @@ set(engine_SRCS
     Maybe.cpp
     RulesOfGame.cpp
     Move.cpp
-    AmericanCheckersActionFactory.cpp
     PositionAnalyser.cpp
     AmericanCheckersPositionAnalyser.cpp
-    ActionThrowError.cpp
-    ActionTake.cpp
-    ActionPut.cpp
-    ActionSequence.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})

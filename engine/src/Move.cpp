@@ -1,6 +1,5 @@
 #include "Move.h"
 #include "RulesOfGame.h"
-#include "ActionAtBoard.h"
 #include "PositionAnalyser.h"
 
 using namespace Checkers::Engine;
