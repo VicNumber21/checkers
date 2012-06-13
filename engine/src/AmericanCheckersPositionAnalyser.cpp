@@ -3,8 +3,6 @@
 #include "RulesOfGame.h"
 #include "CoordDelta.h"
 
-#include <iostream>
-
 using namespace Checkers::Engine;
 
 
@@ -20,56 +18,110 @@ void AmericanCheckersPositionAnalyser::setPosition(const Engine::Board &aBoard, 
   updateValidMovesIfNeeded(aColor, true);
 }
 
-Move AmericanCheckersPositionAnalyser::createMove(const Engine::CoordSequence &aCoorsSequence, bool aUpdateColorIfNeeded)
+Move AmericanCheckersPositionAnalyser::createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded)
 {
   Board to(m_from);
   Move move;
 
-  Maybe<Draught> moved = m_from.testSquare(*aCoorsSequence.begin());
-
-  if(moved.isNothing())
+  if(!safeColorUpdate(*aCoordSequence.begin(), aUpdateColorIfNeeded))
   {
-    //TODO: add error handling after refactoring to the new design
-    //throw Engine::Error::Ptr(new Move::ErrorUnknown);
-    //TODO rework below
-    return Move(Engine::Error::Ptr(new Move::ErrorNoRequestedDraught));
-  }
-
-  if(aUpdateColorIfNeeded)
-  {
-    updateValidMovesIfNeeded(moved().color());
+    //TODO it is handled in findInValidMoves
+    move = Move(Engine::Error::Ptr(new Move::ErrorNoRequestedDraught));
   }
   else
   {
-    if(m_color != moved().color())
+    move = findInValidMoves(aCoordSequence);
+  }
+
+  return move;
+}
+
+Move AmericanCheckersPositionAnalyser::findInValidMoves(const Engine::CoordSequence &aCoordSequence)
+{
+  Board to(m_from); //TODO remove after refactoring
+  Move move;
+
+  bool temp_ret_flag = false;
+
+  initSearchFilter();
+
+  CoordSequence::Iterator it = aCoordSequence.begin();
+  for(; it != aCoordSequence.end() && !noVariant(); ++it)
+  {
+    bool isLastCoord = (it == aCoordSequence.last());
+
+    if(doSearchStep(it) && isLastCoord && stepCount() == foundSequence().count())
     {
-      //TODO: add error handling after refactoring to the new design
-      throw Engine::Error::Ptr(new Move::ErrorUnknown);
+      move = Move(m_from, fountTo());
+      temp_ret_flag = true;
     }
   }
 
-  CoordSequenceToBoardMap::const_iterator found = m_seq_board_map.find(aCoorsSequence);
+  if(!temp_ret_flag)
+  {
+    //TODO optimization required
+    --it;
+    Maybe<Draught> moved = m_from.testSquare(*aCoordSequence.begin());
+    Maybe<Draught> movedTo = m_from.testSquare(*aCoordSequence.last());
+    bool isFirsCoord = (it == aCoordSequence.begin());
+    CoordSequence::Iterator to = isFirsCoord? aCoordSequence.second(): it;
+    CoordSequence::Iterator from = isFirsCoord? aCoordSequence.begin(): --CoordSequence::Iterator(it);
+    CoordDelta moveDelta = *to - *from;
+    CoordDelta betweenDelta(moveDelta.direction(), 1);
+    Maybe<Draught> toDraught = m_from.testSquare(*to);
+    Maybe<Draught> betweenDraught = m_from.testSquare(*from + betweenDelta);
+    //bool isLastCoord = (it == aCoordSequence.last());
 
-  if(found != m_seq_board_map.end())
-  {
-    move = Move(m_from, *(found->second));
-  }
-  else
-  {
-    try
+    if(moved.isNothing() || moved().color() != m_color)
     {
-      ActionAtBoard::Ptr action = RulesOfGame::MoveValidator::transformIntoActions(m_from, aCoorsSequence);
-
-      if(!action)
-        throw Engine::Error::Ptr(new Move::ErrorUnknown);
-
-      action->perform(to);
-
-      move = Move(m_from, to);
+      move = Move(Engine::Error::Ptr(new Move::ErrorNoRequestedDraught));
+      temp_ret_flag = true;
     }
-    catch(Engine::Error::Ptr e)
+    else if(aCoordSequence.count() < 2)
     {
-      move = Move(e);
+      //TODO choose better error here
+      move = Move(Engine::Error::Ptr(new Move::ErrorUnknown));
+      temp_ret_flag = true;
+    }
+    else if(*aCoordSequence.begin() != *aCoordSequence.last() && !movedTo.isNothing())
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorToBusySquare));
+      temp_ret_flag = true;
+    }
+    else if(*aCoordSequence.begin() != *to && !toDraught.isNothing())
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorJumpOverBusySquare));
+      temp_ret_flag = true;
+    }
+    else if(moveDelta.distance() == 1 && validMoves().begin()->score() > 0) //TODO: optimize this
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorJumpExist));
+      temp_ret_flag = true;
+    }
+    else if(moveDelta.distance() > 1 && betweenDraught.isNothing())
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorNothingToJumpOver));
+      temp_ret_flag = true;
+    }
+    else if(moveDelta.distance() > 1 && betweenDraught().color() == moved().color())
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorJumpOverSameColor));
+      temp_ret_flag = true;
+    }
+    else if(!moved().isKing() && RulesOfGame::BoardBounds::isKingLine(from->y(), moved().color()))
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorGetKingButMoveFurther));
+      temp_ret_flag = true;
+    }
+    else if(!RulesOfGame::MoveValidator::isValidDirection(*from, *to, moved().color(), moved().isKing()))
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorInWrongDirection));
+      temp_ret_flag = true;
+    }
+    else if(!noVariant() && moveDelta.distance() > 1)
+    {
+      move = Move(Engine::Error::Ptr(new Move::ErrorJumpExist));
+      temp_ret_flag = true;
     }
   }
 
@@ -105,6 +157,20 @@ void AmericanCheckersPositionAnalyser::updateValidMovesIfNeeded(const Engine::Co
     reset();
     searchForValidMoves();
   }
+}
+
+bool AmericanCheckersPositionAnalyser::safeColorUpdate(const Engine::Coord &aDraughtCoord, bool aUpdateColorIfNeeded)
+{
+  Maybe<Draught> moved = m_from.testSquare(aDraughtCoord);
+
+  bool ret = !moved.isNothing() && (aUpdateColorIfNeeded || m_color == moved().color());
+
+  if(ret && aUpdateColorIfNeeded)
+  {
+    updateValidMovesIfNeeded(moved().color());
+  }
+
+  return ret;
 }
 
 void AmericanCheckersPositionAnalyser::searchForValidMoves()
