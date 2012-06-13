@@ -118,65 +118,6 @@ bool RulesOfGame::MoveValidator::isValidDirection(const Engine::Coord &aFirst, c
   return isKing || manValidDirection;
 }
 
-bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught)
-{
-  //TODO add direct test for it
-  CoordDelta::Direction directions[4] = {
-                          CoordDelta::ENorthWest
-                        , CoordDelta::ENorthEast
-                        , CoordDelta::ESouthEast
-                        , CoordDelta::ESouthWest
-                        };
-
-  int firstDirectionIndex = aDraught.isKing()? 0 : aDraught.color() == Color::EBlack ? 0 : 2;
-  int lastDirectionIndex = aDraught.isKing()? 3 : aDraught.color() == Color::EBlack ? 1 : 3;
-
-  bool ret = false;
-
-  for(int directionIndex = firstDirectionIndex; directionIndex <= lastDirectionIndex; ++directionIndex)
-  {
-    try
-    {
-      Coord jumpToCoord = aDraught.coord() + CoordDelta(directions[directionIndex], 2);
-      Coord jumpedCoord = aDraught.coord() + CoordDelta(directions[directionIndex], 1);
-
-      Maybe<Draught> jumpedDraught = aBoard.testSquare(jumpedCoord);
-      Maybe<Draught> jumpToDraught = aBoard.testSquare(jumpToCoord);
-
-      if(!jumpedDraught.isNothing() && jumpedDraught().color() != aDraught.color() && jumpToDraught.isNothing())
-      {
-        ret = true;
-        break;
-      }
-    }
-    catch(Coord::ErrorIntWrongCoord e)
-    {
-      continue;
-    }
-  }
-
-  return ret;
-}
-
-bool RulesOfGame::MoveValidator::doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor)
-{
-  bool ret = false;
-
-  for(Board::Iterator it = aBoard.begin(); it != aBoard.end(); ++it)
-  {
-    if(it->color() == aColor)
-    {
-      if(doesJumpExist(aBoard, *it))
-      {
-        ret = true;
-        break;
-      }
-    }
-  }
-
-  return ret;
-}
-
 PositionAnalyser & RulesOfGame::MoveValidator::positionAnalyser()
 {
   static AmericanCheckersPositionAnalyser postionAnalyser;

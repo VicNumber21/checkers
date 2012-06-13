@@ -47,8 +47,6 @@ namespace Checkers
         static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, const Engine::Coord &aThird);
         static bool isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
                                      , const Engine::Color &aColor, bool isKing);
-        static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Draught &aDraught);
-        static bool doesJumpExist(const Engine::Board &aBoard, const Engine::Color &aColor);
 
         static PositionAnalyser & positionAnalyser();
       };
