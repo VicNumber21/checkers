@@ -272,8 +272,15 @@ bool AmericanCheckersPositionAnalyser::doSearchStep(const Engine::CoordSequence:
 
   for(SearchMap::const_iterator it = foundRange.first; it != foundRange.second; ++it)
   {
+    const CoordSequence & seq = it->second->first;
     CoordSequence::Iterator tempIter = it->first;
-    nextMap.insert(SearchMap::value_type(++tempIter, it->second));
+
+    if(tempIter != seq.last())
+    {
+      ++tempIter;
+    }
+
+    nextMap.insert(SearchMap::value_type(tempIter, it->second));
   }
 
   m_search_filter.push_back(nextMap);
