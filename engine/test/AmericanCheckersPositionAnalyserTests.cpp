@@ -6,11 +6,19 @@
 #include "Draught.h"
 #include "Color.h"
 #include "Coord.h"
+#include "RulesOfGame.h"
 #include "PrettyPrint.h"
+
+#include <list>
+#include <sstream>
 
 using namespace Checkers::Engine;
 
 CPPUNIT_TEST_SUITE_REGISTRATION( AmericanCheckersPositionAnalyserTests );
+
+typedef std::list<Board> BoardList;
+typedef std::list<Coord> CoordList;
+typedef std::list<CoordList> CoordLists;
 
 
 void AmericanCheckersPositionAnalyserTests::setUp()
@@ -21,34 +29,209 @@ void AmericanCheckersPositionAnalyserTests::tearDown()
 {
 }
 
+void batchMove(BoardList &aBoards, const CoordList &aFrom, const CoordList &aTo)
+{
+  CPPUNIT_ASSERT_EQUAL(aBoards.size(), aFrom.size());
+  CPPUNIT_ASSERT_EQUAL(aBoards.size(), aTo.size());
+
+  BoardList::iterator boardIt = aBoards.begin();
+  CoordList::const_iterator fromIt = aFrom.begin();
+  CoordList::const_iterator toIt = aTo.begin();
+  for(; boardIt != aBoards.end(); ++boardIt, ++fromIt, ++toIt)
+  {
+    std::stringstream ss;
+    ss << *boardIt << *fromIt << *toIt;
+
+    Maybe<Draught> d = boardIt->takeDraught(*fromIt);
+    CPPUNIT_ASSERT_MESSAGE(ss.str().c_str(), !d.isNothing());
+    d().moveTo(*toIt);
+    if(RulesOfGame::BoardBounds::isKingLine(toIt->y(), d().color()))
+      d().makeKing();
+    CPPUNIT_ASSERT_MESSAGE(ss.str().c_str(), boardIt->put(d()));
+  }
+}
+
+void batchRemove(Board &aBoard, const CoordList &aRemove)
+{
+  CoordList::const_iterator removeIt = aRemove.begin();
+  for(; removeIt != aRemove.end(); ++removeIt)
+  {
+    std::stringstream ss;
+    ss << aBoard << *removeIt;
+
+    Maybe<Draught> d = aBoard.takeDraught(*removeIt);
+    CPPUNIT_ASSERT_MESSAGE(ss.str().c_str(), !d.isNothing());
+  }
+}
+
+void batchRemove(BoardList &aBoards, const CoordLists &aRemove)
+{
+  CPPUNIT_ASSERT_EQUAL(aBoards.size(), aRemove.size());
+
+  BoardList::iterator boardIt = aBoards.begin();
+  CoordLists::const_iterator removeIt = aRemove.begin();
+  for(; boardIt != aBoards.end(); ++boardIt, ++removeIt)
+  {
+    batchRemove(*boardIt, *removeIt);
+  }
+}
+
+void validateMoveList(const PositionAnalyser::MoveList &aMoveList, const Board &aFrom, const BoardList &aTo)
+{
+  BoardList expectedTo(aTo);
+
+  for(PositionAnalyser::MoveList::const_iterator it = aMoveList.begin(); it != aMoveList.end(); ++it)
+  {
+    CPPUNIT_ASSERT_EQUAL(aFrom, it->from());
+    int sizeBefore = expectedTo.size();
+    expectedTo.remove(it->to());
+
+    std::stringstream ss;
+    ss << it->to();
+    CPPUNIT_ASSERT_MESSAGE(ss.str().c_str(), (--sizeBefore) == expectedTo.size());
+  }
+
+  CPPUNIT_ASSERT_EQUAL(0, (int)expectedTo.size());
+}
+
 void AmericanCheckersPositionAnalyserTests::validMovesSimple()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cBlackC3('c', '3');
+  const Coord cBlackKingD4('d', '4');
+  const Coord cBlackG3('g', '3');
+  const Coord cBlackKingB6('b', '6');
+
+  const Coord cWhiteE5('e', '5');
+  const Coord cWhiteF6('f', '6');
+
+  const Coord cMoveToA7('a', '7');
+  const Coord cMoveToC7('c', '7');
+  const Coord cMoveToA5('a', '5');
+  const Coord cMoveToC5('c', '5');
+  const Coord cMoveToE3('e', '3');
+  const Coord cMoveToB4('b', '4');
+  const Coord cMoveToF4('f', '4');
+  const Coord cMoveToH4('h', '4');
+
+  const int expectedMoveCount = 9;
+
+  Board b;
+  b.put(Draught(cBlackC3, Color::EBlack));
+  b.put(Draught(cBlackG3, Color::EBlack));
+  b.put(Draught(cBlackKingD4, Color::EBlack, true));
+  b.put(Draught(cBlackKingB6, Color::EBlack, true));
+  b.put(Draught(cWhiteE5, Color::EWhite));
+  b.put(Draught(cWhiteF6, Color::EWhite));
+
+  AmericanCheckersPositionAnalyser analyser;
+  analyser.setPosition(b, Color::EBlack);
+
+  CPPUNIT_ASSERT_EQUAL(expectedMoveCount, (int)analyser.validMoves().size());
+
+  BoardList toB(expectedMoveCount, b);
+
+  Coord tempFrom[expectedMoveCount] = {cBlackKingB6, cBlackKingB6, cBlackKingB6, cBlackKingB6, cBlackKingD4, cBlackKingD4, cBlackC3, cBlackG3, cBlackG3};
+  CoordList from(tempFrom, tempFrom + expectedMoveCount);
+
+  Coord tempTo[expectedMoveCount] = {cMoveToA7, cMoveToC7, cMoveToA5, cMoveToC5, cMoveToC5, cMoveToE3, cMoveToB4, cMoveToF4, cMoveToH4};
+  CoordList to(tempTo, tempTo + expectedMoveCount);
+
+  batchMove(toB, from, to);
+
+  validateMoveList(analyser.validMoves(), b, toB);
 }
 
 void AmericanCheckersPositionAnalyserTests::validMovesJump()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
-}
+  const Coord cBlackB6('b', '6');
+  const Coord cBlackB4('b', '4');
+  const Coord cBlackKingB2('b', '2');
+  const Coord cBlackKingD4('d', '4');
+  const Coord cBlackD2('d', '2');
+  const Coord cBlackKingF6('f', '6');
+  const Coord cBlackF2('f', '2');
 
-void AmericanCheckersPositionAnalyserTests::validMovesBlack()
-{
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
-}
+  const Coord cWhiteC5('c', '5');
+  const Coord cWhiteE7('e', '7');
+  const Coord cWhiteKingE5('e', '5');
 
-void AmericanCheckersPositionAnalyserTests::validMovesWhite()
-{
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
-}
+  const Coord cMoveToC1('c', '1');
+  const Coord cMoveToG1('g', '1');
+  const Coord cMoveToG5('g', '5');
+  const Coord cMoveToG7('g', '7');
+  const Coord cMoveToA1('a', '1');
+  const Coord cMoveToG3('g', '3');
+  const Coord cMoveToC7('c', '7');
 
-void AmericanCheckersPositionAnalyserTests::validMovesBothColors()
-{
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const int expectedMoveCount = 8;
+
+  Board b;
+  b.put(Draught(cBlackB6, Color::EBlack));
+  b.put(Draught(cBlackB4, Color::EBlack));
+  b.put(Draught(cBlackKingB2, Color::EBlack, true));
+  b.put(Draught(cBlackKingD4, Color::EBlack, true));
+  b.put(Draught(cBlackD2, Color::EBlack));
+  b.put(Draught(cBlackKingF6, Color::EBlack, true));
+  b.put(Draught(cBlackF2, Color::EBlack));
+  b.put(Draught(cWhiteC5, Color::EWhite));
+  b.put(Draught(cWhiteE7, Color::EWhite));
+  b.put(Draught(cWhiteKingE5, Color::EWhite, true));
+
+  AmericanCheckersPositionAnalyser analyser;
+  analyser.setPosition(b, Color::EWhite);
+
+  CPPUNIT_ASSERT_EQUAL(expectedMoveCount, (int)analyser.validMoves().size());
+
+  BoardList toB(expectedMoveCount, b);
+
+  Coord tempFrom[expectedMoveCount] = {cWhiteC5, cWhiteC5, cWhiteC5, cWhiteE7, cWhiteKingE5, cWhiteKingE5, cWhiteKingE5, cWhiteKingE5};
+  CoordList from(tempFrom, tempFrom + expectedMoveCount);
+
+  Coord tempTo[expectedMoveCount] = {cMoveToC1, cMoveToC1, cMoveToG1, cMoveToG5, cMoveToG7, cMoveToA1, cMoveToG3, cMoveToC7};
+  CoordList to(tempTo, tempTo + expectedMoveCount);
+
+  batchMove(toB, from, to);
+
+  CoordLists remove;
+  Coord tempRemove0[] = {cBlackB4, cBlackKingB2};
+  remove.push_back(CoordList(tempRemove0, tempRemove0 + sizeof(tempRemove0) / sizeof(Coord)));
+  Coord tempRemove1[] = {cBlackKingD4, cBlackD2};
+  remove.push_back(CoordList(tempRemove1, tempRemove1 + sizeof(tempRemove1) / sizeof(Coord)));
+  Coord tempRemove2[] = {cBlackKingD4, cBlackF2};
+  remove.push_back(CoordList(tempRemove2, tempRemove2 + sizeof(tempRemove2) / sizeof(Coord)));
+  Coord tempRemove3[] = {cBlackKingF6};
+  remove.push_back(CoordList(tempRemove3, tempRemove3 + sizeof(tempRemove3) / sizeof(Coord)));
+  Coord tempRemove4[] = {cBlackKingF6};
+  remove.push_back(CoordList(tempRemove4, tempRemove4 + sizeof(tempRemove4) / sizeof(Coord)));
+  Coord tempRemove5[] = {cBlackKingD4, cBlackKingB2};
+  remove.push_back(CoordList(tempRemove5, tempRemove5 + sizeof(tempRemove5) / sizeof(Coord)));
+  Coord tempRemove6[] = {cBlackKingD4, cBlackD2, cBlackF2};
+  remove.push_back(CoordList(tempRemove6, tempRemove6 + sizeof(tempRemove6) / sizeof(Coord)));
+  Coord tempRemove7[] = {cBlackKingD4, cBlackB4, cBlackB6};
+  remove.push_back(CoordList(tempRemove7, tempRemove7 + sizeof(tempRemove7) / sizeof(Coord)));
+
+  batchRemove(toB, remove);
+
+  validateMoveList(analyser.validMoves(), b, toB);
 }
 
 void AmericanCheckersPositionAnalyserTests::validMovesNoMoves()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  Board bEmpty;
+  AmericanCheckersPositionAnalyser analyser;
+  analyser.setPosition(bEmpty, Color::EWhite);
+  CPPUNIT_ASSERT_EQUAL(0, (int)analyser.validMoves().size());
+
+  analyser.setPosition(bEmpty, Color::EBlack);
+  CPPUNIT_ASSERT_EQUAL(0, (int)analyser.validMoves().size());
+
+  Board b;
+  b.put(Draught(Coord('h', '6'), Color::EBlack));
+  b.put(Draught(Coord('g', '7'), Color::EWhite));
+  b.put(Draught(Coord('f', '8'), Color::EWhite));
+
+  analyser.setPosition(b, Color::EBlack);
+  CPPUNIT_ASSERT_EQUAL(0, (int)analyser.validMoves().size());
 }
 
 void AmericanCheckersPositionAnalyserTests::createSimpleMove()

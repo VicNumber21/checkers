@@ -7,13 +7,9 @@
 class AmericanCheckersPositionAnalyserTests : public CppUnit::TestFixture
 {
   CPPUNIT_TEST_SUITE( AmericanCheckersPositionAnalyserTests );
-    //Disable not implemented for a while
-    //CPPUNIT_TEST( validMovesSimple );
-    //CPPUNIT_TEST( validMovesJump );
-    //CPPUNIT_TEST( validMovesBlack );
-    //CPPUNIT_TEST( validMovesWhite );
-    //CPPUNIT_TEST( validMovesBothColors );
-    //CPPUNIT_TEST( validMovesNoMoves );
+    CPPUNIT_TEST( validMovesSimple );
+    CPPUNIT_TEST( validMovesJump );
+    CPPUNIT_TEST( validMovesNoMoves );
 
     CPPUNIT_TEST( createSimpleMove );
     CPPUNIT_TEST( createSimpleMoveByKing );
@@ -59,9 +55,6 @@ public:
 
   void validMovesSimple();
   void validMovesJump();
-  void validMovesBlack();
-  void validMovesWhite();
-  void validMovesBothColors();
   void validMovesNoMoves();
 
   void createSimpleMove();
