@@ -52,7 +52,7 @@ Move AmericanCheckersPositionAnalyser::findInValidMoves(const Engine::CoordSeque
 
     if(doSearchStep(it) && isLastCoord && stepCount() == foundSequence().count())
     {
-      move = Move(m_from, fountTo());
+      move = foundMove();
       temp_ret_flag = true;
     }
   }
@@ -130,12 +130,6 @@ Move AmericanCheckersPositionAnalyser::findInValidMoves(const Engine::CoordSeque
 
 const PositionAnalyser::MoveList & AmericanCheckersPositionAnalyser::validMoves()
 {
-  if(m_valid_moves.size() == 0)
-  {
-    for(BoardStorage::const_iterator it = m_tos.begin(); it != m_tos.end(); ++it)
-      m_valid_moves.push_back(Move(m_from, *it));
-  }
-
   return m_valid_moves;
 }
 
@@ -143,8 +137,7 @@ void AmericanCheckersPositionAnalyser::reset()
 {
     m_jump_found = false;
     m_valid_moves.clear();
-    m_seq_board_map.clear();
-    m_tos.clear();
+    m_seq_move_map.clear();
     searchReset();
 }
 
@@ -251,8 +244,8 @@ void AmericanCheckersPositionAnalyser::searchForJumps(CoordSequence &aAccum, con
 
   if(jumpNotFound && aAccum.count() > 1)
   {
-    BSInsertResult ret = m_tos.insert(aBoard);
-    m_seq_board_map.insert(CoordSequenceToBoardMap::value_type(aAccum, ret.first));
+    MoveListInsertResult ret = m_valid_moves.insert(Move(m_from, aBoard));
+    m_seq_move_map.insert(CoordSequenceToMoveMap::value_type(aAccum, ret.first));
   }
 }
 
@@ -287,8 +280,8 @@ void AmericanCheckersPositionAnalyser::searchForSimpleMoves(const Engine::Board 
         }
         testBoard.put(moved);
 
-        BSInsertResult ret = m_tos.insert(testBoard);
-        m_seq_board_map.insert(CoordSequenceToBoardMap::value_type(CoordSequence(aDraught.coord(), moveToCoord), ret.first));
+        MoveListInsertResult ret = m_valid_moves.insert(Move(m_from, testBoard));
+        m_seq_move_map.insert(CoordSequenceToMoveMap::value_type(CoordSequence(aDraught.coord(), moveToCoord), ret.first));
       }
     }
     catch(Coord::ErrorIntWrongCoord e)
@@ -304,7 +297,7 @@ void AmericanCheckersPositionAnalyser::initSearchFilter()
   {
     SearchMap zeroMap;
 
-    for(CoordSequenceToBoardMap::const_iterator it = m_seq_board_map.begin(); it != m_seq_board_map.end(); ++it)
+    for(CoordSequenceToMoveMap::const_iterator it = m_seq_move_map.begin(); it != m_seq_move_map.end(); ++it)
     {
       zeroMap.insert(SearchMap::value_type(it->first.begin(), it));
     }
@@ -372,7 +365,7 @@ bool AmericanCheckersPositionAnalyser::noVariant() const
   return lastStep()->size() == 0;
 }
 
-const Board & AmericanCheckersPositionAnalyser::fountTo() const
+const Move & AmericanCheckersPositionAnalyser::foundMove() const
 {
   if(!isFound())
     throw Engine::Error();

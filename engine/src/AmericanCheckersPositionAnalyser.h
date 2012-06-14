@@ -27,13 +27,12 @@ namespace Checkers
         }
       };
 
-      typedef std::set<Engine::Board> BoardStorage;
-      typedef std::pair<BoardStorage::iterator, bool> BSInsertResult;
+      typedef std::pair<MoveList::iterator, bool> MoveListInsertResult;
 
-      typedef std::map<Engine::CoordSequence, BoardStorage::const_iterator> CoordSequenceToBoardMap;
+      typedef std::map<Engine::CoordSequence, MoveList::const_iterator> CoordSequenceToMoveMap;
 
       typedef IteratorLess<CoordSequence::Iterator> CoordSequenceIteratorLess;
-      typedef std::multimap<CoordSequence::Iterator, CoordSequenceToBoardMap::const_iterator, CoordSequenceIteratorLess> SearchMap;
+      typedef std::multimap<CoordSequence::Iterator, CoordSequenceToMoveMap::const_iterator, CoordSequenceIteratorLess> SearchMap;
       typedef std::list<SearchMap> SearchFilter;
 
     public:
@@ -61,7 +60,7 @@ namespace Checkers
       void undoSearchStep();
       bool isFound() const;
       bool noVariant() const;
-      const Engine::Board &fountTo() const;
+      const Engine::Move &foundMove() const;
       const Engine::CoordSequence &foundSequence() const;
       SearchFilter::const_iterator lastStep() const;
       int stepCount() const;
@@ -70,8 +69,7 @@ namespace Checkers
       Board m_from;
       Color m_color;
       MoveList m_valid_moves;
-      BoardStorage m_tos;
-      CoordSequenceToBoardMap m_seq_board_map;
+      CoordSequenceToMoveMap m_seq_move_map;
       bool m_jump_found;
       //TODO: Move to another class probably
       SearchFilter m_search_filter;

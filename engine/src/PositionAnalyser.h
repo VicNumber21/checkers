@@ -1,14 +1,15 @@
 #ifndef H_POSITION_ANALYSER_H
 #define H_POSITION_ANALYSER_H
 
-#include <list>
+#include "Move.h"
+
+#include <set>
 
 
 namespace Checkers
 {
   namespace Engine
   {
-    class Move;
     class CoordSequence;
     class Board;
     class Color;
@@ -16,7 +17,17 @@ namespace Checkers
     class PositionAnalyser
     {
     public:
-      typedef std::list<Move> MoveList;
+      //TODO: Move it out?
+      class LessTo : public std::binary_function<Engine::Move, Engine::Move, bool>
+      {
+      public:
+        bool operator()(const Engine::Move &aFirst, const Engine::Move &aSecond) const
+        {
+          return aFirst.to() < aSecond.to();
+        }
+      };
+
+      typedef std::set<Move, LessTo> MoveList;
 
     public:
       void setPosition(const Engine::Board &aBoard);
