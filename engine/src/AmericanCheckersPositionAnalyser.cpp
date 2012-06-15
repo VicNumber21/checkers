@@ -8,7 +8,6 @@ using namespace Checkers::Engine;
 
 AmericanCheckersPositionAnalyser::AmericanCheckersPositionAnalyser()
   : m_color(Color::EBlack)
-  , m_jump_found(false)
 {
 }
 
@@ -93,7 +92,7 @@ Move AmericanCheckersPositionAnalyser::findInValidMoves(const Engine::CoordSeque
       move = Move(Engine::Error::Ptr(new Move::ErrorJumpOverBusySquare));
       temp_ret_flag = true;
     }
-    else if(moveDelta.distance() == 1 && validMoves().begin()->score() > 0) //TODO: optimize this
+    else if(moveDelta.distance() == 1 && doesJumpExist())
     {
       move = Move(Engine::Error::Ptr(new Move::ErrorJumpExist));
       temp_ret_flag = true;
@@ -128,14 +127,18 @@ Move AmericanCheckersPositionAnalyser::findInValidMoves(const Engine::CoordSeque
   return move;
 }
 
-const PositionAnalyser::MoveList & AmericanCheckersPositionAnalyser::validMoves()
+const PositionAnalyser::MoveList & AmericanCheckersPositionAnalyser::validMoves() const
 {
   return m_valid_moves;
 }
 
+bool AmericanCheckersPositionAnalyser::doesJumpExist() const
+{
+  return validMoves().size() > 0 && validMoves().begin()->score() > 0;
+}
+
 void AmericanCheckersPositionAnalyser::reset()
 {
-    m_jump_found = false;
     m_valid_moves.clear();
     m_seq_move_map.clear();
     searchReset();
@@ -176,7 +179,7 @@ void AmericanCheckersPositionAnalyser::searchForValidMoves()
       csAccumulator.append(it->coord());
       searchForJumps(csAccumulator, m_from, *it, false);
 
-      if(m_jump_found)
+      if(doesJumpExist())
         continue;
 
       searchForSimpleMoves(m_from, *it);
@@ -212,10 +215,9 @@ void AmericanCheckersPositionAnalyser::searchForJumps(CoordSequence &aAccum, con
       {
         jumpNotFound = false;
 
-        if(!m_jump_found)
+        if(!doesJumpExist())
         {
           reset();
-          m_jump_found = true;
         }
 
         aAccum.append(jumpToCoord);

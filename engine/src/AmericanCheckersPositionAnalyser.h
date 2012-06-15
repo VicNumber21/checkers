@@ -42,7 +42,7 @@ namespace Checkers
 
       virtual Engine::Move createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded = true);
 
-      virtual const MoveList &validMoves();
+      virtual const MoveList &validMoves() const;
 
     protected:
       void reset();
@@ -52,6 +52,7 @@ namespace Checkers
       void searchForValidMoves();
       void searchForJumps(CoordSequence &aAccum, const Engine::Board &aBoard, const Engine::Draught &aDraught, bool aGotKing);
       void searchForSimpleMoves(const Engine::Board &aBoard, const Engine::Draught &aDraught);
+      bool doesJumpExist() const;
 
       void initSearchFilter();
       void backToZeroStep();
@@ -70,7 +71,6 @@ namespace Checkers
       Color m_color;
       MoveList m_valid_moves;
       CoordSequenceToMoveMap m_seq_move_map;
-      bool m_jump_found;
       //TODO: Move to another class probably
       SearchFilter m_search_filter;
     };
