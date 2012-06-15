@@ -53,6 +53,7 @@ namespace Checkers
       void searchForJumps(CoordSequence &aAccum, const Engine::Board &aBoard, const Engine::Draught &aDraught, bool aGotKing);
       void searchForSimpleMoves(const Engine::Board &aBoard, const Engine::Draught &aDraught);
       bool doesJumpExist() const;
+      Engine::Move createErrorMove(const Engine::CoordSequence &aCoordSequence, const Engine::CoordSequence::Iterator &aErrorLocation) const;
 
       void initSearchFilter();
       void backToZeroStep();
