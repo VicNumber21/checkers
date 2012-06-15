@@ -19,18 +19,12 @@ void AmericanCheckersPositionAnalyser::setPosition(const Engine::Board &aBoard, 
 
 Move AmericanCheckersPositionAnalyser::createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded)
 {
-  Board to(m_from);
   Move move;
 
-  if(!safeColorUpdate(*aCoordSequence.begin(), aUpdateColorIfNeeded))
-  {
-    //TODO it is handled in findInValidMoves
-    move = Move(Engine::Error::Ptr(new Move::ErrorNoRequestedDraught));
-  }
-  else
-  {
-    move = findInValidMoves(aCoordSequence);
-  }
+  if(aUpdateColorIfNeeded)
+    safeColorUpdate(*aCoordSequence.begin());
+
+  move = findInValidMoves(aCoordSequence);
 
   return move;
 }
@@ -148,18 +142,14 @@ void AmericanCheckersPositionAnalyser::updateValidMovesIfNeeded(const Engine::Co
   }
 }
 
-bool AmericanCheckersPositionAnalyser::safeColorUpdate(const Engine::Coord &aDraughtCoord, bool aUpdateColorIfNeeded)
+void AmericanCheckersPositionAnalyser::safeColorUpdate(const Engine::Coord &aDraughtCoord)
 {
   Maybe<Draught> moved = m_from.testSquare(aDraughtCoord);
 
-  bool ret = !moved.isNothing() && (aUpdateColorIfNeeded || m_color == moved().color());
-
-  if(ret && aUpdateColorIfNeeded)
+  if(!moved.isNothing())
   {
     updateValidMovesIfNeeded(moved().color());
   }
-
-  return ret;
 }
 
 void AmericanCheckersPositionAnalyser::searchForValidMoves()

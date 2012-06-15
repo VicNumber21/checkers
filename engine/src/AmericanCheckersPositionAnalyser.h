@@ -47,7 +47,7 @@ namespace Checkers
     protected:
       void reset();
       void updateValidMovesIfNeeded(const Engine::Color &aColor, bool aForced = false);
-      bool safeColorUpdate(const Engine::Coord &aDraughtCoord, bool aUpdateColorIfNeeded);
+      void safeColorUpdate(const Engine::Coord &aDraughtCoord);
       Engine::Move findInValidMoves(const Engine::CoordSequence &aCoordSequence);
       void searchForValidMoves();
       void searchForJumps(CoordSequence &aAccum, const Engine::Board &aBoard, const Engine::Draught &aDraught, bool aGotKing);
