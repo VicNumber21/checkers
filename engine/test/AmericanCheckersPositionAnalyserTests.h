@@ -11,6 +11,8 @@ class AmericanCheckersPositionAnalyserTests : public CppUnit::TestFixture
     CPPUNIT_TEST( validMovesJump );
     CPPUNIT_TEST( validMovesNoMoves );
 
+    CPPUNIT_TEST( createMoveIncompleteCoordSequence );
+
     CPPUNIT_TEST( createSimpleMove );
     CPPUNIT_TEST( createSimpleMoveByKing );
     CPPUNIT_TEST( createSimpleMoveGetKing );
@@ -56,6 +58,8 @@ public:
   void validMovesSimple();
   void validMovesJump();
   void validMovesNoMoves();
+
+  void createMoveIncompleteCoordSequence();
 
   void createSimpleMove();
   void createSimpleMoveByKing();

@@ -58,9 +58,8 @@ Move AmericanCheckersPositionAnalyser::createErrorMove(const Engine::CoordSequen
 {
   Move move;
 
-  //TODO optimization required
+  //TODO optimization required probably
   Maybe<Draught> moved = m_from.testSquare(*aCoordSequence.begin());
-  Maybe<Draught> movedTo = m_from.testSquare(*aCoordSequence.last());
   bool isFirsCoord = (aErrorLocation == aCoordSequence.begin());
   CoordSequence::Iterator to = isFirsCoord? aCoordSequence.second(): aErrorLocation;
   CoordSequence::Iterator from = isFirsCoord? aCoordSequence.begin(): --CoordSequence::Iterator(aErrorLocation);
@@ -69,22 +68,17 @@ Move AmericanCheckersPositionAnalyser::createErrorMove(const Engine::CoordSequen
   Maybe<Draught> toDraught = m_from.testSquare(*to);
   Maybe<Draught> betweenDraught = m_from.testSquare(*from + betweenDelta);
 
-  if(moved.isNothing() || moved().color() != m_color)
+  if(aCoordSequence.count() < 2)
+  {
+    move = Move(Engine::Error::Ptr(new Move::ErrorIncompleteCoordSequence));
+  }
+  else if(moved.isNothing() || moved().color() != m_color)
   {
     move = Move(Engine::Error::Ptr(new Move::ErrorNoRequestedDraught));
   }
-  else if(aCoordSequence.count() < 2)
-  {
-    //TODO choose better error here
-    move = Move(Engine::Error::Ptr(new Move::ErrorUnknown));
-  }
-  else if(*aCoordSequence.begin() != *aCoordSequence.last() && !movedTo.isNothing())
-  {
-    move = Move(Engine::Error::Ptr(new Move::ErrorToBusySquare));
-  }
   else if(*aCoordSequence.begin() != *to && !toDraught.isNothing())
   {
-    move = Move(Engine::Error::Ptr(new Move::ErrorJumpOverBusySquare));
+    move = Move(Engine::Error::Ptr(new Move::ErrorBusySquare));
   }
   else if(moveDelta.distance() == 1 && doesJumpExist())
   {

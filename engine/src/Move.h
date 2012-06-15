@@ -40,16 +40,7 @@ namespace Checkers
         }
       };
 
-      class ErrorToBusySquare : public Engine::Error
-      {
-      public:
-        virtual void raise() const
-        {
-          throw *this;
-        }
-      };
-
-      class ErrorJumpOverBusySquare : public Engine::Error
+      class ErrorBusySquare : public Engine::Error
       {
       public:
         virtual void raise() const
@@ -105,7 +96,7 @@ namespace Checkers
 
       typedef CoordSequence::Error ErrorCoordSequence;
 
-      class ErrorUnknown : public Engine::Error
+      class ErrorIncompleteCoordSequence : public Engine::Error
       {
       public:
         virtual void raise() const
