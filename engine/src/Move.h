@@ -105,6 +105,8 @@ namespace Checkers
         }
       };
 
+      static const int KCoordSequenceIdAny;
+
       enum Type
       {
         ESimple
@@ -113,12 +115,16 @@ namespace Checkers
 
     public:
       Move();
-      Move(const Engine::Board &aFrom, const Engine::Board &aTo);
+      Move(const Engine::Board &aFrom, const Engine::Board &aTo, int aCoordSequenceId = KCoordSequenceIdAny);
       Move(const Engine::Error::Ptr aError);
       Move(const Engine::Move &aMove);
 
       int score() const;
       Type type() const;
+
+      void setCoordSequenceId(int aId);
+      int coordSequenceId() const;
+      bool anyCoordSequence() const;
 
       Move & operator=(const Engine::Move &aMove);
 
@@ -138,6 +144,7 @@ namespace Checkers
       Board m_from;
       Board m_to;
       Error::Ptr m_error;
+      int m_coord_sequence_id;
     };
   };
 };

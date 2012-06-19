@@ -31,7 +31,8 @@ MoveTests::MoveTests()
   bSimpleMoveFrom.put(Draught(cB4, Color::EBlack));
   Board bSimpleMoveTo;
   bSimpleMoveTo.put(Draught(cC5, Color::EBlack));
-  m_simple_move_1 = Move(bSimpleMoveFrom, bSimpleMoveTo);
+  m_simple_move_1_any_id = Move(bSimpleMoveFrom, bSimpleMoveTo);
+  m_simple_move_1_id_2 = Move(bSimpleMoveFrom, bSimpleMoveTo, 2);
 
   Board bAnotherSimpleMoveTo;
   bAnotherSimpleMoveTo.put(Draught(cA5, Color::EBlack));
@@ -103,17 +104,17 @@ void MoveTests::equalError()
 void MoveTests::equalSimpleMove()
 {
   Move m;
-  m = m_simple_move_1;
-  CPPUNIT_ASSERT(m == m_simple_move_1);
+  m = m_simple_move_1_any_id;
+  CPPUNIT_ASSERT(m == m_simple_move_1_any_id);
 
   Move mCopy(m_simple_move_2);
   CPPUNIT_ASSERT(mCopy == m_simple_move_2);
 
-  CPPUNIT_ASSERT(m_simple_move_1 == m_simple_move_1);
+  CPPUNIT_ASSERT(m_simple_move_1_any_id == m_simple_move_1_any_id);
   CPPUNIT_ASSERT(m_simple_move_2 == m_simple_move_2);
-  CPPUNIT_ASSERT(!(m_simple_move_1 == m_simple_move_2));
-  CPPUNIT_ASSERT(!(m_simple_move_1 == m_simple_jump_2));
-  CPPUNIT_ASSERT(!(m_simple_move_1 == m_complex_jump_2));
+  CPPUNIT_ASSERT(!(m_simple_move_1_any_id == m_simple_move_2));
+  CPPUNIT_ASSERT(!(m_simple_move_1_any_id == m_simple_jump_2));
+  CPPUNIT_ASSERT(!(m_simple_move_1_any_id == m_complex_jump_2));
 }
 
 void MoveTests::equalSimpleJump()
@@ -155,11 +156,11 @@ void MoveTests::notEqualError()
   CPPUNIT_ASSERT(m != m_empty_move);
   CPPUNIT_ASSERT(m_empty_move != m_empty_move);
   CPPUNIT_ASSERT(m_empty_move != m_error_move_1);
-  CPPUNIT_ASSERT(m_empty_move != m_simple_move_1);
+  CPPUNIT_ASSERT(m_empty_move != m_simple_move_1_any_id);
   CPPUNIT_ASSERT(m_empty_move != m_simple_jump_1);
   CPPUNIT_ASSERT(m_empty_move != m_complex_jump_1);
   CPPUNIT_ASSERT(m_error_move_1 != m_error_move_2);
-  CPPUNIT_ASSERT(m_error_move_1 != m_simple_move_1);
+  CPPUNIT_ASSERT(m_error_move_1 != m_simple_move_1_any_id);
   CPPUNIT_ASSERT(m_error_move_1 != m_simple_jump_1);
   CPPUNIT_ASSERT(m_error_move_1 != m_complex_jump_1);
 }
@@ -167,17 +168,17 @@ void MoveTests::notEqualError()
 void MoveTests::notEqualSimpleMove()
 {
   Move m;
-  m = m_simple_move_1;
-  CPPUNIT_ASSERT(!(m != m_simple_move_1));
+  m = m_simple_move_1_any_id;
+  CPPUNIT_ASSERT(!(m != m_simple_move_1_any_id));
 
   Move mCopy(m_simple_move_2);
   CPPUNIT_ASSERT(!(mCopy != m_simple_move_2));
 
-  CPPUNIT_ASSERT(!(m_simple_move_1 != m_simple_move_1));
+  CPPUNIT_ASSERT(!(m_simple_move_1_any_id != m_simple_move_1_any_id));
   CPPUNIT_ASSERT(!(m_simple_move_2 != m_simple_move_2));
-  CPPUNIT_ASSERT(m_simple_move_1 != m_simple_move_2);
-  CPPUNIT_ASSERT(m_simple_move_1 != m_simple_jump_2);
-  CPPUNIT_ASSERT(m_simple_move_1 != m_complex_jump_2);
+  CPPUNIT_ASSERT(m_simple_move_1_any_id != m_simple_move_2);
+  CPPUNIT_ASSERT(m_simple_move_1_any_id != m_simple_jump_2);
+  CPPUNIT_ASSERT(m_simple_move_1_any_id != m_complex_jump_2);
 }
 
 void MoveTests::notEqualSimpleJump()
@@ -214,7 +215,7 @@ void MoveTests::notEqualComplexJump()
 
 void MoveTests::type()
 {
-  CPPUNIT_ASSERT_EQUAL(Move::ESimple, m_simple_move_1.type());
+  CPPUNIT_ASSERT_EQUAL(Move::ESimple, m_simple_move_1_any_id.type());
   CPPUNIT_ASSERT_EQUAL(Move::ESimple, m_simple_move_2.type());
   CPPUNIT_ASSERT_EQUAL(Move::EJump, m_simple_jump_1.type());
   CPPUNIT_ASSERT_EQUAL(Move::EJump, m_simple_jump_2.type());
@@ -227,7 +228,7 @@ void MoveTests::isValid()
   CPPUNIT_ASSERT(!m_empty_move.isValid());
   CPPUNIT_ASSERT(!m_error_move_1.isValid());
   CPPUNIT_ASSERT(!m_error_move_2.isValid());
-  CPPUNIT_ASSERT(m_simple_move_1.isValid());
+  CPPUNIT_ASSERT(m_simple_move_1_any_id.isValid());
   CPPUNIT_ASSERT(m_simple_move_2.isValid());
   CPPUNIT_ASSERT(m_simple_jump_1.isValid());
   CPPUNIT_ASSERT(m_simple_jump_2.isValid());
@@ -240,7 +241,7 @@ void MoveTests::error()
   CPPUNIT_ASSERT(m_empty_move.error());
   CPPUNIT_ASSERT(m_error_move_1.error());
   CPPUNIT_ASSERT(m_error_move_2.error());
-  CPPUNIT_ASSERT(!m_simple_move_1.error());
+  CPPUNIT_ASSERT(!m_simple_move_1_any_id.error());
   CPPUNIT_ASSERT(!m_simple_move_2.error());
   CPPUNIT_ASSERT(!m_simple_jump_1.error());
   CPPUNIT_ASSERT(!m_simple_jump_2.error());
@@ -250,7 +251,7 @@ void MoveTests::error()
 
 void MoveTests::simpleMoveScore()
 {
-  CPPUNIT_ASSERT_EQUAL(0, m_simple_move_1.score());
+  CPPUNIT_ASSERT_EQUAL(0, m_simple_move_1_any_id.score());
   CPPUNIT_ASSERT_EQUAL(0, m_simple_move_2.score());
 }
 
@@ -264,4 +265,24 @@ void MoveTests::complexJumpScore()
 {
   CPPUNIT_ASSERT_EQUAL(2, m_complex_jump_1.score());
   CPPUNIT_ASSERT_EQUAL(3, m_complex_jump_2.score());
+}
+
+void MoveTests::coordSequenceId()
+{
+  CPPUNIT_ASSERT_EQUAL(Move::KCoordSequenceIdAny, m_simple_move_1_any_id.coordSequenceId());
+  CPPUNIT_ASSERT_EQUAL(2, m_simple_move_1_id_2.coordSequenceId());
+  CPPUNIT_ASSERT(m_simple_move_1_any_id.anyCoordSequence());
+  CPPUNIT_ASSERT(!m_simple_move_1_id_2.anyCoordSequence());
+
+  m_simple_move_1_id_2.setCoordSequenceId(5);
+  CPPUNIT_ASSERT_EQUAL(5, m_simple_move_1_id_2.coordSequenceId());
+  CPPUNIT_ASSERT(!m_simple_move_1_id_2.anyCoordSequence());
+
+  m_simple_move_1_id_2.setCoordSequenceId(Move::KCoordSequenceIdAny);
+  CPPUNIT_ASSERT_EQUAL(Move::KCoordSequenceIdAny, m_simple_move_1_id_2.coordSequenceId());
+  CPPUNIT_ASSERT(m_simple_move_1_id_2.anyCoordSequence());
+
+  m_simple_move_1_id_2.setCoordSequenceId(2);
+  CPPUNIT_ASSERT_EQUAL(2, m_simple_move_1_id_2.coordSequenceId());
+  CPPUNIT_ASSERT(!m_simple_move_1_id_2.anyCoordSequence());
 }
