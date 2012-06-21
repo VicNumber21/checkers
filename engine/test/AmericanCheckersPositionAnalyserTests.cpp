@@ -1135,7 +1135,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C1_E3);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C1_E3, m.to());
-  CPPUNIT_ASSERT_EQUAL(csBlackE3C1_E3, analyser.createCoordSequence(m, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C1_E3, analyser.createCoordSequence(m));
 
   Board bBlackE3C1_A7;
   bBlackE3C1_A7.put(Draught(cBlackJumpA7, Color::EBlack, true));
@@ -1149,7 +1149,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C1_A7);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C1_A7, m.to());
-  CPPUNIT_ASSERT_EQUAL(csBlackE3C1_A7, analyser.createCoordSequence(m, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C1_A7, analyser.createCoordSequence(m));
 
   CoordSequence csBlackE3C5_E3(cBlackStartE3, cBlackJumpC5);
   CoordSequence csBlackE3C5_A7(csBlackE3C5_E3);
@@ -1161,7 +1161,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C5_E3);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C1_E3, m.to()); //the same board as jump in another direction
-  CPPUNIT_ASSERT_EQUAL(csBlackE3C5_E3, analyser.createCoordSequence(m, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C5_E3, analyser.createCoordSequence(m));
 
   Board bBlackE3C5_A7;
   bBlackE3C5_A7.put(Draught(cBlackJumpA7, Color::EBlack, true));
@@ -1177,7 +1177,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C5_A7);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C5_A7, m.to());
-  CPPUNIT_ASSERT_EQUAL(csBlackE3C5_A7, analyser.createCoordSequence(m, Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C5_A7, analyser.createCoordSequence(m));
 
   CoordSequence csWhiteD6F8_D6(cWhiteStartD6, cWhiteJumpF8);
   csWhiteD6F8_D6.append(cWhiteJumpH6);
@@ -1198,7 +1198,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F8_D6);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F8_D6, m.to());
-  CPPUNIT_ASSERT_EQUAL(csWhiteD6F8_D6, analyser.createCoordSequence(m, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F8_D6, analyser.createCoordSequence(m));
 
   Board bWhiteD6F8_H2;
   bWhiteD6F8_H2.put(Draught(cBlackStartE3, Color::EBlack, true));
@@ -1212,7 +1212,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F8_H2);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F8_H2, m.to());
-  CPPUNIT_ASSERT_EQUAL(csWhiteD6F8_H2, analyser.createCoordSequence(m, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F8_H2, analyser.createCoordSequence(m));
 
   CoordSequence csWhiteD6F4_D6(cWhiteStartD6, cWhiteJumpF4);
   CoordSequence csWhiteD6F4_H2(csWhiteD6F4_D6);
@@ -1224,7 +1224,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F4_D6);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F8_D6, m.to()); //the same board as jump in another direction
-  CPPUNIT_ASSERT_EQUAL(csWhiteD6F4_D6, analyser.createCoordSequence(m, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F4_D6, analyser.createCoordSequence(m));
 
   Board bWhiteD6F4_H2;
   bWhiteD6F4_H2.put(Draught(cBlackStartE3, Color::EBlack, true));
@@ -1240,7 +1240,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F4_H2);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F4_H2, m.to());
-  CPPUNIT_ASSERT_EQUAL(csWhiteD6F4_H2, analyser.createCoordSequence(m, Color::EWhite));
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F4_H2, analyser.createCoordSequence(m));
 }
 
 void AmericanCheckersPositionAnalyserTests::createComplexJumpByKingOverKingRow()
@@ -1990,7 +1990,7 @@ void AmericanCheckersPositionAnalyserTests::createCoordSequenceFromMoveRandom()
   Move mBlack(bFrom, bBlackTo);
 
   for(int i = 0; i < attemptCount; ++i)
-    csTestSet.insert(analyser.createCoordSequence(mBlack, Color::EBlack));
+    csTestSet.insert(analyser.createCoordSequence(mBlack));
 
   CPPUNIT_ASSERT_EQUAL(2, (int)csTestSet.size());
 
@@ -2022,7 +2022,7 @@ void AmericanCheckersPositionAnalyserTests::createCoordSequenceFromMoveRandom()
   Move mWhite(bFrom, bWhiteTo);
 
   for(int i = 0; i < attemptCount; ++i)
-    csTestSet.insert(analyser.createCoordSequence(mWhite, Color::EWhite));
+    csTestSet.insert(analyser.createCoordSequence(mWhite));
 
   CPPUNIT_ASSERT_EQUAL(2, (int)csTestSet.size());
 
@@ -2046,5 +2046,5 @@ void AmericanCheckersPositionAnalyserTests::createCoordSequenceFromMoveNotFound(
 
   Move m(from, to);
   AmericanCheckersPositionAnalyser analyser;
-  CPPUNIT_ASSERT_THROW(analyser.createCoordSequence(m, Color::EBlack), Checkers::Engine::Error);
+  CPPUNIT_ASSERT_THROW(analyser.createCoordSequence(m), Checkers::Engine::Error);
 }

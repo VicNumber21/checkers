@@ -114,13 +114,13 @@ Move AmericanCheckersPositionAnalyser::createErrorMove(const Engine::CoordSequen
   return move;
 }
 
-//TODO: aColor is not needed in fact. It could be calculated by comparing from() and to(). Shall be refactored
-CoordSequence AmericanCheckersPositionAnalyser::createCoordSequence(const Engine::Move &aMove, const Engine::Color &aColor)
+CoordSequence AmericanCheckersPositionAnalyser::createCoordSequence(const Engine::Move &aMove)
 {
   //TODO: below can be improved: if Board is the same no need to set it
-  if(m_color != aColor || m_from != aMove.from())
+  Color color = aMove.color();
+  if(m_color != color || m_from != aMove.from())
   {
-    setPosition(aMove.from(), aColor);
+    setPosition(aMove.from(), color);
   }
 
   MoveList::iterator toIt = m_valid_moves.find(aMove);
