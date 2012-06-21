@@ -120,6 +120,6 @@ bool RulesOfGame::MoveValidator::isValidDirection(const Engine::Coord &aFirst, c
 
 PositionAnalyser & RulesOfGame::MoveValidator::positionAnalyser()
 {
-  static AmericanCheckersPositionAnalyser postionAnalyser;
-  return postionAnalyser;
+  static AmericanCheckersPositionAnalyser positionAnalyser;
+  return positionAnalyser;
 }
