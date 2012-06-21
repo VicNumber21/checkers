@@ -1,6 +1,6 @@
 #include "Move.h"
 #include "RulesOfGame.h"
-#include "PositionAnalyser.h"
+#include "Color.h"
 
 using namespace Checkers::Engine;
 
@@ -49,11 +49,13 @@ void Move::setCoordSequenceId(int aId)
 
 int Move::coordSequenceId() const
 {
+  throwIfInvalid();
   return m_coord_sequence_id;
 }
 
 bool Move::anyCoordSequence() const
 {
+  throwIfInvalid();
   return (m_coord_sequence_id == KCoordSequenceIdAny);
 }
 
