@@ -85,6 +85,17 @@ void MoveTests::undefinedUsage()
   CPPUNIT_ASSERT_THROW(m_empty_move.score(), Move::ErrorUndefinedUsage);
 }
 
+void MoveTests::wrongConstruction()
+{
+  Board b;
+  Move mEmptyFrom(b, b);
+  CPPUNIT_ASSERT_THROW(mEmptyFrom.score(), Move::ErrorEmptyFromBoard);
+
+  b.put(Draught(Coord('a', '1'), Color::EBlack));
+  Move mSameFromAndTo(b, b);
+  CPPUNIT_ASSERT_THROW(mSameFromAndTo.score(), Move::ErrorSameFromAndTo);
+}
+
 void MoveTests::equalError()
 {
   Move m;

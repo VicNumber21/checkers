@@ -17,6 +17,10 @@ Move::Move(const Engine::Board &aFrom, const Engine::Board &aTo, int aCoordSeque
   , m_to(aTo)
   , m_coord_sequence_id(aCoordSequenceId)
 {
+  if(aFrom.count() == 0)
+    m_error.reset(new ErrorEmptyFromBoard);
+  else if(aFrom == aTo) //TODO <- check if it is not too expensive during optimization
+    m_error.reset(new ErrorSameFromAndTo);
 }
 
 Move::Move(const Engine::Error::Ptr aError)

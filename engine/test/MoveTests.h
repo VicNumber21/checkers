@@ -10,6 +10,7 @@ class MoveTests : public CppUnit::TestFixture
 {
   CPPUNIT_TEST_SUITE( MoveTests );
     CPPUNIT_TEST( undefinedUsage );
+    CPPUNIT_TEST( wrongConstruction );
     CPPUNIT_TEST( equalError );
     CPPUNIT_TEST( equalSimpleMove );
     CPPUNIT_TEST( equalSimpleJump );
@@ -34,6 +35,7 @@ public:
   virtual void tearDown();
 
   void undefinedUsage();
+  void wrongConstruction();
   void equalError();
   void equalSimpleMove();
   void equalSimpleJump();

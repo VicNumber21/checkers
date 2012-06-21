@@ -94,6 +94,24 @@ namespace Checkers
         }
       };
 
+      class ErrorEmptyFromBoard : public Engine::Error
+      {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
+      };
+
+      class ErrorSameFromAndTo : public Engine::Error
+      {
+      public:
+        virtual void raise() const
+        {
+          throw *this;
+        }
+      };
+
       typedef CoordSequence::Error ErrorCoordSequence;
 
       class ErrorIncompleteCoordSequence : public Engine::Error
