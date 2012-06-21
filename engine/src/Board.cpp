@@ -106,7 +106,10 @@ Board::Ord Board::compare(const Engine::Board &aBoard) const
   for(Iterator itThis = begin(), itThat = aBoard.begin(); itThis != end(); ++itThis, ++itThat)
     if(*itThis != *itThat)
     {
-      if(*itThis < *itThat || (itThis->color() == Color::EBlack && itThat->color() == Color::EWhite) || (!itThis->isKing() && itThat->isKing()))
+      if((*itThis < *itThat)
+         || ((itThis->coord() == itThat->coord())
+             && ((itThis->color() == Color::EBlack && itThat->color() == Color::EWhite)
+                 || (itThis->color() == itThat->color() && !itThis->isKing() && itThat->isKing()))))
         ret = ELess;
       else
         ret = EBigger;

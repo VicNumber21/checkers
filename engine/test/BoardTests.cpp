@@ -211,7 +211,7 @@ void BoardTests::less()
   Board b1;
   Board b2;
   CPPUNIT_ASSERT(!(b1 < b2));
-  CPPUNIT_ASSERT(!(b1 < b2));
+  CPPUNIT_ASSERT(!(b2 < b1));
   Draught d1(Coord('a','4'), Color::EWhite);
   b1.put(d1);
   CPPUNIT_ASSERT(!(b1 < b2));
@@ -255,6 +255,26 @@ void BoardTests::less()
   b1.put(d8);
   CPPUNIT_ASSERT(!(b1 < b4));
   CPPUNIT_ASSERT(b4 < b1);
+}
+
+void BoardTests::lessBugTest()
+{
+  const Coord c3('c', '3');
+  const Coord d4('d', '4');
+
+  Board b1;
+  Board b2;
+  b1.put(Draught(c3, Color::EBlack, true));
+  b2.put(Draught(c3, Color::EWhite));
+  CPPUNIT_ASSERT(b1 < b2);
+  CPPUNIT_ASSERT(!(b2 < b1));
+
+  Board b3;
+  Board b4;
+  b3.put(Draught(c3, Color::EWhite));
+  b4.put(Draught(d4, Color::EBlack));
+  CPPUNIT_ASSERT(b3 < b4);
+  CPPUNIT_ASSERT(!(b4 < b3));
 }
 
 void BoardTests::bigger()
@@ -306,6 +326,26 @@ void BoardTests::bigger()
   b1.put(d8);
   CPPUNIT_ASSERT(!(b4 > b1));
   CPPUNIT_ASSERT(b1 > b4);
+}
+
+void BoardTests::biggerBugTest()
+{
+  const Coord c3('c', '3');
+  const Coord d4('d', '4');
+
+  Board b1;
+  Board b2;
+  b1.put(Draught(c3, Color::EBlack, true));
+  b2.put(Draught(c3, Color::EWhite));
+  CPPUNIT_ASSERT(b2 > b1);
+  CPPUNIT_ASSERT(!(b1 > b2));
+
+  Board b3;
+  Board b4;
+  b3.put(Draught(c3, Color::EWhite));
+  b4.put(Draught(d4, Color::EBlack));
+  CPPUNIT_ASSERT(b4 > b3);
+  CPPUNIT_ASSERT(!(b3 > b4));
 }
 
 void BoardTests::count()
