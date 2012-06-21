@@ -139,6 +139,7 @@ namespace Checkers
 
       int score() const;
       Type type() const;
+      Engine::Color color() const;
 
       void setCoordSequenceId(int aId);
       int coordSequenceId() const;

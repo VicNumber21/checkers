@@ -26,6 +26,7 @@ class MoveTests : public CppUnit::TestFixture
     CPPUNIT_TEST( simpleJumpScore );
     CPPUNIT_TEST( complexJumpScore );
     CPPUNIT_TEST( coordSequenceId );
+    CPPUNIT_TEST( color );
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -51,18 +52,19 @@ public:
   void simpleJumpScore();
   void complexJumpScore();
   void coordSequenceId();
+  void color();
 
 private:
   Checkers::Engine::Move m_empty_move;
   Checkers::Engine::Move m_error_move_1;
   Checkers::Engine::Move m_error_move_2;
-  Checkers::Engine::Move m_simple_move_1_any_id;
-  Checkers::Engine::Move m_simple_move_1_id_2;
-  Checkers::Engine::Move m_simple_move_2;
-  Checkers::Engine::Move m_simple_jump_1;
-  Checkers::Engine::Move m_simple_jump_2;
-  Checkers::Engine::Move m_complex_jump_1;
-  Checkers::Engine::Move m_complex_jump_2;
+  Checkers::Engine::Move m_simple_move_black_any_id;
+  Checkers::Engine::Move m_simple_move_black_id_2;
+  Checkers::Engine::Move m_simple_move_white;
+  Checkers::Engine::Move m_simple_jump_black;
+  Checkers::Engine::Move m_simple_jump_white;
+  Checkers::Engine::Move m_complex_jump_black;
+  Checkers::Engine::Move m_complex_jump_white;
 };
 
 #endif //H_MOVE_TESTS_H

@@ -46,6 +46,29 @@ Move::Type Move::type() const
   return score() > 0? EJump: ESimple;
 }
 
+Color Move::color() const
+{
+  Color ret(Color::EBlack);
+
+  if(score() > 0)
+  {
+    if(from().countBlack() != to().countBlack())
+    {
+      ret = Color::EWhite;
+    }
+  }
+  else
+  {
+    Board::Iterator fromIt = from().begin();
+    Board::Iterator toIt = from().end();
+    for(; (*fromIt) == (*toIt); ++fromIt, ++toIt)
+      ;
+    ret = fromIt->color();
+  }
+
+  return ret;
+}
+
 void Move::setCoordSequenceId(int aId)
 {
   m_coord_sequence_id = aId;
