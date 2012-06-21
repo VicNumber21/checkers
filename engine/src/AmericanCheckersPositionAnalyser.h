@@ -37,6 +37,10 @@ namespace Checkers
       typedef std::multimap<CoordSequence::Iterator, CoordSequenceToMoveMap::const_iterator, CoordSequenceIteratorLess> SearchMap;
       typedef std::list<SearchMap> SearchFilter;
 
+      class ErrorInternal : public Engine::Error
+      {
+      };
+
     public:
       AmericanCheckersPositionAnalyser();
 

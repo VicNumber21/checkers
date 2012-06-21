@@ -29,6 +29,10 @@ namespace Checkers
 
       typedef std::set<Move, LessTo> MoveList;
 
+      class ErrorNotFound : public Engine::Error
+      {
+      };
+
     public:
       void setPosition(const Engine::Board &aBoard);
       virtual Engine::Move createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded = true) = 0;

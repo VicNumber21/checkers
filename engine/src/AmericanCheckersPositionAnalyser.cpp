@@ -127,8 +127,7 @@ CoordSequence AmericanCheckersPositionAnalyser::createCoordSequence(const Engine
 
   if(toIt == m_valid_moves.end())
   {
-    //TODO: Need better error here
-    throw Engine::Error();
+    throw PositionAnalyser::ErrorNotFound();
   }
 
   CoordSequence ret;
@@ -149,9 +148,8 @@ CoordSequence AmericanCheckersPositionAnalyser::createCoordSequence(const Engine
 
     if(foundSequences.size() == 0)
     {
-      //How could it be, a?
-      //TODO: Need better error here
-      throw Engine::Error();
+      //TODO: How could it be, a? Kept for test purpose. Remove in release
+      throw AmericanCheckersPositionAnalyser::ErrorInternal();
     }
 
     int randomIndex = rand() % foundSequences.size();
@@ -171,9 +169,8 @@ CoordSequence AmericanCheckersPositionAnalyser::createCoordSequence(const Engine
 
   if(ret.count() < 2)
   {
-    //How could it be, a?
-    //TODO: Need better error here
-    throw Engine::Error();
+    //TODO: How could it be, a? Kept for test purpose. Remove in release
+    throw AmericanCheckersPositionAnalyser::ErrorInternal();
   }
 
   return ret;
@@ -347,9 +344,8 @@ void AmericanCheckersPositionAnalyser::addValidMove(const Engine::CoordSequence 
 
   if(!csToMoveMapIR.second)
   {
-    //How could it be, a?
-    //TODO: better error here?
-    throw Engine::Error();
+    //TODO: How could it be, a? Kept for test purpose. Remove in release
+    throw AmericanCheckersPositionAnalyser::ErrorInternal();
   }
 
   if(!moveListIR.second)
@@ -436,8 +432,9 @@ bool AmericanCheckersPositionAnalyser::doSearchStep(const Engine::CoordSequence:
 
 void AmericanCheckersPositionAnalyser::undoSearchStep()
 {
+  //TODO: How could it be, a? Kept for test purpose. Remove in release
   if(stepCount() < 0)
-    throw Engine::Error();
+    throw AmericanCheckersPositionAnalyser::ErrorInternal();
 
   m_search_filter.pop_back();
 }
@@ -455,7 +452,7 @@ bool AmericanCheckersPositionAnalyser::noVariant() const
 const Move & AmericanCheckersPositionAnalyser::foundMove() const
 {
   if(!isFound())
-    throw Engine::Error();
+    throw PositionAnalyser::ErrorNotFound();
 
   return *(lastStep()->begin()->second->second.first);
 }
@@ -463,7 +460,7 @@ const Move & AmericanCheckersPositionAnalyser::foundMove() const
 const CoordSequence & AmericanCheckersPositionAnalyser::foundSequence() const
 {
   if(!isFound())
-    throw Engine::Error();
+    throw PositionAnalyser::ErrorNotFound();
 
   return lastStep()->begin()->second->first;
 }
@@ -471,15 +468,16 @@ const CoordSequence & AmericanCheckersPositionAnalyser::foundSequence() const
 int AmericanCheckersPositionAnalyser::foundCoordSequenceId() const
 {
   if(!isFound())
-    throw Engine::Error();
+    throw PositionAnalyser::ErrorNotFound();
 
   return lastStep()->begin()->second->second.second;
 }
 
 AmericanCheckersPositionAnalyser::SearchFilter::const_iterator AmericanCheckersPositionAnalyser::lastStep() const
 {
+  //TODO: How could it be, a? Kept for test purpose. Remove in release
   if(stepCount() < 0)
-    throw Engine::Error();
+    throw AmericanCheckersPositionAnalyser::ErrorInternal();
 
   return --m_search_filter.end();
 }

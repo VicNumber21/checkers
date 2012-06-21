@@ -2046,5 +2046,5 @@ void AmericanCheckersPositionAnalyserTests::createCoordSequenceFromMoveNotFound(
 
   Move m(from, to);
   AmericanCheckersPositionAnalyser analyser;
-  CPPUNIT_ASSERT_THROW(analyser.createCoordSequence(m), Checkers::Engine::Error);
+  CPPUNIT_ASSERT_THROW(analyser.createCoordSequence(m), AmericanCheckersPositionAnalyser::ErrorNotFound);
 }
