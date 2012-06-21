@@ -1135,6 +1135,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C1_E3);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C1_E3, m.to());
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C1_E3, analyser.createCoordSequence(m, Color::EBlack));
 
   Board bBlackE3C1_A7;
   bBlackE3C1_A7.put(Draught(cBlackJumpA7, Color::EBlack, true));
@@ -1148,6 +1149,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C1_A7);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C1_A7, m.to());
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C1_A7, analyser.createCoordSequence(m, Color::EBlack));
 
   CoordSequence csBlackE3C5_E3(cBlackStartE3, cBlackJumpC5);
   CoordSequence csBlackE3C5_A7(csBlackE3C5_E3);
@@ -1159,6 +1161,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C5_E3);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C1_E3, m.to()); //the same board as jump in another direction
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C5_E3, analyser.createCoordSequence(m, Color::EBlack));
 
   Board bBlackE3C5_A7;
   bBlackE3C5_A7.put(Draught(cBlackJumpA7, Color::EBlack, true));
@@ -1174,6 +1177,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csBlackE3C5_A7);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bBlackE3C5_A7, m.to());
+  CPPUNIT_ASSERT_EQUAL(csBlackE3C5_A7, analyser.createCoordSequence(m, Color::EBlack));
 
   CoordSequence csWhiteD6F8_D6(cWhiteStartD6, cWhiteJumpF8);
   csWhiteD6F8_D6.append(cWhiteJumpH6);
@@ -1194,6 +1198,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F8_D6);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F8_D6, m.to());
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F8_D6, analyser.createCoordSequence(m, Color::EWhite));
 
   Board bWhiteD6F8_H2;
   bWhiteD6F8_H2.put(Draught(cBlackStartE3, Color::EBlack, true));
@@ -1207,6 +1212,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F8_H2);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F8_H2, m.to());
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F8_H2, analyser.createCoordSequence(m, Color::EWhite));
 
   CoordSequence csWhiteD6F4_D6(cWhiteStartD6, cWhiteJumpF4);
   CoordSequence csWhiteD6F4_H2(csWhiteD6F4_D6);
@@ -1218,6 +1224,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F4_D6);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F8_D6, m.to()); //the same board as jump in another direction
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F4_D6, analyser.createCoordSequence(m, Color::EWhite));
 
   Board bWhiteD6F4_H2;
   bWhiteD6F4_H2.put(Draught(cBlackStartE3, Color::EBlack, true));
@@ -1233,6 +1240,7 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpByKing()
   m = analyser.createMove(csWhiteD6F4_H2);
   CPPUNIT_ASSERT_EQUAL(b, m.from());
   CPPUNIT_ASSERT_EQUAL(bWhiteD6F4_H2, m.to());
+  CPPUNIT_ASSERT_EQUAL(csWhiteD6F4_H2, analyser.createCoordSequence(m, Color::EWhite));
 }
 
 void AmericanCheckersPositionAnalyserTests::createComplexJumpByKingOverKingRow()
@@ -1916,17 +1924,127 @@ void AmericanCheckersPositionAnalyserTests::createComplexJumpOverSameColor()
   CPPUNIT_ASSERT_THROW(m.to(), Move::ErrorJumpOverSameColor);
 }
 
-void AmericanCheckersPositionAnalyserTests::createMoveFromTwoBoardsBlack()
+void AmericanCheckersPositionAnalyserTests::createCoordSequenceFromMoveRandom()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  const Coord cBlackStartE3('e', '3');
+  const Coord cBlackG3('g', '3');
+  const Coord cBlackE5('e', '5');
+  const Coord cBlackG5('g', '5');
+  const Coord cBlackE7('e', '7');
+  const Coord cBlackG7('g', '7');
+  const Coord cBlackJumpC1('c', '1');
+  const Coord cBlackJumpA3('a', '3');
+  const Coord cBlackJumpC5('c', '5');
+  const Coord cBlackJumpA7('a', '7');
+
+  const Coord cWhiteStartD6('d', '6');
+  const Coord cWhiteB6('b', '6');
+  const Coord cWhiteB4('b', '4');
+  const Coord cWhiteD4('d', '4');
+  const Coord cWhiteB2('b', '2');
+  const Coord cWhiteD2('d', '2');
+  const Coord cWhiteJumpF8('f', '8');
+  const Coord cWhiteJumpH6('h', '6');
+  const Coord cWhiteJumpF4('f', '4');
+  const Coord cWhiteJumpH2('h', '2');
+
+  AmericanCheckersPositionAnalyser analyser;
+  typedef std::set<CoordSequence> CoordSequenceSet;
+  CoordSequenceSet csTestSet;
+  const int attemptCount = 10;
+
+  Board bFrom;
+  bFrom.put(Draught(cBlackStartE3, Color::EBlack, true));
+  bFrom.put(Draught(cBlackG3, Color::EBlack));
+  bFrom.put(Draught(cBlackG5, Color::EBlack));
+  bFrom.put(Draught(cBlackG7, Color::EBlack, true));
+  bFrom.put(Draught(cBlackE5, Color::EBlack));
+  bFrom.put(Draught(cBlackE7, Color::EBlack));
+  bFrom.put(Draught(cWhiteStartD6, Color::EWhite, true));
+  bFrom.put(Draught(cWhiteB6, Color::EWhite));
+  bFrom.put(Draught(cWhiteB4, Color::EWhite, true));
+  bFrom.put(Draught(cWhiteB2, Color::EWhite));
+  bFrom.put(Draught(cWhiteD4, Color::EWhite));
+  bFrom.put(Draught(cWhiteD2, Color::EWhite));
+
+  Board bBlackTo;
+  bBlackTo.put(Draught(cBlackStartE3, Color::EBlack, true));
+  bBlackTo.put(Draught(cBlackG3, Color::EBlack));
+  bBlackTo.put(Draught(cBlackG5, Color::EBlack));
+  bBlackTo.put(Draught(cBlackG7, Color::EBlack, true));
+  bBlackTo.put(Draught(cBlackE5, Color::EBlack));
+  bBlackTo.put(Draught(cBlackE7, Color::EBlack));
+  bBlackTo.put(Draught(cWhiteStartD6, Color::EWhite, true));
+  bBlackTo.put(Draught(cWhiteB6, Color::EWhite));
+
+  CoordSequence csBlackE3C1_E3(cBlackStartE3, cBlackJumpC1);
+  csBlackE3C1_E3.append(cBlackJumpA3);
+  csBlackE3C1_E3.append(cBlackJumpC5);
+  csBlackE3C1_E3.append(cBlackStartE3);
+
+  CoordSequence csBlackE3C5_E3(cBlackStartE3, cBlackJumpC5);
+  csBlackE3C5_E3.append(cBlackJumpA3);
+  csBlackE3C5_E3.append(cBlackJumpC1);
+  csBlackE3C5_E3.append(cBlackStartE3);
+
+  Move mBlack(bFrom, bBlackTo);
+
+  for(int i = 0; i < attemptCount; ++i)
+    csTestSet.insert(analyser.createCoordSequence(mBlack, Color::EBlack));
+
+  CPPUNIT_ASSERT_EQUAL(2, (int)csTestSet.size());
+
+  for(CoordSequenceSet::const_iterator it = csTestSet.begin(); it != csTestSet.end(); ++it)
+    CPPUNIT_ASSERT((*it) == csBlackE3C5_E3 || (*it) == csBlackE3C1_E3);
+
+  csTestSet.clear();
+
+  Board bWhiteTo;
+  bWhiteTo.put(Draught(cBlackStartE3, Color::EBlack, true));
+  bWhiteTo.put(Draught(cBlackG3, Color::EBlack));
+  bWhiteTo.put(Draught(cWhiteStartD6, Color::EWhite, true));
+  bWhiteTo.put(Draught(cWhiteB6, Color::EWhite));
+  bWhiteTo.put(Draught(cWhiteB4, Color::EWhite, true));
+  bWhiteTo.put(Draught(cWhiteB2, Color::EWhite));
+  bWhiteTo.put(Draught(cWhiteD4, Color::EWhite));
+  bWhiteTo.put(Draught(cWhiteD2, Color::EWhite));
+
+  CoordSequence csWhiteD6F8_D6(cWhiteStartD6, cWhiteJumpF8);
+  csWhiteD6F8_D6.append(cWhiteJumpH6);
+  csWhiteD6F8_D6.append(cWhiteJumpF4);
+  csWhiteD6F8_D6.append(cWhiteStartD6);
+
+  CoordSequence csWhiteD6F4_D6(cWhiteStartD6, cWhiteJumpF4);
+  csWhiteD6F4_D6.append(cWhiteJumpH6);
+  csWhiteD6F4_D6.append(cWhiteJumpF8);
+  csWhiteD6F4_D6.append(cWhiteStartD6);
+
+  Move mWhite(bFrom, bWhiteTo);
+
+  for(int i = 0; i < attemptCount; ++i)
+    csTestSet.insert(analyser.createCoordSequence(mWhite, Color::EWhite));
+
+  CPPUNIT_ASSERT_EQUAL(2, (int)csTestSet.size());
+
+  for(CoordSequenceSet::const_iterator it = csTestSet.begin(); it != csTestSet.end(); ++it)
+    CPPUNIT_ASSERT((*it) == csWhiteD6F8_D6 || (*it) == csWhiteD6F4_D6);
 }
 
-void AmericanCheckersPositionAnalyserTests::createMoveFromTwoBoardsWhite()
+void AmericanCheckersPositionAnalyserTests::createCoordSequenceFromMoveNotFound()
 {
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
-}
+  const Coord cBlackD4('d', '4');
+  const Coord cWhiteE5('e', '5');
+  const Coord cBlackToC5('c', '5');
 
-void AmericanCheckersPositionAnalyserTests::createMoveFromTwoBoardsNotFound()
-{
-  CPPUNIT_FAIL("NOT IMPLEMENTED");
+  Board from;
+  from.put(Draught(cBlackD4, Color::EBlack));
+  from.put(Draught(cWhiteE5, Color::EWhite));
+
+  Board to;
+  to.put(Draught(cBlackToC5, Color::EBlack));
+  to.put(Draught(cWhiteE5, Color::EWhite));
+
+  Move m(from, to);
+  AmericanCheckersPositionAnalyser analyser;
+  CPPUNIT_ASSERT_THROW(analyser.createCoordSequence(m, Color::EBlack), Checkers::Engine::Error);
 }

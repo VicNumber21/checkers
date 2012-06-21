@@ -29,7 +29,9 @@ namespace Checkers
 
       typedef std::pair<MoveList::iterator, bool> MoveListInsertResult;
 
-      typedef std::map<Engine::CoordSequence, MoveList::const_iterator> CoordSequenceToMoveMap;
+      typedef std::pair<MoveList::iterator, int> MoveCoordSequenceIdPair;
+      typedef std::map<Engine::CoordSequence, MoveCoordSequenceIdPair> CoordSequenceToMoveMap;
+      typedef std::pair<CoordSequenceToMoveMap::iterator, bool> CoordSequenceToMoveMapInsertResult;
 
       typedef IteratorLess<CoordSequence::Iterator> CoordSequenceIteratorLess;
       typedef std::multimap<CoordSequence::Iterator, CoordSequenceToMoveMap::const_iterator, CoordSequenceIteratorLess> SearchMap;
@@ -42,6 +44,8 @@ namespace Checkers
 
       virtual Engine::Move createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded = true);
 
+      virtual Engine::CoordSequence createCoordSequence(const Engine::Move &aMove, const Engine::Color &aColor);
+
       virtual const MoveList &validMoves() const;
 
     protected:
@@ -52,6 +56,7 @@ namespace Checkers
       void searchForValidMoves();
       void searchForJumps(CoordSequence &aAccum, const Engine::Board &aBoard, const Engine::Draught &aDraught, bool aGotKing);
       void searchForSimpleMoves(const Engine::Board &aBoard, const Engine::Draught &aDraught);
+      void addValidMove(const Engine::CoordSequence &aCoordSequence, const Engine::Board &aTo);
       bool doesJumpExist() const;
       Engine::Move createErrorMove(const Engine::CoordSequence &aCoordSequence, const Engine::CoordSequence::Iterator &aErrorLocation) const;
 
@@ -64,6 +69,7 @@ namespace Checkers
       bool noVariant() const;
       const Engine::Move &foundMove() const;
       const Engine::CoordSequence &foundSequence() const;
+      int foundCoordSequenceId() const;
       SearchFilter::const_iterator lastStep() const;
       int stepCount() const;
 

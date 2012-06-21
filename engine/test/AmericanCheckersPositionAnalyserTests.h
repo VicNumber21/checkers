@@ -45,10 +45,8 @@ class AmericanCheckersPositionAnalyserTests : public CppUnit::TestFixture
     CPPUNIT_TEST( createComplexJumpNotTerminatedAfterGetKing );
     CPPUNIT_TEST( createComplexJumpOverSameColor );
 
-    //Disable not implemented for a while
-    //CPPUNIT_TEST( createMoveFromTwoBoardsBlack );
-    //CPPUNIT_TEST( createMoveFromTwoBoardsWhite );
-    //CPPUNIT_TEST( createMoveFromTwoBoardsNotFound );
+    CPPUNIT_TEST( createCoordSequenceFromMoveRandom );
+    CPPUNIT_TEST( createCoordSequenceFromMoveNotFound );
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -93,9 +91,8 @@ public:
   void createComplexJumpNotTerminatedAfterGetKing();
   void createComplexJumpOverSameColor();
 
-  void createMoveFromTwoBoardsBlack();
-  void createMoveFromTwoBoardsWhite();
-  void createMoveFromTwoBoardsNotFound();
+  void createCoordSequenceFromMoveRandom();
+  void createCoordSequenceFromMoveNotFound();
 };
 
 #endif //H_AMERICAN_CHECKERS_POSITION_ANALYSER_TESTS_H

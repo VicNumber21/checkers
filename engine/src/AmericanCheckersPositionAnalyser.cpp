@@ -3,6 +3,10 @@
 #include "RulesOfGame.h"
 #include "CoordDelta.h"
 
+#include <vector>
+#include <stdlib.h>
+#include <time.h>
+
 using namespace Checkers::Engine;
 
 
@@ -15,6 +19,7 @@ void AmericanCheckersPositionAnalyser::setPosition(const Engine::Board &aBoard, 
 {
   m_from = aBoard;
   updateValidMovesIfNeeded(aColor, true);
+  srand(time(0));
 }
 
 Move AmericanCheckersPositionAnalyser::createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded)
@@ -43,6 +48,7 @@ Move AmericanCheckersPositionAnalyser::findInValidMoves(const Engine::CoordSeque
     if(doSearchStep(it) && isLastCoord && stepCount() == foundSequence().count())
     {
       move = foundMove();
+      move.setCoordSequenceId(foundCoordSequenceId());
     }
   }
 
@@ -106,6 +112,71 @@ Move AmericanCheckersPositionAnalyser::createErrorMove(const Engine::CoordSequen
   }
 
   return move;
+}
+
+//TODO: aColor is not needed in fact. It could be calculated by comparing from() and to(). Shall be refactored
+CoordSequence AmericanCheckersPositionAnalyser::createCoordSequence(const Engine::Move &aMove, const Engine::Color &aColor)
+{
+  //TODO: below can be improved: if Board is the same no need to set it
+  if(m_color != aColor || m_from != aMove.from())
+  {
+    setPosition(aMove.from(), aColor);
+  }
+
+  MoveList::iterator toIt = m_valid_moves.find(aMove);
+
+  if(toIt == m_valid_moves.end())
+  {
+    //TODO: Need better error here
+    throw Engine::Error();
+  }
+
+  CoordSequence ret;
+
+  if(aMove.anyCoordSequence())
+  {
+    typedef std::vector<CoordSequenceToMoveMap::const_iterator> FoundSequences;
+    FoundSequences foundSequences;
+    foundSequences.reserve(m_seq_move_map.size());
+
+    for(CoordSequenceToMoveMap::const_iterator it = m_seq_move_map.begin(); it != m_seq_move_map.end(); ++it)
+    {
+      if(it->second.first == toIt)
+      {
+        foundSequences.push_back(it);
+      }
+    }
+
+    if(foundSequences.size() == 0)
+    {
+      //How could it be, a?
+      //TODO: Need better error here
+      throw Engine::Error();
+    }
+
+    int randomIndex = rand() % foundSequences.size();
+    ret = foundSequences[randomIndex]->first;
+  }
+  else
+  {
+    for(CoordSequenceToMoveMap::const_iterator it = m_seq_move_map.begin(); it != m_seq_move_map.end(); ++it)
+    {
+      if(aMove.coordSequenceId() == it->second.second && it->second.first == toIt)
+      {
+        ret = it->first;
+        break;
+      }
+    }
+  }
+
+  if(ret.count() < 2)
+  {
+    //How could it be, a?
+    //TODO: Need better error here
+    throw Engine::Error();
+  }
+
+  return ret;
 }
 
 const PositionAnalyser::MoveList & AmericanCheckersPositionAnalyser::validMoves() const
@@ -223,8 +294,7 @@ void AmericanCheckersPositionAnalyser::searchForJumps(CoordSequence &aAccum, con
 
   if(jumpNotFound && aAccum.count() > 1)
   {
-    MoveListInsertResult ret = m_valid_moves.insert(Move(m_from, aBoard));
-    m_seq_move_map.insert(CoordSequenceToMoveMap::value_type(aAccum, ret.first));
+    addValidMove(aAccum, aBoard);
   }
 }
 
@@ -259,13 +329,51 @@ void AmericanCheckersPositionAnalyser::searchForSimpleMoves(const Engine::Board 
         }
         testBoard.put(moved);
 
-        MoveListInsertResult ret = m_valid_moves.insert(Move(m_from, testBoard));
-        m_seq_move_map.insert(CoordSequenceToMoveMap::value_type(CoordSequence(aDraught.coord(), moveToCoord), ret.first));
+        addValidMove(CoordSequence(aDraught.coord(), moveToCoord), testBoard);
       }
     }
     catch(Coord::ErrorIntWrongCoord e)
     {
       continue;
+    }
+  }
+}
+
+void AmericanCheckersPositionAnalyser::addValidMove(const Engine::CoordSequence &aCoordSequence, const Engine::Board &aTo)
+{
+  MoveListInsertResult moveListIR = m_valid_moves.insert(Move(m_from, aTo));
+  CoordSequenceToMoveMapInsertResult csToMoveMapIR =
+        m_seq_move_map.insert(CoordSequenceToMoveMap::value_type(aCoordSequence, MoveCoordSequenceIdPair(moveListIR.first, 0)));
+
+  if(!csToMoveMapIR.second)
+  {
+    //How could it be, a?
+    //TODO: better error here?
+    throw Engine::Error();
+  }
+
+  if(!moveListIR.second)
+  {
+    CoordSequenceToMoveMap::iterator current = csToMoveMapIR.first;
+
+    CoordSequenceToMoveMap::iterator it = current;
+    while(it != m_seq_move_map.begin())
+    {
+      --it;
+
+      if(it->second.first == moveListIR.first)
+      {
+        ++(current->second.second);
+      }
+    }
+
+    it = current;
+    for(++it; it != m_seq_move_map.end(); ++it)
+    {
+      if(it->second.first == moveListIR.first)
+      {
+        ++(it->second.second);
+      }
     }
   }
 }
@@ -349,7 +457,7 @@ const Move & AmericanCheckersPositionAnalyser::foundMove() const
   if(!isFound())
     throw Engine::Error();
 
-  return *(lastStep()->begin()->second->second);
+  return *(lastStep()->begin()->second->second.first);
 }
 
 const CoordSequence & AmericanCheckersPositionAnalyser::foundSequence() const
@@ -358,6 +466,14 @@ const CoordSequence & AmericanCheckersPositionAnalyser::foundSequence() const
     throw Engine::Error();
 
   return lastStep()->begin()->second->first;
+}
+
+int AmericanCheckersPositionAnalyser::foundCoordSequenceId() const
+{
+  if(!isFound())
+    throw Engine::Error();
+
+  return lastStep()->begin()->second->second.second;
 }
 
 AmericanCheckersPositionAnalyser::SearchFilter::const_iterator AmericanCheckersPositionAnalyser::lastStep() const
