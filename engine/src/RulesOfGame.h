@@ -12,10 +12,14 @@ namespace Checkers
     class Color;
     class Draught;
     class PositionAnalyser;
+    class BoardTraits;
 
     class RulesOfGame
     {
     public:
+        static const BoardTraits &boardTraits();
+        static PositionAnalyser &positionAnalyser();
+
       class BoardBounds
       {
       public:

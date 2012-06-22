@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "Move.h"
 #include "AmericanCheckersPositionAnalyser.h"
+#include "AmericanCheckersBoardTraits.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -12,78 +13,81 @@
 using namespace Checkers::Engine;
 
 
-const int intOutOfBound = -1;
-const char charOutOfBound = '!';
+const BoardTraits & RulesOfGame::boardTraits()
+{
+  static AmericanCheckersBoardTraits boardTraits;
+  return boardTraits;
+}
+
+PositionAnalyser & RulesOfGame::positionAnalyser()
+{
+  static AmericanCheckersPositionAnalyser positionAnalyser;
+  return positionAnalyser;
+}
 
 int RulesOfGame::BoardBounds::height()
 {
-  return 8;
+  return boardTraits().height();
 }
 
 int RulesOfGame::BoardBounds::width()
 {
-  return 8;
+  return boardTraits().width();
 }
 
 char RulesOfGame::BoardBounds::lineName(int aN)
 {
-  return RulesOfGame::BoardBounds::isLineInBound(aN) ? ('1' + aN) : charOutOfBound;
+  return boardTraits().lineName(aN);
 }
 
 char RulesOfGame::BoardBounds::columnName(int aM)
 {
-  return RulesOfGame::BoardBounds::isColumnInBound(aM) ? ('A' + aM) : charOutOfBound;
+  return boardTraits().columnName(aM);
 }
 
 int RulesOfGame::BoardBounds::lineIndex(char aY)
 {
-  int n = aY - '1';
-  return RulesOfGame::BoardBounds::isLineInBound(n) ? n : intOutOfBound;
+  return boardTraits().lineIndex(aY);
 }
 
 int RulesOfGame::BoardBounds::columnIndex(char aX)
 {
-  int m = toupper(aX) - 'A';
-  return RulesOfGame::BoardBounds::isColumnInBound(m) ? m : intOutOfBound;
+  return boardTraits().columnIndex(aX);
 }
 
 bool RulesOfGame::BoardBounds::isColumnInBound(int aX)
 {
-  return aX >= 0 && aX < RulesOfGame::BoardBounds::width();
+  return boardTraits().isColumnInBound(aX);
 }
 
 bool RulesOfGame::BoardBounds::isColumnInBound(char aX)
 {
-  return RulesOfGame::BoardBounds::columnIndex(aX) != intOutOfBound;
+  return boardTraits().isColumnInBound(aX);
 }
 
 bool RulesOfGame::BoardBounds::isLineInBound(int aY)
 {
-  return aY >= 0 && aY < RulesOfGame::BoardBounds::height();
+  return boardTraits().isLineInBound(aY);
 }
 
 bool RulesOfGame::BoardBounds::isLineInBound(char aY)
 {
-  return RulesOfGame::BoardBounds::lineIndex(aY) != intOutOfBound;
+  return boardTraits().isLineInBound(aY);
 }
 
 bool RulesOfGame::BoardBounds::isKingLine(int aY, const Engine::Color &aColor)
 {
-  //TODO add direct test for it
-  return (aColor == Color::EBlack && aY == RulesOfGame::BoardBounds::height() - 1)
-         || (aColor == Color::EWhite && aY == 0);
+  return boardTraits().isKingLine(aY, aColor);
 }
 
 bool RulesOfGame::BoardBounds::isKingLine(char aY, const Engine::Color &aColor)
 {
-  //TODO add direct test for it
-  return RulesOfGame::BoardBounds::isKingLine(RulesOfGame::BoardBounds::lineIndex(aY), aColor);
+  return boardTraits().isKingLine(aY, aColor);
 }
 
 bool RulesOfGame::MoveValidator::isValidCoord(const Engine::Coord &aCoord)
 {
-  //TODO rework it to isBlackSquare() in BoardUtility
-  return 0 == ((aCoord.x() + aCoord.y()) % 2);
+  return boardTraits().isBlackSquare(aCoord);
 }
 
 bool isValidCoordSequenceInternal(const Coord &aFirst, const Coord &aSecond, int aMinDelta = 1, int aMaxDelta = 2)
