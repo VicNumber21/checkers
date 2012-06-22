@@ -82,11 +82,11 @@ char BoardView::emptySquareView(int i, int j) const
   return ret;
 }
 
-std::string BoardView::flushLine(int aN)
+std::string BoardView::flushRow(int aN)
 {
   std::string ret;
 
-  if(Engine::RulesOfGame::BoardBounds::isLineInBound(aN))
+  if(Engine::RulesOfGame::BoardBounds::isRowInBound(aN))
   {
     int height = RulesOfGame::BoardBounds::height();
     int width = RulesOfGame::BoardBounds::width();

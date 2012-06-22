@@ -45,7 +45,7 @@ void batchMove(BoardList &aBoards, const CoordList &aFrom, const CoordList &aTo)
     Maybe<Draught> d = boardIt->takeDraught(*fromIt);
     CPPUNIT_ASSERT_MESSAGE(ss.str().c_str(), !d.isNothing());
     d().moveTo(*toIt);
-    if(RulesOfGame::BoardBounds::isKingLine(toIt->y(), d().color()))
+    if(RulesOfGame::BoardBounds::isKingRow(toIt->y(), d().color()))
       d().makeKing();
     CPPUNIT_ASSERT_MESSAGE(ss.str().c_str(), boardIt->put(d()));
   }

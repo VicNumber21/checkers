@@ -26,20 +26,20 @@ namespace Checkers
         static int height();
         static int width();
 
-        static char lineName(int aN);
+        static char rowName(int aN);
         static char columnName(int aM);
 
-        static int lineIndex(char aY);
+        static int rowIndex(char aY);
         static int columnIndex(char aX);
 
         static bool isColumnInBound(int aX);
         static bool isColumnInBound(char aX);
 
-        static bool isLineInBound(int aY);
-        static bool isLineInBound(char aY);
+        static bool isRowInBound(int aY);
+        static bool isRowInBound(char aY);
 
-        static bool isKingLine(int aY, const Engine::Color &aColor);
-        static bool isKingLine(char aY, const Engine::Color &aColor);
+        static bool isKingRow(int aY, const Engine::Color &aColor);
+        static bool isKingRow(char aY, const Engine::Color &aColor);
       };
 
       class MoveValidator

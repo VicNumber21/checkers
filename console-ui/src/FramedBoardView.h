@@ -21,10 +21,10 @@ namespace Checkers
       void setRotation(BoardView::Rotation aRotation);
 
     private:
-      virtual std::string flushLine(int aN);
-      std::string letterLine() const;
+      virtual std::string flushRow(int aN);
+      std::string letterRow() const;
       std::string topBottomFrame() const;
-      std::string framedLine(int aN);
+      std::string framedRow(int aN);
 
     private:
       BoardView m_BoardView;

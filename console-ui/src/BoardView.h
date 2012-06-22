@@ -32,7 +32,7 @@ namespace Checkers
       void setRotation(Rotation aRotation);
 
     private:
-      virtual std::string flushLine(int aN);
+      virtual std::string flushRow(int aN);
       char draughtView(int i, int j) const;
       char emptySquareView(int i, int j) const;
 

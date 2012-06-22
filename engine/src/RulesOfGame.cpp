@@ -35,9 +35,9 @@ int RulesOfGame::BoardBounds::width()
   return boardTraits().width();
 }
 
-char RulesOfGame::BoardBounds::lineName(int aN)
+char RulesOfGame::BoardBounds::rowName(int aN)
 {
-  return boardTraits().lineName(aN);
+  return boardTraits().rowName(aN);
 }
 
 char RulesOfGame::BoardBounds::columnName(int aM)
@@ -45,9 +45,9 @@ char RulesOfGame::BoardBounds::columnName(int aM)
   return boardTraits().columnName(aM);
 }
 
-int RulesOfGame::BoardBounds::lineIndex(char aY)
+int RulesOfGame::BoardBounds::rowIndex(char aY)
 {
-  return boardTraits().lineIndex(aY);
+  return boardTraits().rowIndex(aY);
 }
 
 int RulesOfGame::BoardBounds::columnIndex(char aX)
@@ -65,24 +65,24 @@ bool RulesOfGame::BoardBounds::isColumnInBound(char aX)
   return boardTraits().isColumnInBound(aX);
 }
 
-bool RulesOfGame::BoardBounds::isLineInBound(int aY)
+bool RulesOfGame::BoardBounds::isRowInBound(int aY)
 {
-  return boardTraits().isLineInBound(aY);
+  return boardTraits().isRowInBound(aY);
 }
 
-bool RulesOfGame::BoardBounds::isLineInBound(char aY)
+bool RulesOfGame::BoardBounds::isRowInBound(char aY)
 {
-  return boardTraits().isLineInBound(aY);
+  return boardTraits().isRowInBound(aY);
 }
 
-bool RulesOfGame::BoardBounds::isKingLine(int aY, const Engine::Color &aColor)
+bool RulesOfGame::BoardBounds::isKingRow(int aY, const Engine::Color &aColor)
 {
-  return boardTraits().isKingLine(aY, aColor);
+  return boardTraits().isKingRow(aY, aColor);
 }
 
-bool RulesOfGame::BoardBounds::isKingLine(char aY, const Engine::Color &aColor)
+bool RulesOfGame::BoardBounds::isKingRow(char aY, const Engine::Color &aColor)
 {
-  return boardTraits().isKingLine(aY, aColor);
+  return boardTraits().isKingRow(aY, aColor);
 }
 
 bool RulesOfGame::MoveValidator::isValidCoord(const Engine::Coord &aCoord)

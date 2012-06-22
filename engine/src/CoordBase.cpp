@@ -12,13 +12,13 @@ const unsigned char coord_clean_mask = (~0) << (2*bit_field_length);
 
 void throwIfWrongCoord(int aX, int aY)
 {
-  if(!RulesOfGame::BoardBounds::isColumnInBound(aX) || !RulesOfGame::BoardBounds::isLineInBound(aY))
+  if(!RulesOfGame::BoardBounds::isColumnInBound(aX) || !RulesOfGame::BoardBounds::isRowInBound(aY))
     throw(CoordBase::ErrorIntWrongCoord(aX, aY));
 }
 
 void throwIfWrongCoord(char aLetter, char aDigit)
 {
-  if(!RulesOfGame::BoardBounds::isColumnInBound(aLetter) || !RulesOfGame::BoardBounds::isLineInBound(aDigit))
+  if(!RulesOfGame::BoardBounds::isColumnInBound(aLetter) || !RulesOfGame::BoardBounds::isRowInBound(aDigit))
     throw(CoordBase::ErrorCharWrongCoord(aLetter, aDigit));
 }
 
@@ -56,7 +56,7 @@ char CoordBase::letter() const
 
 char CoordBase::digit() const
 {
-  return RulesOfGame::BoardBounds::lineName(y());
+  return RulesOfGame::BoardBounds::rowName(y());
 }
 
 CoordBase & CoordBase::assign(const CoordBase &aCoord)
@@ -88,7 +88,7 @@ bool CoordBase::operator>(const CoordBase &aCoord) const
 void CoordBase::set(char aLetter, char aDigit)
 {
   throwIfWrongCoord(aLetter, aDigit);
-  set(RulesOfGame::BoardBounds::columnIndex(aLetter), RulesOfGame::BoardBounds::lineIndex(aDigit));
+  set(RulesOfGame::BoardBounds::columnIndex(aLetter), RulesOfGame::BoardBounds::rowIndex(aDigit));
 }
 
 void CoordBase::set(int aX, int aY)

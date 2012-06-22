@@ -30,15 +30,15 @@ void AmericanCheckersBoardTraitsTests::bounds()
 
   for(int i = 0; i < count; ++i)
   {
-    CPPUNIT_ASSERT(boardTraits.isLineInBound(i));
-    CPPUNIT_ASSERT(boardTraits.isLineInBound(rowNames[i]));
+    CPPUNIT_ASSERT(boardTraits.isRowInBound(i));
+    CPPUNIT_ASSERT(boardTraits.isRowInBound(rowNames[i]));
     CPPUNIT_ASSERT(boardTraits.isColumnInBound(i));
     CPPUNIT_ASSERT(boardTraits.isColumnInBound(columnNames[i]));
   }
 
-  CPPUNIT_ASSERT(!boardTraits.isLineInBound(-5));
-  CPPUNIT_ASSERT(!boardTraits.isLineInBound(10));
-  CPPUNIT_ASSERT(!boardTraits.isLineInBound('|'));
+  CPPUNIT_ASSERT(!boardTraits.isRowInBound(-5));
+  CPPUNIT_ASSERT(!boardTraits.isRowInBound(10));
+  CPPUNIT_ASSERT(!boardTraits.isRowInBound('|'));
 
   CPPUNIT_ASSERT(!boardTraits.isColumnInBound(-1));
   CPPUNIT_ASSERT(!boardTraits.isColumnInBound(20));
@@ -55,28 +55,28 @@ void AmericanCheckersBoardTraitsTests::nameIndexMap()
 
   for(int i = 0; i < count; ++i)
   {
-    CPPUNIT_ASSERT_EQUAL(rowNames[i], boardTraits.lineName(i));
+    CPPUNIT_ASSERT_EQUAL(rowNames[i], boardTraits.rowName(i));
     CPPUNIT_ASSERT_EQUAL(columnNames[i], boardTraits.columnName(i));
-    CPPUNIT_ASSERT_EQUAL(i, boardTraits.lineIndex(rowNames[i]));
+    CPPUNIT_ASSERT_EQUAL(i, boardTraits.rowIndex(rowNames[i]));
     CPPUNIT_ASSERT_EQUAL(i, boardTraits.columnIndex(columnNames[i]));
   }
 
-  CPPUNIT_ASSERT_EQUAL(boardTraits.charOutOfBoundValue(), boardTraits.lineName(-1));
-  CPPUNIT_ASSERT_EQUAL(boardTraits.charOutOfBoundValue(), boardTraits.lineName(8));
+  CPPUNIT_ASSERT_EQUAL(boardTraits.charOutOfBoundValue(), boardTraits.rowName(-1));
+  CPPUNIT_ASSERT_EQUAL(boardTraits.charOutOfBoundValue(), boardTraits.rowName(8));
   CPPUNIT_ASSERT_EQUAL(boardTraits.charOutOfBoundValue(), boardTraits.columnName(-1));
   CPPUNIT_ASSERT_EQUAL(boardTraits.charOutOfBoundValue(), boardTraits.columnName(8));
 
-  CPPUNIT_ASSERT_EQUAL(boardTraits.intOutOfBoundValue(), boardTraits.lineIndex('A'));
+  CPPUNIT_ASSERT_EQUAL(boardTraits.intOutOfBoundValue(), boardTraits.rowIndex('A'));
   CPPUNIT_ASSERT_EQUAL(boardTraits.intOutOfBoundValue(), boardTraits.columnIndex('1'));
 }
 
-void AmericanCheckersBoardTraitsTests::kingLine()
+void AmericanCheckersBoardTraitsTests::kingRow()
 {
   AmericanCheckersBoardTraits boardTraits;
-  CPPUNIT_ASSERT(boardTraits.isKingLine(0, Color::EWhite));
-  CPPUNIT_ASSERT(boardTraits.isKingLine('1', Color::EWhite));
-  CPPUNIT_ASSERT(boardTraits.isKingLine(7, Color::EBlack));
-  CPPUNIT_ASSERT(boardTraits.isKingLine('8', Color::EBlack));
+  CPPUNIT_ASSERT(boardTraits.isKingRow(0, Color::EWhite));
+  CPPUNIT_ASSERT(boardTraits.isKingRow('1', Color::EWhite));
+  CPPUNIT_ASSERT(boardTraits.isKingRow(7, Color::EBlack));
+  CPPUNIT_ASSERT(boardTraits.isKingRow('8', Color::EBlack));
 }
 
 void AmericanCheckersBoardTraitsTests::squareColor()

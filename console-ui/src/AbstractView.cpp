@@ -4,26 +4,26 @@ using namespace Checkers::ConsoleUi;
 
 
 AbstractView::AbstractView()
-  : m_CurrentLine(0)
+  : m_CurrentRow(0)
 {
 }
 
-std::string AbstractView::firstLine()
+std::string AbstractView::firstRow()
 {
-  m_CurrentLine = 0;
-  return flushLine(m_CurrentLine);
+  m_CurrentRow = 0;
+  return flushRow(m_CurrentRow);
 }
 
-std::string AbstractView::nextLine()
+std::string AbstractView::nextRow()
 {
-  return flushLine(++m_CurrentLine);
+  return flushRow(++m_CurrentRow);
 }
 
 std::string AbstractView::flushWhole()
 {
   std::string ret;
 
-  for(std::string it = firstLine(); !it.empty(); it = nextLine())
+  for(std::string it = firstRow(); !it.empty(); it = nextRow())
   {
     ret += it += '\n';
   }

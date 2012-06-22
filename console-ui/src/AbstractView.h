@@ -13,15 +13,15 @@ namespace Checkers
     public:
       AbstractView();
 
-      virtual std::string firstLine();
-      virtual std::string nextLine();
+      virtual std::string firstRow();
+      virtual std::string nextRow();
       virtual std::string flushWhole();
 
     protected:
-      virtual std::string flushLine(int aN) = 0;
+      virtual std::string flushRow(int aN) = 0;
 
     private:
-      int m_CurrentLine;
+      int m_CurrentRow;
     };
 
     std::ostream & operator<<(std::ostream &aOut, AbstractView &aView);

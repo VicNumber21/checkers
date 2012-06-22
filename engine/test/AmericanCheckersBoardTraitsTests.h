@@ -9,7 +9,7 @@ class AmericanCheckersBoardTraitsTests : public CppUnit::TestFixture
   CPPUNIT_TEST_SUITE( AmericanCheckersBoardTraitsTests );
     CPPUNIT_TEST( bounds );
     CPPUNIT_TEST( nameIndexMap );
-    CPPUNIT_TEST( kingLine );
+    CPPUNIT_TEST( kingRow );
     CPPUNIT_TEST( squareColor );
   CPPUNIT_TEST_SUITE_END();
 
@@ -19,7 +19,7 @@ public:
 
   void bounds();
   void nameIndexMap();
-  void kingLine();
+  void kingRow();
   void squareColor();
 };
 

@@ -34,7 +34,7 @@ void FramedBoardView::setRotation(BoardView::Rotation aRotation)
   m_BoardView.setRotation(aRotation);
 }
 
-std::string FramedBoardView::flushLine(int aN)
+std::string FramedBoardView::flushRow(int aN)
 {
   std::string ret;
   int height = RulesOfGame::BoardBounds::height();
@@ -43,7 +43,7 @@ std::string FramedBoardView::flushLine(int aN)
   {
     if(aN == 0 || aN == height + 3)
     {
-      ret = letterLine();
+      ret = letterRow();
     }
     else if(aN == 1 || aN == height + 2)
     {
@@ -51,14 +51,14 @@ std::string FramedBoardView::flushLine(int aN)
     }
     else
     {
-      ret = framedLine(aN - 2);
+      ret = framedRow(aN - 2);
     }
   }
 
   return ret;
 }
 
-std::string FramedBoardView::letterLine() const
+std::string FramedBoardView::letterRow() const
 {
   std::string ret("  ");
   int width = RulesOfGame::BoardBounds::width();
@@ -90,27 +90,27 @@ std::string FramedBoardView::topBottomFrame() const
   return ret;
 }
 
-std::string FramedBoardView::framedLine(int aN)
+std::string FramedBoardView::framedRow(int aN)
 {
   std::string ret;
 
   int height = RulesOfGame::BoardBounds::height();
   int i = (rotation() == BoardView::ERotation0) ? (height - 1 - aN) : aN;
 
-  ret += RulesOfGame::BoardBounds::lineName(i);
+  ret += RulesOfGame::BoardBounds::rowName(i);
   ret += frameVerticalLineChar;
 
   if(aN == 0)
   {
-    ret += m_BoardView.firstLine();
+    ret += m_BoardView.firstRow();
   }
   else
   {
-    ret += m_BoardView.nextLine();
+    ret += m_BoardView.nextRow();
   }
 
   ret += frameVerticalLineChar;
-  ret += RulesOfGame::BoardBounds::lineName(i);
+  ret += RulesOfGame::BoardBounds::rowName(i);
 
   return ret;
 }

@@ -19,20 +19,20 @@ namespace Checkers
       virtual int height() const = 0;
       virtual int width() const = 0;
 
-      virtual char lineName(int aN) const = 0;
+      virtual char rowName(int aN) const = 0;
       virtual char columnName(int aM) const = 0;
 
-      virtual int lineIndex(char aY) const = 0;
+      virtual int rowIndex(char aY) const = 0;
       virtual int columnIndex(char aX) const = 0;
 
       virtual bool isColumnInBound(int aX) const = 0;
       virtual bool isColumnInBound(char aX) const = 0;
 
-      virtual bool isLineInBound(int aY) const = 0;
-      virtual bool isLineInBound(char aY) const = 0;
+      virtual bool isRowInBound(int aY) const = 0;
+      virtual bool isRowInBound(char aY) const = 0;
 
-      virtual bool isKingLine(int aY, const Engine::Color &aColor) const = 0;
-      virtual bool isKingLine(char aY, const Engine::Color &aColor) const = 0;
+      virtual bool isKingRow(int aY, const Engine::Color &aColor) const = 0;
+      virtual bool isKingRow(char aY, const Engine::Color &aColor) const = 0;
 
       virtual bool isBlackSquare(const Engine::Coord &aCoord) const = 0;
       virtual bool isWhiteSquare(const Engine::Coord &aCoord) const = 0;
