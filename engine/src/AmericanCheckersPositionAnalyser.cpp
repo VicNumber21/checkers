@@ -2,6 +2,7 @@
 #include "Move.h"
 #include "RulesOfGame.h"
 #include "CoordDelta.h"
+#include "BoardTraits.h"
 
 #include <vector>
 #include <stdlib.h>
@@ -98,7 +99,7 @@ Move AmericanCheckersPositionAnalyser::createErrorMove(const Engine::CoordSequen
   {
     move = Move(Engine::Error::Ptr(new Move::ErrorJumpOverSameColor));
   }
-  else if(!moved().isKing() && RulesOfGame::BoardBounds::isKingRow(from->y(), moved().color()))
+  else if(!moved().isKing() && RulesOfGame::boardTraits().isKingRow(from->y(), moved().color()))
   {
     move = Move(Engine::Error::Ptr(new Move::ErrorGetKingButMoveFurther));
   }
@@ -269,7 +270,7 @@ void AmericanCheckersPositionAnalyser::searchForJumps(CoordSequence &aAccum, con
 
         Board testBoard(aBoard);
         Draught moved = testBoard.takeDraught(aDraught.coord())();
-        bool gotKing = !moved.isKing() && RulesOfGame::BoardBounds::isKingRow(jumpToCoord.y(), moved.color());
+        bool gotKing = !moved.isKing() && RulesOfGame::boardTraits().isKingRow(jumpToCoord.y(), moved.color());
         if(gotKing)
         {
           moved.makeKing();
@@ -320,7 +321,7 @@ void AmericanCheckersPositionAnalyser::searchForSimpleMoves(const Engine::Board 
         Board testBoard(aBoard);
         Draught moved = testBoard.takeDraught(aDraught.coord())();
         moved.moveTo(moveToCoord);
-        if(RulesOfGame::BoardBounds::isKingRow(moveToCoord.y(), moved.color()))
+        if(RulesOfGame::boardTraits().isKingRow(moveToCoord.y(), moved.color()))
         {
           moved.makeKing();
         }

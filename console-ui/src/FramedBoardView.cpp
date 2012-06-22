@@ -1,5 +1,6 @@
 #include "FramedBoardView.h"
 #include "RulesOfGame.h"
+#include "BoardTraits.h"
 
 using namespace Checkers::ConsoleUi;
 using namespace Checkers::Engine;
@@ -37,7 +38,7 @@ void FramedBoardView::setRotation(BoardView::Rotation aRotation)
 std::string FramedBoardView::flushRow(int aN)
 {
   std::string ret;
-  int height = RulesOfGame::BoardBounds::height();
+  int height = RulesOfGame::boardTraits().height();
 
   if(aN < height + 4)
   {
@@ -61,12 +62,12 @@ std::string FramedBoardView::flushRow(int aN)
 std::string FramedBoardView::letterRow() const
 {
   std::string ret("  ");
-  int width = RulesOfGame::BoardBounds::width();
+  int width = RulesOfGame::boardTraits().width();
 
   for(int m = 0; m < width; ++m)
   {
     int j = (rotation() == BoardView::ERotation0) ? m : (width - 1 - m);
-    ret += RulesOfGame::BoardBounds::columnName(j);
+    ret += RulesOfGame::boardTraits().columnName(j);
   }
 
   ret += "  ";
@@ -79,7 +80,7 @@ std::string FramedBoardView::topBottomFrame() const
   std::string ret(" ");
   ret += frameCornerChar;
 
-  int countOfEdgeChar = RulesOfGame::BoardBounds::width();
+  int countOfEdgeChar = RulesOfGame::boardTraits().width();
 
   for(int j = 0; j < countOfEdgeChar; ++j)
     ret += frameHorizontalLineChar;
@@ -94,10 +95,10 @@ std::string FramedBoardView::framedRow(int aN)
 {
   std::string ret;
 
-  int height = RulesOfGame::BoardBounds::height();
+  int height = RulesOfGame::boardTraits().height();
   int i = (rotation() == BoardView::ERotation0) ? (height - 1 - aN) : aN;
 
-  ret += RulesOfGame::BoardBounds::rowName(i);
+  ret += RulesOfGame::boardTraits().rowName(i);
   ret += frameVerticalLineChar;
 
   if(aN == 0)
@@ -110,7 +111,7 @@ std::string FramedBoardView::framedRow(int aN)
   }
 
   ret += frameVerticalLineChar;
-  ret += RulesOfGame::BoardBounds::rowName(i);
+  ret += RulesOfGame::boardTraits().rowName(i);
 
   return ret;
 }

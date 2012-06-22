@@ -20,28 +20,6 @@ namespace Checkers
         static const BoardTraits &boardTraits();
         static PositionAnalyser &positionAnalyser();
 
-      class BoardBounds
-      {
-      public:
-        static int height();
-        static int width();
-
-        static char rowName(int aN);
-        static char columnName(int aM);
-
-        static int rowIndex(char aY);
-        static int columnIndex(char aX);
-
-        static bool isColumnInBound(int aX);
-        static bool isColumnInBound(char aX);
-
-        static bool isRowInBound(int aY);
-        static bool isRowInBound(char aY);
-
-        static bool isKingRow(int aY, const Engine::Color &aColor);
-        static bool isKingRow(char aY, const Engine::Color &aColor);
-      };
-
       class MoveValidator
       {
       public:

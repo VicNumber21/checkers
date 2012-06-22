@@ -1,6 +1,7 @@
 #include "BoardView.h"
 #include "Board.h"
 #include "RulesOfGame.h"
+#include "BoardTraits.h"
 #include "Coord.h"
 #include "Color.h"
 
@@ -86,10 +87,10 @@ std::string BoardView::flushRow(int aN)
 {
   std::string ret;
 
-  if(Engine::RulesOfGame::BoardBounds::isRowInBound(aN))
+  if(Engine::RulesOfGame::boardTraits().isRowInBound(aN))
   {
-    int height = RulesOfGame::BoardBounds::height();
-    int width = RulesOfGame::BoardBounds::width();
+    int height = RulesOfGame::boardTraits().height();
+    int width = RulesOfGame::boardTraits().width();
 
     int i = m_Rotation == ERotation0 ? height - 1 - aN : aN;
 

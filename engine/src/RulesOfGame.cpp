@@ -25,66 +25,6 @@ PositionAnalyser & RulesOfGame::positionAnalyser()
   return positionAnalyser;
 }
 
-int RulesOfGame::BoardBounds::height()
-{
-  return boardTraits().height();
-}
-
-int RulesOfGame::BoardBounds::width()
-{
-  return boardTraits().width();
-}
-
-char RulesOfGame::BoardBounds::rowName(int aN)
-{
-  return boardTraits().rowName(aN);
-}
-
-char RulesOfGame::BoardBounds::columnName(int aM)
-{
-  return boardTraits().columnName(aM);
-}
-
-int RulesOfGame::BoardBounds::rowIndex(char aY)
-{
-  return boardTraits().rowIndex(aY);
-}
-
-int RulesOfGame::BoardBounds::columnIndex(char aX)
-{
-  return boardTraits().columnIndex(aX);
-}
-
-bool RulesOfGame::BoardBounds::isColumnInBound(int aX)
-{
-  return boardTraits().isColumnInBound(aX);
-}
-
-bool RulesOfGame::BoardBounds::isColumnInBound(char aX)
-{
-  return boardTraits().isColumnInBound(aX);
-}
-
-bool RulesOfGame::BoardBounds::isRowInBound(int aY)
-{
-  return boardTraits().isRowInBound(aY);
-}
-
-bool RulesOfGame::BoardBounds::isRowInBound(char aY)
-{
-  return boardTraits().isRowInBound(aY);
-}
-
-bool RulesOfGame::BoardBounds::isKingRow(int aY, const Engine::Color &aColor)
-{
-  return boardTraits().isKingRow(aY, aColor);
-}
-
-bool RulesOfGame::BoardBounds::isKingRow(char aY, const Engine::Color &aColor)
-{
-  return boardTraits().isKingRow(aY, aColor);
-}
-
 bool RulesOfGame::MoveValidator::isValidCoord(const Engine::Coord &aCoord)
 {
   return boardTraits().isBlackSquare(aCoord);
