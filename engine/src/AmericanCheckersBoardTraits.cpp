@@ -57,6 +57,11 @@ bool AmericanCheckersBoardTraits::isRowInBound(char aY) const
   return rowIndex(aY) != intOutOfBoundValue();
 }
 
+bool AmericanCheckersBoardTraits::canPutManOnKingRow() const
+{
+  return false;
+}
+
 bool AmericanCheckersBoardTraits::isKingRow(int aY, const Engine::Color &aColor) const
 {
   return (aColor == Color::EBlack && aY == height() - 1)

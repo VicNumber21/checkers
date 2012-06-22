@@ -26,6 +26,8 @@ namespace Checkers
       virtual bool isRowInBound(int aY) const;
       virtual bool isRowInBound(char aY) const;
 
+      virtual bool canPutManOnKingRow() const;
+
       virtual bool isKingRow(int aY, const Engine::Color &aColor) const;
       virtual bool isKingRow(char aY, const Engine::Color &aColor) const;
 
