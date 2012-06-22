@@ -145,7 +145,7 @@ void BoardTests::equal()
   b2.put(d1);
   CPPUNIT_ASSERT(b1 == b2);
 
-  Draught d2(Coord('c','8'), Color::EBlack);
+  Draught d2(Coord('c','6'), Color::EBlack);
   b1.put(d2);
   CPPUNIT_ASSERT(!(b1 == b2));
   b2.put(d2);

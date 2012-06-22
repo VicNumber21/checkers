@@ -121,7 +121,7 @@ void BoardViewTests::draughtChars()
 {
   Board b;
   Draught d1(Coord('a','1'), Color::EBlack);
-  Draught d2(Coord('c','1'), Color::EWhite);
+  Draught d2(Coord('c','3'), Color::EWhite);
   Draught d3(Coord('e','1'), Color::EBlack, true);
   Draught d4(Coord('g','1'), Color::EWhite, true);
   b.put(d1);
@@ -135,9 +135,9 @@ void BoardViewTests::draughtChars()
                           "# # # # \n"
                           " # # # #\n"
                           "# # # # \n"
-                          " # # # #\n"
+                          " #w# # #\n"
                           "# # # # \n"
-                          "b#w#B#W#\n"
+                          "b# #B#W#\n"
                         );
   CPPUNIT_ASSERT_EQUAL(testString, bV.flushWhole());
 }
@@ -145,7 +145,7 @@ void BoardViewTests::draughtChars()
 void BoardViewTests::complexPosition()
 {
   Board b;
-  Draught d1(Coord('h','8'), Color::EBlack);
+  Draught d1(Coord('h','6'), Color::EBlack);
   Draught d2(Coord('g','5'), Color::EBlack);
   Draught d3(Coord('f','6'), Color::EBlack, true);
   Draught d4(Coord('d','4'), Color::EBlack, true);
@@ -165,9 +165,9 @@ void BoardViewTests::complexPosition()
   b.put(d9);
   BoardView bV(b);
   std::string testString_R0(
-                          "# # # #b\n"
+                          "# # # # \n"
                           " # # #W#\n"
-                          "# # #B# \n"
+                          "# # #B#b\n"
                           " #W# #b#\n"
                           "# #B# # \n"
                           "w# # # #\n"
@@ -182,9 +182,9 @@ void BoardViewTests::complexPosition()
                           "# # # #w\n"
                           " # #B# #\n"
                           "#b# #W# \n"
-                          " #B# # #\n"
+                          "b#B# # #\n"
                           "#W# # # \n"
-                          "b# # # #\n"
+                          " # # # #\n"
                         );
   bV.setRotation(BoardView::ERotation180);
   CPPUNIT_ASSERT_EQUAL(testString_R180, bV.flushWhole());

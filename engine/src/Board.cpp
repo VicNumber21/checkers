@@ -2,8 +2,9 @@
 #include "Coord.h"
 #include "Color.h"
 #include "Draught.h"
+#include "RulesOfGame.h"
+#include "BoardTraits.h"
 
-#include <iostream>
 
 namespace Checkers
 {
@@ -39,8 +40,13 @@ Board::Board(const Engine::Board &aBoard)
 
 bool Board::put(const Engine::Draught &aDraught)
 {
-  std::pair<iterator,bool> ret = m_draught_set.insert(aDraught);
-  return ret.second;
+  const BoardTraits &boardTraits = RulesOfGame::boardTraits();
+  bool ret = aDraught.isKing() || boardTraits.canPutManOnKingRow() || !boardTraits.isKingRow(aDraught.coord().y(), aDraught.color());
+
+  if(ret)
+    ret = m_draught_set.insert(aDraught).second;
+
+  return ret;
 }
 
 Maybe<Draught> Board::takeDraught(const Engine::Coord &aCoord)
