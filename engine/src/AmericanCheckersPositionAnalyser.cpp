@@ -103,7 +103,7 @@ Move AmericanCheckersPositionAnalyser::createErrorMove(const Engine::CoordSequen
   {
     move = Move(Engine::Error::Ptr(new Move::ErrorGetKingButMoveFurther));
   }
-  else if(!RulesOfGame::MoveValidator::isValidDirection(*from, *to, moved().color(), moved().isKing()))
+  else if(!isValidDirection(*from, *to, moved().color(), moved().isKing()))
   {
     move = Move(Engine::Error::Ptr(new Move::ErrorInWrongDirection));
   }
@@ -373,6 +373,14 @@ void AmericanCheckersPositionAnalyser::addValidMove(const Engine::CoordSequence 
       }
     }
   }
+}
+
+bool AmericanCheckersPositionAnalyser::isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
+                                                        , const Engine::Color &aColor, bool aIsKing) const
+{
+  CoordDelta delta = aSecond - aFirst;
+  bool manValidDirection = (aColor == Color::EBlack)? delta.isNorth(): delta.isSouth();
+  return aIsKing || manValidDirection;
 }
 
 void AmericanCheckersPositionAnalyser::initSearchFilter()

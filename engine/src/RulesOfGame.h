@@ -19,19 +19,6 @@ namespace Checkers
     public:
         static const BoardTraits &boardTraits();
         static PositionAnalyser &positionAnalyser();
-
-      class MoveValidator
-      {
-      public:
-        static bool isValidCoord(const Engine::Coord &aCoord);
-
-        static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond);
-        static bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, const Engine::Coord &aThird);
-        static bool isValidDirection(const Engine::Coord &aFirst, const Engine::Coord &aSecond
-                                     , const Engine::Color &aColor, bool isKing);
-
-        static PositionAnalyser & positionAnalyser();
-      };
     };
   };
 };

@@ -1,5 +1,6 @@
 #include "CoordSequence.h"
 #include "RulesOfGame.h"
+#include "PositionAnalyser.h"
 
 using namespace Checkers::Engine;
 
@@ -24,6 +25,7 @@ CoordSequence::CoordSequence(const Engine::CoordSequence &aCoordSequence)
 {
 }
 
+//TODO better to return bool rather than throw exception here
 void CoordSequence::append(const Engine::Coord &aNext)
 {
   m_coord_list.push_back(aNext);
@@ -114,14 +116,18 @@ CoordSequence::Iterator CoordSequence::at(int aI) const
   return ret;
 }
 
+//TODO rework it as the following:
+//it shall use positionAnalyser SearchFilter and validate the current coord if
+//the filter shows that some move(s) exist(s) for current coord sequence
+//I will do this rework during work on Human Player
 void CoordSequence::validateTail() const
 {
   bool wrongSequence = false;
 
   if(count() > 2)
-    wrongSequence = !RulesOfGame::MoveValidator::isValidCoordSequence(*thirdFromEnd(), *secondFromEnd(), *last());
+    wrongSequence = !RulesOfGame::positionAnalyser().isValidCoordSequence(*thirdFromEnd(), *secondFromEnd(), *last());
   else if(count() > 1)
-    wrongSequence = !RulesOfGame::MoveValidator::isValidCoordSequence(*secondFromEnd(), *last());
+    wrongSequence = !RulesOfGame::positionAnalyser().isValidCoordSequence(*secondFromEnd(), *last());
 
   if(wrongSequence)
   {

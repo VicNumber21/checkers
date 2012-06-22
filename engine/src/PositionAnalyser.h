@@ -43,6 +43,10 @@ namespace Checkers
       virtual void setPosition(const Engine::Board &aBoard, const Engine::Color &aColor) = 0;
       virtual const MoveList &validMoves() const = 0;
       const MoveList &validMoves(const Engine::Board &aBoard, const Engine::Color &aColor);
+
+      //TODO below should be removed after rework in CoordSequence
+      bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond);
+      bool isValidCoordSequence(const Engine::Coord &aFirst, const Engine::Coord &aSecond, const Engine::Coord &aThird);
     };
   };
 };
