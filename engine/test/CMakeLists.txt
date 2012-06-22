@@ -25,6 +25,7 @@ set(test_engine_SRCS
     BoardTests.cpp
     MoveTests.cpp
     AmericanCheckersPositionAnalyserTests.cpp
+    AmericanCheckersBoardTraitsTests.cpp
    )
 
 add_executable(test-engine ${test_engine_SRCS})
