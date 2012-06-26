@@ -1,4 +1,6 @@
 #include "AmericanCheckersBoardTraitsTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "Coord.h"
 #include "Color.h"
 
@@ -24,10 +26,12 @@ AmericanCheckersBoardTraitsTests::AmericanCheckersBoardTraitsTests()
 
 void AmericanCheckersBoardTraitsTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void AmericanCheckersBoardTraitsTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void AmericanCheckersBoardTraitsTests::bounds()

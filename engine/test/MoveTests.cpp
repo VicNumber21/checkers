@@ -1,4 +1,6 @@
 #include "MoveTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "Move.h"
 #include "Board.h"
 #include "Draught.h"
@@ -13,6 +15,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION( MoveTests );
 
 MoveTests::MoveTests()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
+
   m_error_move_1 = Move(Error::Ptr(new Move::ErrorGetKingButMoveFurther));
   m_error_move_2 = Move(Error::Ptr(new Move::ErrorNoRequestedDraught));
 
@@ -71,14 +75,18 @@ MoveTests::MoveTests()
   Board bWhiteComplexJumpTo;
   bWhiteComplexJumpTo.put(Draught(cG5, Color::EWhite, true));
   m_complex_jump_white = Move(bWhiteComplexJumpFrom, bWhiteComplexJumpTo);
+
+  RulesOfGameManager::instance().reset();
 }
 
 void MoveTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void MoveTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void MoveTests::undefinedUsage()

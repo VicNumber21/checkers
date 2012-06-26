@@ -1,4 +1,6 @@
 #include "CoordDeltaTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "CoordDelta.h"
 #include "Coord.h"
 #include "PrettyPrint.h"
@@ -15,10 +17,12 @@ typedef std::vector<CoordDelta::Direction> DirectionV;
 
 void CoordDeltaTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void CoordDeltaTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 DirectionV makeDirections()

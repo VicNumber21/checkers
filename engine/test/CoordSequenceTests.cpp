@@ -1,4 +1,6 @@
 #include "CoordSequenceTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "CoordSequence.h"
 #include "PrettyPrint.h"
 
@@ -9,10 +11,12 @@ CPPUNIT_TEST_SUITE_REGISTRATION( CoordSequenceTests );
 
 void CoordSequenceTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void CoordSequenceTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void CoordSequenceTests::wrongSequenceForSimpleMove()

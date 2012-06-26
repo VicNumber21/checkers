@@ -1,4 +1,6 @@
 #include "AmericanCheckersPositionAnalyserTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "AmericanCheckersPositionAnalyser.h"
 #include "Move.h"
 #include "CoordSequence.h"
@@ -24,10 +26,12 @@ typedef std::list<CoordList> CoordLists;
 
 void AmericanCheckersPositionAnalyserTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void AmericanCheckersPositionAnalyserTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void batchMove(BoardList &aBoards, const CoordList &aFrom, const CoordList &aTo)

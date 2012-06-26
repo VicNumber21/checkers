@@ -1,4 +1,6 @@
 #include "DraughtTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "Draught.h"
 #include "Coord.h"
 #include "Color.h"
@@ -10,10 +12,12 @@ CPPUNIT_TEST_SUITE_REGISTRATION( DraughtTests );
 
 void DraughtTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void DraughtTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void DraughtTests::coordAndColor()

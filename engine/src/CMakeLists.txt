@@ -18,6 +18,8 @@ set(engine_SRCS
     Board.cpp
     Maybe.cpp
     RulesOfGame.cpp
+    RulesOfGameManager.cpp
+    RulesOfGameInstances.cpp
     Move.cpp
     PositionAnalyser.cpp
     AmericanCheckersPositionAnalyser.cpp

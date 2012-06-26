@@ -1,4 +1,6 @@
 #include "BoardViewTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "BoardView.h"
 #include "Board.h"
 #include "Draught.h"
@@ -13,10 +15,12 @@ CPPUNIT_TEST_SUITE_REGISTRATION( BoardViewTests );
 
 void BoardViewTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void BoardViewTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void BoardViewTests::emptyBoard()

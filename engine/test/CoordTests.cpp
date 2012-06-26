@@ -1,5 +1,6 @@
-
 #include "CoordTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "Coord.h"
 
 using namespace Checkers::Engine;
@@ -9,10 +10,12 @@ CPPUNIT_TEST_SUITE_REGISTRATION( CoordTests );
 
 void CoordTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void CoordTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void CoordTests::wrongIntCoord()

@@ -1,4 +1,6 @@
 #include "FramedBoardViewTests.h"
+#include "RulesOfGameManager.h"
+#include "RulesOfGameInstances.h"
 #include "FramedBoardView.h"
 #include "Board.h"
 #include "Draught.h"
@@ -23,10 +25,12 @@ std::string& replace_space_by_dot(std::string& aStr)
 
 void FramedBoardViewTests::setUp()
 {
+  RulesOfGameManager::instance().append(RulesOfGameInstanceInterface::Ptr(new AmericanCheckersRulesOfGame), true);
 }
 
 void FramedBoardViewTests::tearDown()
 {
+  RulesOfGameManager::instance().reset();
 }
 
 void FramedBoardViewTests::emptyBoard()

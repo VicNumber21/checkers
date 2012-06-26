@@ -6,19 +6,14 @@ namespace Checkers
 {
   namespace Engine
   {
-    class CoordSequence;
-    class Coord;
-    class Board;
-    class Color;
-    class Draught;
     class PositionAnalyser;
     class BoardTraits;
 
     class RulesOfGame
     {
     public:
-        static const BoardTraits &boardTraits();
-        static PositionAnalyser &positionAnalyser();
+      static const BoardTraits &boardTraits();
+      static PositionAnalyser &positionAnalyser();
     };
   };
 };
