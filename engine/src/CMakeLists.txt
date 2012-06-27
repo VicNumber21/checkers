@@ -24,6 +24,8 @@ set(engine_SRCS
     PositionAnalyser.cpp
     AmericanCheckersPositionAnalyser.cpp
     AmericanCheckersBoardTraits.cpp
+    Walker.cpp
+    Iteration.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})
