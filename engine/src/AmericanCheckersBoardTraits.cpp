@@ -49,7 +49,7 @@ bool AmericanCheckersBoardTraits::isColumnInBound(char aX) const
 
 bool AmericanCheckersBoardTraits::isRowInBound(int aY) const
 {
-  return aY >= 0 && aY < AmericanCheckersBoardTraits::height();
+  return aY >= 0 && aY < height();
 }
 
 bool AmericanCheckersBoardTraits::isRowInBound(char aY) const
