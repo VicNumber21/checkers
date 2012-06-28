@@ -21,7 +21,7 @@ void WalkerIterationTests::tearDown()
   CPPUNIT_ASSERT(Loop::Iteration::instance().isEmpty());
   m_incrementor_ptr.reset();
   m_decrementor_ptr.reset();
-  m_remover_ptr->setToRemove(Loop::Walker::Ptr());
+  m_remover_ptr->setToRemove(Loop::WalkerBase::Ptr());
   m_remover_ptr.reset();
   m_batch_remover_ptr.reset();
   m_self_inserter_ptr.reset();

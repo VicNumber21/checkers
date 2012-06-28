@@ -1,7 +1,7 @@
 #ifndef H_ITERATION_H
 #define H_ITERATION_H
 
-#include "Walker.h"
+#include "WalkerBase.h"
 
 #include <list>
 
@@ -17,7 +17,7 @@ namespace Checkers
       public:
         static Iteration &instance();
 
-        void registerForNextIteration(const Loop::Walker::Ptr &aWalker);
+        void registerForNextIteration(const Loop::WalkerBase::Ptr &aWalker);
         void removeAll(bool aNow = true);
 
         void walk();
@@ -25,7 +25,7 @@ namespace Checkers
         bool isEmpty() const;
 
       private:
-        typedef std::list<Loop::Walker::Ptr> WalkerStorage;
+        typedef std::list<Loop::WalkerBase::Ptr> WalkerStorage;
 
       private:
         Iteration();

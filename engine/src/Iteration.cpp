@@ -13,7 +13,7 @@ Loop::Iteration::Iteration()
 {
 }
 
-void Loop::Iteration::registerForNextIteration(const Loop::Walker::Ptr &aWalker)
+void Loop::Iteration::registerForNextIteration(const Loop::WalkerBase::Ptr &aWalker)
 {
   m_walkers.push_front(aWalker);
 }
@@ -44,7 +44,7 @@ void Loop::Iteration::walk()
 {
   for(WalkerStorage::iterator it = m_walkers.begin(); it != m_walkers.end();)
   {
-    Walker::Ptr currentWalker = *it;
+    WalkerBase::Ptr currentWalker = *it;
 
     if(currentWalker->isWaitingForRemoval())
     {

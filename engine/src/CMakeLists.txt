@@ -24,7 +24,7 @@ set(engine_SRCS
     PositionAnalyser.cpp
     AmericanCheckersPositionAnalyser.cpp
     AmericanCheckersBoardTraits.cpp
-    Walker.cpp
+    WalkerBase.cpp
     Iteration.cpp
    )
 

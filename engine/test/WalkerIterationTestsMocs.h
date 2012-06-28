@@ -5,11 +5,8 @@
 #include "Iteration.h"
 
 
-class Incrementor : public Checkers::Engine::Loop::Walker
+class Incrementor : public Checkers::Engine::Loop::Walker<Incrementor>
 {
-public:
-  typedef std::tr1::shared_ptr<Incrementor> Ptr;
-
 public:
   static Incrementor::Ptr create()
   {
@@ -35,11 +32,8 @@ private:
   int m_value;
 };
 
-class Decrementor : public Checkers::Engine::Loop::Walker
+class Decrementor : public Checkers::Engine::Loop::Walker<Decrementor>
 {
-public:
-  typedef std::tr1::shared_ptr<Decrementor> Ptr;
-
 public:
   static Decrementor::Ptr create()
   {
@@ -86,10 +80,10 @@ public:
       m_to_remove->removeFromIteration();
   }
 
-  void setToRemove(Checkers::Engine::Loop::Walker::Ptr aToRemove)
+  void setToRemove(Checkers::Engine::Loop::WalkerBase::Ptr aToRemove)
   {
     m_to_remove = aToRemove;
-    
+
     if(m_to_remove)
       readyToGo();
     else
@@ -100,14 +94,11 @@ private:
   Remover() {}
 
 private:
-  Checkers::Engine::Loop::Walker::Ptr m_to_remove;
+  Checkers::Engine::Loop::WalkerBase::Ptr m_to_remove;
 };
 
-class BatchRemover : public Checkers::Engine::Loop::Walker
+class BatchRemover : public Checkers::Engine::Loop::Walker<BatchRemover>
 {
-  public:
-    typedef std::tr1::shared_ptr<BatchRemover> Ptr;
-
   public:
     static BatchRemover::Ptr create()
     {
