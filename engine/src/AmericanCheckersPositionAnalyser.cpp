@@ -27,10 +27,17 @@ Move AmericanCheckersPositionAnalyser::createMove(const Engine::CoordSequence &a
 {
   Move move;
 
-  if(aUpdateColorIfNeeded)
-    safeColorUpdate(*aCoordSequence.begin());
+  if(aCoordSequence.count() >= 2)
+  {
+    if(aUpdateColorIfNeeded)
+      safeColorUpdate(*aCoordSequence.begin());
 
-  move = findInValidMoves(aCoordSequence);
+    move = findInValidMoves(aCoordSequence);
+  }
+  else
+  {
+    move = Move(Engine::Error::Ptr(new Move::ErrorIncompleteCoordSequence));
+  }
 
   return move;
 }
@@ -75,11 +82,7 @@ Move AmericanCheckersPositionAnalyser::createErrorMove(const Engine::CoordSequen
   Maybe<Draught> toDraught = m_from.testSquare(*to);
   Maybe<Draught> betweenDraught = m_from.testSquare(*from + betweenDelta);
 
-  if(aCoordSequence.count() < 2)
-  {
-    move = Move(Engine::Error::Ptr(new Move::ErrorIncompleteCoordSequence));
-  }
-  else if(moved.isNothing() || moved().color() != m_color)
+  if(moved.isNothing() || moved().color() != m_color)
   {
     move = Move(Engine::Error::Ptr(new Move::ErrorNoRequestedDraught));
   }
