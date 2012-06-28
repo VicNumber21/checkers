@@ -22,6 +22,8 @@ namespace Checkers
 
         void walk();
 
+        bool isEmpty() const;
+
       private:
         typedef std::list<Loop::Walker::Ptr> WalkerStorage;
 

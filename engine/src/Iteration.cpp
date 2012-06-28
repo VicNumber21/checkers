@@ -50,14 +50,22 @@ void Loop::Iteration::walk()
     {
       it = removeWalker(it);
     }
-    else if(currentWalker->isReadyToGo())
+    else 
     {
-      currentWalker->doStep();
+      if(currentWalker->isReadyToGo())
+      {
+        currentWalker->doStep();
 
-      if(m_walkers.size() == 0) //it makes removeAll(true) safe from doStep()
-        break;
+        if(isEmpty()) //it makes removeAll(true) safe from doStep()
+          break;
+      }
 
       ++it;
     }
   }
+}
+
+bool Loop::Iteration::isEmpty() const
+{
+  return m_walkers.size() == 0;
 }
