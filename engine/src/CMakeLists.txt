@@ -26,6 +26,7 @@ set(engine_SRCS
     AmericanCheckersBoardTraits.cpp
     WalkerBase.cpp
     Iteration.cpp
+    Player.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})
