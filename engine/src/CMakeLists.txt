@@ -27,6 +27,7 @@ set(engine_SRCS
     WalkerBase.cpp
     Iteration.cpp
     Player.cpp
+    GameManager.cpp
    )
 
 add_library(engine SHARED ${engine_SRCS})
