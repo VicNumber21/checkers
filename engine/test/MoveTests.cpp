@@ -33,15 +33,19 @@ MoveTests::MoveTests()
 
   Board bBlackSimpleMoveFrom;
   bBlackSimpleMoveFrom.put(Draught(cB4, Color::EBlack));
+  bBlackSimpleMoveFrom.put(Draught(cF6, Color::EWhite));
   Board bBlackSimpleMoveTo;
   bBlackSimpleMoveTo.put(Draught(cC5, Color::EBlack));
+  bBlackSimpleMoveTo.put(Draught(cF6, Color::EWhite));
   m_simple_move_black_any_id = Move(bBlackSimpleMoveFrom, bBlackSimpleMoveTo);
   m_simple_move_black_id_2 = Move(bBlackSimpleMoveFrom, bBlackSimpleMoveTo, 2);
 
   Board bWhiteSimpleMoveFrom;
+  bWhiteSimpleMoveFrom.put(Draught(cA3, Color::EBlack));
   bWhiteSimpleMoveFrom.put(Draught(cD6, Color::EWhite));
   Board bWhiteSimpleMoveTo;
-  bWhiteSimpleMoveTo.put(Draught(cA5, Color::EWhite));
+  bWhiteSimpleMoveTo.put(Draught(cA3, Color::EBlack));
+  bWhiteSimpleMoveTo.put(Draught(cC5, Color::EWhite));
   m_simple_move_white = Move(bWhiteSimpleMoveFrom, bWhiteSimpleMoveTo);
 
   Board bBlackSimpleJumpFrom;

@@ -60,7 +60,7 @@ Color Move::color() const
   else
   {
     Board::Iterator fromIt = from().begin();
-    Board::Iterator toIt = from().end();
+    Board::Iterator toIt = to().begin();
     for(; (*fromIt) == (*toIt); ++fromIt, ++toIt)
       ;
     ret = fromIt->color();
