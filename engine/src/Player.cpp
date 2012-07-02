@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "RulesOfGame.h"
 #include "PositionAnalyser.h"
+#include "GameManager.h"
 
 using namespace Checkers::Engine;
 
@@ -33,19 +34,16 @@ Color Player::color() const
 
 void Player::setMind(PlayerMind::Ptr aMind)
 {
-  throwIfActive();
   m_mind = aMind;
+
+  if(isThinking())
+    think();
 }
 
 void Player::yourTurn()
 {
   throwIfActive();
   readyToGo();
-}
-
-bool Player::isThinking() const
-{
-  return m_thinking;
 }
 
 void Player::doStep()
@@ -60,31 +58,32 @@ void Player::doStep()
 
 void Player::think()
 {
-  if(!m_mind.expired())
+  if(hasMind())
   {
     m_mind.lock()->thinkOfMove(self());
-    m_thinking = true;
   }
+
+  m_thinking = true;
+  m_ready_to_move = false;
 }
 
 void Player::doMove()
 {
-  //TODO applyMove to GameManager
+  GameManager::instance().applyMove(m_move);
+  m_move = Move();
   m_ready_to_move = false;
 }
 
 void Player::set(const Engine::CoordSequence &aCoordSequence)
 {
-  //TODO get current board from GameManager
-  Board bCurrent;
-  RulesOfGame::positionAnalyser().setPosition(bCurrent, color());
+  RulesOfGame::positionAnalyser().setPosition(GameManager::instance().currentBoard(), color());
   Move move = RulesOfGame::positionAnalyser().createMove(aCoordSequence);
   set(move);
 }
 
 void Player::set(const Engine::Move &aMove)
 {
-  if(!isThinking() || isReadyToMove())
+  if(!isThinking())
     throw Player::ErrorIsNotWaitingForMove();
 
   if(!aMove.isValid())
@@ -97,6 +96,17 @@ void Player::set(const Engine::Move &aMove)
   //TODO think about State pattern here
   m_thinking = false;
   m_ready_to_move = true;
+  readyToGo();
+}
+
+bool Player::hasMind() const
+{
+  return !m_mind.expired();
+}
+
+bool Player::isThinking() const
+{
+  return hasMind() && m_thinking;
 }
 
 bool Player::isReadyToMove() const
@@ -104,10 +114,16 @@ bool Player::isReadyToMove() const
   return m_ready_to_move;
 }
 
+bool Player::isDone() const
+{
+  return !isActive();
+}
+
 bool Player::isActive() const
 {
   return isReadyToGo() || isThinking() || isReadyToMove();
 }
+
 
 void Player::throwIfActive() const
 {

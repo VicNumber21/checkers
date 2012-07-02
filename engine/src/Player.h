@@ -36,12 +36,13 @@ namespace Checkers
       static Player::Ptr create(Color aColor, PlayerMind::Ptr aMind);
 
       void setColor(Color aColor);
-      Color color() const;
+      virtual Color color() const;
 
+      bool hasMind() const;
       void setMind(PlayerMind::Ptr aMind);
 
       void yourTurn();
-      bool isThinking() const;
+      bool isDone() const;
 
     protected:
       Player(Color aColor, PlayerMind::Ptr aMind);
@@ -51,6 +52,7 @@ namespace Checkers
       virtual void set(const Engine::CoordSequence &aCoordSequence);
       virtual void set(const Engine::Move &aMove);
 
+      bool isThinking() const;
       bool isReadyToMove() const;
       bool isActive() const;
 
