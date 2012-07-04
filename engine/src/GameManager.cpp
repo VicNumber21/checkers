@@ -4,6 +4,7 @@
 #include "Color.h"
 
 #include <algorithm>
+#include <time.h>
 
 using namespace Checkers::Engine;
 
@@ -16,6 +17,7 @@ GameManager & GameManager::instance()
 
 GameManager::GameManager()
 {
+  srand(time(0));
 }
 
 void GameManager::setCurrentBoard(const Board &aBoard)

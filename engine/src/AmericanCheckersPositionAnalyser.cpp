@@ -6,7 +6,6 @@
 
 #include <vector>
 #include <stdlib.h>
-#include <time.h>
 
 using namespace Checkers::Engine;
 
@@ -20,7 +19,6 @@ void AmericanCheckersPositionAnalyser::setPosition(const Engine::Board &aBoard, 
 {
   m_from = aBoard;
   updateValidMovesIfNeeded(aColor, true);
-  srand(time(0));
 }
 
 Move AmericanCheckersPositionAnalyser::createMove(const Engine::CoordSequence &aCoordSequence, bool aUpdateColorIfNeeded)
