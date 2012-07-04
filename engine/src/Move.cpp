@@ -59,11 +59,15 @@ Color Move::color() const
   }
   else
   {
-    Board::Iterator fromIt = from().begin();
+    //TODO can be optimized with hash map usage probably
     Board::Iterator toIt = to().begin();
-    for(; (*fromIt) == (*toIt); ++fromIt, ++toIt)
-      ;
-    ret = fromIt->color();
+    for(; toIt != to().end(); ++toIt)
+    {
+      if(from().testSquare(toIt->coord()).isNothing())
+        break;
+    }
+
+    ret = toIt->color();
   }
 
   return ret;

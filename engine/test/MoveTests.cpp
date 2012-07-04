@@ -12,6 +12,51 @@ using namespace Checkers::Engine;
 
 CPPUNIT_TEST_SUITE_REGISTRATION( MoveTests );
 
+Board simpleMoveBlackFrom()
+{
+  Board b;
+
+  for(int i = 0; i < 3*8/2; ++i)
+  {
+    int rowBlack = i / 4;
+    int rowWhite = rowBlack + 5;
+    int colBlack = (i % 4) * 2;
+    int colWhite = colBlack + 1;
+
+    if(rowBlack % 2 == 1)
+      std::swap(colBlack, colWhite);
+
+    b.put(Draught(Coord(colBlack, rowBlack), Color::EBlack));
+    b.put(Draught(Coord(colWhite, rowWhite), Color::EWhite));
+  }
+
+  return b;
+}
+
+Board simpleMoveBlackTo()
+{
+  Board b;
+
+  for(int i = 0; i < 3*8/2; ++i)
+  {
+    int rowBlack = i / 4;
+    int rowWhite = rowBlack + 5;
+    int colBlack = (i % 4) * 2;
+    int colWhite = colBlack + 1;
+
+    if(rowBlack % 2 == 1)
+      std::swap(colBlack, colWhite);
+
+    if(rowBlack == 2 && colBlack == 2)
+      b.put(Draught(Coord('b', '4'), Color::EBlack));
+    else
+      b.put(Draught(Coord(colBlack, rowBlack), Color::EBlack));
+
+    b.put(Draught(Coord(colWhite, rowWhite), Color::EWhite));
+  }
+
+  return b;
+}
 
 MoveTests::MoveTests()
 {
@@ -31,14 +76,8 @@ MoveTests::MoveTests()
   Coord cF6('f', '6');
   Coord cG5('g', '5');
 
-  Board bBlackSimpleMoveFrom;
-  bBlackSimpleMoveFrom.put(Draught(cB4, Color::EBlack));
-  bBlackSimpleMoveFrom.put(Draught(cF6, Color::EWhite));
-  Board bBlackSimpleMoveTo;
-  bBlackSimpleMoveTo.put(Draught(cC5, Color::EBlack));
-  bBlackSimpleMoveTo.put(Draught(cF6, Color::EWhite));
-  m_simple_move_black_any_id = Move(bBlackSimpleMoveFrom, bBlackSimpleMoveTo);
-  m_simple_move_black_id_2 = Move(bBlackSimpleMoveFrom, bBlackSimpleMoveTo, 2);
+  m_simple_move_black_any_id = Move(simpleMoveBlackFrom(), simpleMoveBlackTo());
+  m_simple_move_black_id_2 = Move(simpleMoveBlackFrom(), simpleMoveBlackTo(), 2);
 
   Board bWhiteSimpleMoveFrom;
   bWhiteSimpleMoveFrom.put(Draught(cA3, Color::EBlack));
