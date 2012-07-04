@@ -39,8 +39,7 @@ namespace Checkers
       Maybe<Engine::Draught> testSquare(const Engine::Coord &aCoord) const;
 
       int count() const;
-      int countWhite() const;
-      int countBlack() const;
+      int count(const Engine::Color aColor) const;
 
       Board & operator=(const Engine::Board &aBoard);
 
@@ -55,7 +54,6 @@ namespace Checkers
 
     private:
       Maybe<Engine::Draught> getDraught(const Engine::Coord &aCoord, bool aKeepOnBoard) const;
-      int countDraughts(const Engine::Color aColor) const;
 
     private:
       DraughtSet m_draught_set;

@@ -52,7 +52,7 @@ Color Move::color() const
 
   if(score() > 0)
   {
-    if(from().countBlack() != to().countBlack())
+    if(from().count(Color::EBlack) != to().count(Color::EBlack))
     {
       ret = Color::EWhite;
     }

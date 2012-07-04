@@ -32,24 +32,24 @@ void BoardTests::put()
 
   CPPUNIT_ASSERT(b.put(d1));
   CPPUNIT_ASSERT_EQUAL(1, b.count());
-  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(0, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EWhite));
   Maybe<Draught> md1 = b.testSquare(Coord('b','8'));
   CPPUNIT_ASSERT(!md1.isNothing());
   CPPUNIT_ASSERT(d1 == md1());
 
   CPPUNIT_ASSERT(b.put(d2));
   CPPUNIT_ASSERT_EQUAL(2, b.count());
-  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
   Maybe<Draught> md2 = b.testSquare(Coord('a','6'));
   CPPUNIT_ASSERT(!md2.isNothing());
   CPPUNIT_ASSERT(d2 == md2());
 
   CPPUNIT_ASSERT(!b.put(d3));
   CPPUNIT_ASSERT_EQUAL(2, b.count());
-  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
   Maybe<Draught> md3 = b.testSquare(Coord('a','6'));
   CPPUNIT_ASSERT(!md3.isNothing());
   CPPUNIT_ASSERT(d2 == md3());
@@ -57,8 +57,8 @@ void BoardTests::put()
 
   CPPUNIT_ASSERT(!b.put(d4));
   CPPUNIT_ASSERT_EQUAL(2, b.count());
-  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
   Maybe<Draught> md4 = b.testSquare(Coord('a','6'));
   CPPUNIT_ASSERT(!md4.isNothing());
   CPPUNIT_ASSERT(d2 == md4());
@@ -67,8 +67,8 @@ void BoardTests::put()
 
   CPPUNIT_ASSERT(b.put(d5));
   CPPUNIT_ASSERT_EQUAL(3, b.count());
-  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(2, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(2, b.count(Color::EWhite));
   Maybe<Draught> md5 = b.testSquare(Coord('g','1'));
   CPPUNIT_ASSERT(!md5.isNothing());
   CPPUNIT_ASSERT(d5 == md5());
@@ -93,21 +93,21 @@ void BoardTests::takeDraught()
   Maybe<Draught> md1 = b.takeDraught(Coord('g','4'));
   CPPUNIT_ASSERT(md1.isNothing());
   CPPUNIT_ASSERT_EQUAL(1, b.count());
-  CPPUNIT_ASSERT_EQUAL(0, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
 
   Maybe<Draught> md2 = b.takeDraught(Coord('g','3'));
   CPPUNIT_ASSERT(!md2.isNothing());
   CPPUNIT_ASSERT(d1 == md2());
   CPPUNIT_ASSERT_EQUAL(0, b.count());
-  CPPUNIT_ASSERT_EQUAL(0, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(0, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EWhite));
 
   Maybe<Draught> md3 = b.takeDraught(Coord('g','3'));
   CPPUNIT_ASSERT(md3.isNothing());
   CPPUNIT_ASSERT_EQUAL(0, b.count());
-  CPPUNIT_ASSERT_EQUAL(0, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(0, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EWhite));
 }
 
 void BoardTests::testSquare()
@@ -119,23 +119,23 @@ void BoardTests::testSquare()
   Maybe<Draught> md1 = b.testSquare(Coord('g','4'));
   CPPUNIT_ASSERT(md1.isNothing());
   CPPUNIT_ASSERT_EQUAL(1, b.count());
-  CPPUNIT_ASSERT_EQUAL(0, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
 
   Maybe<Draught> md2 = b.testSquare(Coord('g','3'));
   CPPUNIT_ASSERT(!md2.isNothing());
   CPPUNIT_ASSERT(d1 == md2());
   CPPUNIT_ASSERT_EQUAL(1, b.count());
-  CPPUNIT_ASSERT_EQUAL(0, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
 
   Maybe<Draught> md3 = b.testSquare(Coord('g','3'));
   CPPUNIT_ASSERT(!md3.isNothing());
   CPPUNIT_ASSERT(d1 == md3());
   CPPUNIT_ASSERT(md2() == md3());
   CPPUNIT_ASSERT_EQUAL(1, b.count());
-  CPPUNIT_ASSERT_EQUAL(0, b.countBlack());
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EBlack));
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
 }
 
 void BoardTests::equal()
@@ -386,7 +386,7 @@ void BoardTests::count()
 void BoardTests::countWhite()
 {
   Board b;
-  CPPUNIT_ASSERT_EQUAL(0, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EWhite));
   Draught d1(Coord('g','3'), Color::EBlack);
   Draught d2(Coord('a','6'), Color::EWhite);
   Draught d3(Coord('b','7'), Color::EBlack, true);
@@ -394,30 +394,30 @@ void BoardTests::countWhite()
   Draught d5(Coord('d','2'), Color::EBlack);
 
   b.put(d1);
-  CPPUNIT_ASSERT_EQUAL(0, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EWhite));
 
   b.put(d2);
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
 
   b.put(d3);
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
 
   b.put(d4);
-  CPPUNIT_ASSERT_EQUAL(2, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(2, b.count(Color::EWhite));
 
   b.put(d5);
-  CPPUNIT_ASSERT_EQUAL(2, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(2, b.count(Color::EWhite));
 
   b.takeDraught(Coord('a','6'));
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
   b.takeDraught(Coord('a','6'));
-  CPPUNIT_ASSERT_EQUAL(1, b.countWhite());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EWhite));
 }
 
 void BoardTests::countBlack()
 {
   Board b;
-  CPPUNIT_ASSERT_EQUAL(0, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(0, b.count(Color::EBlack));
   Draught d1(Coord('g','3'), Color::EBlack);
   Draught d2(Coord('a','6'), Color::EWhite);
   Draught d3(Coord('b','7'), Color::EBlack, true);
@@ -425,22 +425,22 @@ void BoardTests::countBlack()
   Draught d5(Coord('d','2'), Color::EBlack);
 
   b.put(d1);
-  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EBlack));
 
   b.put(d2);
-  CPPUNIT_ASSERT_EQUAL(1, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(1, b.count(Color::EBlack));
 
   b.put(d3);
-  CPPUNIT_ASSERT_EQUAL(2, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(2, b.count(Color::EBlack));
 
   b.put(d4);
-  CPPUNIT_ASSERT_EQUAL(2, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(2, b.count(Color::EBlack));
 
   b.put(d5);
-  CPPUNIT_ASSERT_EQUAL(3, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(3, b.count(Color::EBlack));
 
   b.takeDraught(Coord('a','6'));
-  CPPUNIT_ASSERT_EQUAL(3, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(3, b.count(Color::EBlack));
   b.takeDraught(Coord('a','6'));
-  CPPUNIT_ASSERT_EQUAL(3, b.countBlack());
+  CPPUNIT_ASSERT_EQUAL(3, b.count(Color::EBlack));
 }

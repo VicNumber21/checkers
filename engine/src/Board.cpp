@@ -77,17 +77,7 @@ int Board::count() const
   return m_draught_set.size();
 }
 
-int Board::countWhite() const
-{
-  return countDraughts(Color::EWhite);
-}
-
-int Board::countBlack() const
-{
-  return countDraughts(Color::EBlack);
-}
-
-int Board::countDraughts(const Engine::Color aColor) const
+int Board::count(const Engine::Color aColor) const
 {
   int draughtCount = 0;
   for(Iterator it = begin(); it != end(); ++it)
