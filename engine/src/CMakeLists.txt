@@ -27,6 +27,7 @@ set(engine_SRCS
     WalkerBase.cpp
     Iteration.cpp
     Player.cpp
+    RandomChoiceMind.cpp
     GameManager.cpp
    )
 

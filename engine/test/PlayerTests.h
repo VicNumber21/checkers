@@ -9,6 +9,7 @@ class PlayerTests : public CppUnit::TestFixture
   CPPUNIT_TEST_SUITE( PlayerTests );
     CPPUNIT_TEST( thinkAndMakeMove );
     CPPUNIT_TEST( stepByStep );
+    CPPUNIT_TEST( randomChoiceMind );
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -17,6 +18,8 @@ public:
 
   void thinkAndMakeMove();
   void stepByStep();
+  //TODO move mind tests into another suite?
+  void randomChoiceMind();
 };
 
 #endif //H_PLAYER_TESTS_H

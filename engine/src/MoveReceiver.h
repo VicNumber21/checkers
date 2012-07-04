@@ -17,6 +17,7 @@ namespace Checkers
     {
     public:
       typedef std::tr1::weak_ptr<MoveReceiver> Ptr;
+      typedef std::tr1::shared_ptr<MoveReceiver> StrongPtr;
 
     public:
       virtual void set(const Engine::CoordSequence &aCoordSequence) = 0;

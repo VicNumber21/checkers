@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "GameManager.h"
 #include "Iteration.h"
+#include "RandomChoiceMind.h"
 #include "PrettyPrint.h"
 
 using namespace Checkers::Engine;
@@ -165,3 +166,55 @@ void PlayerTests::stepByStep()
   CPPUNIT_ASSERT(remoteControlMind->requestedColor() == Color::EWhite);
 }
 
+void playToWin(PlayerMind::Ptr aBlackMind, PlayerMind::Ptr aWhiteMind, bool aVerbose)
+{
+  Player::Ptr player = Player::create(Color::EBlack, aBlackMind);
+
+  player->registerForNextIteration(false);
+
+  player->yourTurn();
+
+  int cycleCount = 0;
+  int moveCount = 1;
+
+  if (aVerbose) std::cerr << std::endl << "Game start:";
+  if (aVerbose) std::cerr << GameManager::instance().currentBoard();
+  if (aVerbose) std::cerr << std::endl << "=====================";
+  if (aVerbose) std::cerr << std::endl << "Move " << moveCount;
+
+  while(GameManager::instance().currentBoard().count(player->color()) != 0)
+  {
+    Loop::Iteration::instance().walk();
+
+    if(player->isDone())
+    {
+      if (aVerbose) std::cerr << GameManager::instance().currentBoard();
+      player->setColor(player->color() == Color::EBlack? Color::EWhite: Color::EBlack);
+      player->setMind(player->color() == Color::EBlack? aBlackMind: aWhiteMind);
+      player->yourTurn();
+      cycleCount = 0;
+
+      if(player->color() == Color::EBlack)
+      {
+        ++moveCount;
+        if (aVerbose) std::cerr << std::endl << "=====================";
+        if (aVerbose) std::cerr << std::endl << "Move " << moveCount;
+      }
+    }
+
+    CPPUNIT_ASSERT(cycleCount < 5);
+    ++cycleCount;
+    CPPUNIT_ASSERT(moveCount < 500);
+  }
+
+  if (aVerbose) std::cerr << std::endl << "=====================";
+  if (aVerbose) std::cerr << std::endl << (player->color() == Color::EBlack? "White" : "Black") << " player won!";
+}
+
+void PlayerTests::randomChoiceMind()
+{
+  RandomChoiceMind::Ptr randomChoiceMind = RandomChoiceMind::create();
+  randomChoiceMind->registerForNextIteration(false);
+
+  playToWin(randomChoiceMind, randomChoiceMind, false);
+}
