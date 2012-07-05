@@ -28,6 +28,19 @@ void RandomChoiceMind::thinkOfMove(MoveReceiver::Ptr aPtr)
   readyToGo();
 }
 
+//TODO: move into better MoveList implementation once
+static const Move &chooseRandomly(const PositionAnalyser::MoveList &aMoveList)
+{
+  int choosenMoveIndex = rand() % aMoveList.size();
+
+  PositionAnalyser::MoveList::const_iterator choosenMove = aMoveList.begin();
+
+  while(choosenMoveIndex--)
+    ++choosenMove;
+
+  return *choosenMove;
+}
+
 void RandomChoiceMind::doStep()
 {
   if(!m_move_receiver.expired())
@@ -37,17 +50,11 @@ void RandomChoiceMind::doStep()
     const PositionAnalyser::MoveList &validMoves =
                   RulesOfGame::positionAnalyser().validMoves(GameManager::instance().currentBoard(), moveReceiver->color());
 
+    //TODO in some games it is ok to miss the turn so it shall be better condition to throw or don't
     if(validMoves.size() == 0)
       throw RandomChoiceMind::Error();
 
-    int choosenMoveIndex = rand() % validMoves.size();
-
-    PositionAnalyser::MoveList::const_iterator choosenMove = validMoves.begin();
-
-    while(choosenMoveIndex--)
-      ++choosenMove;
-
-    moveReceiver->set(*choosenMove);
+    moveReceiver->set(chooseRandomly(validMoves));
   }
 
   m_move_receiver.reset();
