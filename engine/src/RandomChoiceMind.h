@@ -5,27 +5,33 @@
 #include "PlayerMind.h"
 
 
-class RandomChoiceMind : public Checkers::Engine::Loop::Walker<RandomChoiceMind>
-                       , public Checkers::Engine::PlayerMind
+namespace Checkers
 {
-public:
-  typedef Checkers::Engine::Loop::Walker<RandomChoiceMind>::Ptr Ptr;
-
-  class Error : public Checkers::Engine::Error
+  namespace Engine
   {
+    class RandomChoiceMind : public Loop::Walker<RandomChoiceMind>
+                           , public PlayerMind
+    {
+    public:
+      typedef Loop::Walker<RandomChoiceMind>::Ptr Ptr;
+
+      class Error : public Engine::Error
+      {
+      };
+
+    public:
+      static RandomChoiceMind::Ptr create();
+
+    private:
+      RandomChoiceMind();
+
+      virtual void thinkOfMove(MoveReceiver::Ptr aPtr);
+      virtual void doStep();
+
+    private:
+      MoveReceiver::Ptr m_move_receiver;
+    };
   };
-
-public:
-  static RandomChoiceMind::Ptr create();
-
-private:
-  RandomChoiceMind();
-
-  virtual void thinkOfMove(Checkers::Engine::MoveReceiver::Ptr aPtr);
-  virtual void doStep();
-
-private:
-  Checkers::Engine::MoveReceiver::Ptr m_move_receiver;
 };
 
 #endif //H_RANDOM_CHOICE_MIND_H

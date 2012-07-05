@@ -19,7 +19,7 @@ RandomChoiceMind::RandomChoiceMind()
 {
 }
 
-void RandomChoiceMind::thinkOfMove(Checkers::Engine::MoveReceiver::Ptr aPtr)
+void RandomChoiceMind::thinkOfMove(MoveReceiver::Ptr aPtr)
 {
   if(isReadyToGo())
     throw RandomChoiceMind::Error();
