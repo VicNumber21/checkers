@@ -1,11 +1,14 @@
 #include "PlayerTests.h"
 #include "PlayerTestsMocs.h"
+#include "RulesOfGame.h"
+#include "PositionAnalyser.h"
 #include "RulesOfGameManager.h"
 #include "RulesOfGameInstances.h"
 #include "Player.h"
 #include "GameManager.h"
 #include "Iteration.h"
 #include "RandomChoiceMind.h"
+#include "JustOwnMoveAheadMind.h"
 #include "PrettyPrint.h"
 
 using namespace Checkers::Engine;
@@ -45,6 +48,7 @@ void PlayerTests::setUp()
 
 void PlayerTests::tearDown()
 {
+  Loop::Iteration::instance().removeAll();
   RulesOfGameManager::instance().reset();
 }
 
@@ -182,7 +186,8 @@ void playToWin(PlayerMind::Ptr aBlackMind, PlayerMind::Ptr aWhiteMind, bool aVer
   if (aVerbose) std::cerr << std::endl << "=====================";
   if (aVerbose) std::cerr << std::endl << "Move " << moveCount;
 
-  while(GameManager::instance().currentBoard().count(player->color()) != 0)
+  //TODO add it into positionAnalyser as isGameOver with enum {ENo, EWon, ELost}
+  while(RulesOfGame::positionAnalyser().validMoves(GameManager::instance().currentBoard(), player->color()).size() > 0)
   {
     Loop::Iteration::instance().walk();
 
@@ -211,10 +216,41 @@ void playToWin(PlayerMind::Ptr aBlackMind, PlayerMind::Ptr aWhiteMind, bool aVer
   if (aVerbose) std::cerr << std::endl << (player->color() == Color::EBlack? "White" : "Black") << " player won!";
 }
 
-void PlayerTests::randomChoiceMind()
+void PlayerTests::randomChoiceMindVsItself()
 {
   RandomChoiceMind::Ptr randomChoiceMind = RandomChoiceMind::create();
   randomChoiceMind->registerForNextIteration(false);
 
   playToWin(randomChoiceMind, randomChoiceMind, false);
 }
+
+void PlayerTests::randomChoiceMindVsJustOwnMoveAheadMind()
+{
+  RandomChoiceMind::Ptr randomChoiceMind = RandomChoiceMind::create();
+  JustOwnMoveAheadMind::Ptr justOwnMoveAheadMind = JustOwnMoveAheadMind::create();
+
+  randomChoiceMind->registerForNextIteration(false);
+  justOwnMoveAheadMind->registerForNextIteration(false);
+
+  playToWin(randomChoiceMind, justOwnMoveAheadMind, false);
+}
+
+void PlayerTests::justOwnMoveAheadMindVsItself()
+{
+  JustOwnMoveAheadMind::Ptr justOwnMoveAheadMind = JustOwnMoveAheadMind::create();
+  justOwnMoveAheadMind->registerForNextIteration(false);
+
+  playToWin(justOwnMoveAheadMind, justOwnMoveAheadMind, false);
+}
+
+void PlayerTests::justOwnMoveAheadMindVsRandomChoiceMind()
+{
+  RandomChoiceMind::Ptr randomChoiceMind = RandomChoiceMind::create();
+  JustOwnMoveAheadMind::Ptr justOwnMoveAheadMind = JustOwnMoveAheadMind::create();
+
+  randomChoiceMind->registerForNextIteration(false);
+  justOwnMoveAheadMind->registerForNextIteration(false);
+
+  playToWin(justOwnMoveAheadMind, randomChoiceMind, false);
+}
+

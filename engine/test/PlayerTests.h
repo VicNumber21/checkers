@@ -9,7 +9,10 @@ class PlayerTests : public CppUnit::TestFixture
   CPPUNIT_TEST_SUITE( PlayerTests );
     CPPUNIT_TEST( thinkAndMakeMove );
     CPPUNIT_TEST( stepByStep );
-    CPPUNIT_TEST( randomChoiceMind );
+    CPPUNIT_TEST( randomChoiceMindVsItself );
+    CPPUNIT_TEST( randomChoiceMindVsJustOwnMoveAheadMind );
+    CPPUNIT_TEST( justOwnMoveAheadMindVsItself );
+    CPPUNIT_TEST( justOwnMoveAheadMindVsRandomChoiceMind );
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -19,7 +22,10 @@ public:
   void thinkAndMakeMove();
   void stepByStep();
   //TODO move mind tests into another suite?
-  void randomChoiceMind();
+  void randomChoiceMindVsItself();
+  void randomChoiceMindVsJustOwnMoveAheadMind();
+  void justOwnMoveAheadMindVsItself();
+  void justOwnMoveAheadMindVsRandomChoiceMind();
 };
 
 #endif //H_PLAYER_TESTS_H

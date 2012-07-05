@@ -28,6 +28,7 @@ set(engine_SRCS
     Iteration.cpp
     Player.cpp
     RandomChoiceMind.cpp
+    JustOwnMoveAheadMind.cpp
     GameManager.cpp
    )
 
