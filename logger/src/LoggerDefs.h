@@ -30,15 +30,25 @@
 #  define RELEASE_BUILD_LOG_VALUE_LOG_LEVEL LOG_LEVEL_NONE
 #endif
 
+#ifndef DEBUG_BUILD_LOG_CALLSTACK_LOG_LEVEL
+#  define DEBUG_BUILD_LOG_CALLSTACK_LOG_LEVEL LOG_LEVEL_VERY_VERBOSE_DEBUG
+#endif
+
+#ifndef RELEASE_BUILD_LOG_CALLSTACK_LOG_LEVEL
+#  define RELEASE_BUILD_LOG_CALLSTACK_LOG_LEVEL LOG_LEVEL_NONE
+#endif
+
 #ifndef LOG_LEVEL
 #  ifdef DEBUG
 #    pragma message "DEBUG BUILD"
 #    define LOG_LEVEL DEBUG_BUILD_LOG_LEVEL
 #    define LOG_VALUE_LOG_LEVEL DEBUG_BUILD_LOG_VALUE_LOG_LEVEL
+#    define LOG_CALLSTACK_LOG_LEVEL DEBUG_BUILD_LOG_CALLSTACK_LOG_LEVEL
 #  else
 #    pragma message "RELEASE BUILD"
 #    define LOG_LEVEL RELEASE_BUILD_LOG_LEVEL
 #    define LOG_VALUE_LOG_LEVEL RELEASE_BUILD_LOG_VALUE_LOG_LEVEL
+#    define LOG_CALLSTACK_LOG_LEVEL RELEASE_BUILD_LOG_CALLSTACK_LOG_LEVEL
 #  endif
 #endif
 
@@ -57,7 +67,8 @@
 #define BB do {       //Block begin
 #define BE ; } while(0) //Block end
 
-#define LOGGER_INSTANCE Checkers::Logger::Manager::instance()
+#define LOGGER_NS Checkers::Logger
+#define LOGGER_INSTANCE LOGGER_NS::Manager::instance()
 
 #define LOGGER_ON LOGGER_INSTANCE.isEnabled()
 
@@ -134,6 +145,16 @@
 #  define log_value(X) (X)
 #endif
 
+//short name to use e.g. inside if() or function call
 #define _lv(X) log_value(X)
+
+
+//Log callstack
+#if (LOG_CALLSTACK_LOG_LEVEL > LOG_LEVEL_NONE && LOG_CALLSTACK_LOG_LEVEL <= LOG_LEVEL)
+#  define CREATE_CALLSTACK_LOGGER (LOGGER_ON ? LOGGER_NS::Callstack(LOG_CALLSTACK_LOG_LEVEL, LOG_LOCATION_INFO) : LOGGER_NS::Callstack())
+#  define log_callstack(...) LOGGER_NS::Callstack __logger_callstack_temp_variable__ = CREATE_CALLSTACK_LOGGER
+#else
+#  define log_callstack(...) (void)0 
+#endif
 
 #endif //H_LOGGER_DEF_H
