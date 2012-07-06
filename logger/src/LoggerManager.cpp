@@ -16,6 +16,12 @@ Manager::Manager()
 {
 }
 
+Manager::~Manager()
+{
+  std::cerr << std::endl;
+}
+
+
 bool Manager::isEnabled() const
 {
   return m_enabled;

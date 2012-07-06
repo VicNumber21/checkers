@@ -13,6 +13,7 @@ namespace Checkers
     {
     public:
       static Manager &instance();
+      ~Manager();
 
       bool isEnabled() const;
 
