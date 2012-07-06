@@ -14,6 +14,8 @@
 #define LOG_LEVEL_DEBUG 6
 #define LOG_LEVEL_VERY_VERBOSE_DEBUG 7
 
+#define LOG_LEVEL_COUNT 7 //no need to count NONE
+
 #ifndef DEBUG_BUILD_LOG_LEVEL
 #  define DEBUG_BUILD_LOG_LEVEL LOG_LEVEL_DEBUG
 #endif

@@ -34,6 +34,7 @@ namespace Checkers
 
     private:
       Manager();
+      std::string getLogLevelName(int aLogLevel) const;
 
     private:
       bool m_enabled;
