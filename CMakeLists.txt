@@ -19,11 +19,18 @@ endif(${CMAKE_SYSTEM_NAME} STREQUAL Windows)
 message(STATUS "CMake generates " ${CMAKE_GENERATOR})
 message(STATUS "======================================")
 
+if(${CMAKE_BUILD_TYPE} STREQUAL Debug)
+message(STATUS "Build type: Debug")
+add_definitions(-DDEBUG)
+endif(${CMAKE_BUILD_TYPE} STREQUAL Debug)
+
+
 # TODO
 # enable / disable testing
 # basing on project configuration
 enable_testing()
 
+add_subdirectory(logger)
 add_subdirectory(engine)
 add_subdirectory(console-ui)
 add_subdirectory(console-app)
