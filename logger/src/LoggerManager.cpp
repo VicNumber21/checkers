@@ -31,3 +31,25 @@ bool Manager::message(int aLogLevel, std::string aFileName, int aLine, std::stri
 
   return true;
 }
+
+const char * Manager::value(int aLogLevel, std::string aFileName, int aLine, std::string aFunctionName, std::string aValueSource, const char *aValue)
+{
+  static std::string cache;
+
+  cache = std::string(aValue);
+
+  std::stringstream ss;
+  ss << aValueSource << " = " << cache;
+  message(aLogLevel, aFileName, aLine, aFunctionName, ss.str());
+
+  return cache.c_str();
+}
+
+bool Manager::value(int aLogLevel, std::string aFileName, int aLine, std::string aFunctionName, std::string aValueSource, bool aValue)
+{
+  std::stringstream ss;
+  ss << aValueSource << " = " << std::boolalpha << aValue;
+  message(aLogLevel, aFileName, aLine, aFunctionName, ss.str());
+
+  return aValue;
+}
