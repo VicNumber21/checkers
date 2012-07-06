@@ -7,6 +7,7 @@ include_directories( ${CMAKE_BINARY_DIR} )
 
 set(logger_SRCS
     LoggerManager.cpp
+    LoggerCallstack.cpp
    )
 
 add_library(logger SHARED ${logger_SRCS})
