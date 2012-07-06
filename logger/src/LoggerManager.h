@@ -35,9 +35,11 @@ namespace Checkers
     private:
       Manager();
       std::string getLogLevelName(int aLogLevel) const;
+      std::string reduceFileName(const std::string &aFileName) const;
 
     private:
       bool m_enabled;
+      int m_file_path_level;
     };
   };
 };
