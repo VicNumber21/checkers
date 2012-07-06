@@ -2,6 +2,7 @@
 #define H_LOGGER_DEF_H
 
 #include <assert.h>
+#include <sstream>
 
 //Log levels
 #define LOG_LEVEL_NONE 0
@@ -64,7 +65,10 @@
 #define IF_LOGGER_ON_BE  ; } BE
 
 #define __LOG_MESSAGE(LL,...) IF_LOGGER_ON_BB LOGGER_INSTANCE.message(LL, LOG_LOCATION_INFO, ## __VA_ARGS__) IF_LOGGER_ON_BE
-#define __NO_LOG_MESSAGE(...) BB (void)sizeof(LOGGER_INSTANCE.message(0, 0, 0, 0, ## __VA_ARGS__)) BE
+#define __NO_LOG_MESSAGE(...) (void)sizeof(LOGGER_INSTANCE.message(0, "", 0, "", ## __VA_ARGS__))
+
+#define __LOG_MESSAGE_STREAM(LL,M) BB std::stringstream ss; __LOG_MESSAGE(LL, (static_cast<std::stringstream &>(ss << M)).str()) BE
+#define __NO_LOG_MESSAGE_STREAM(M) BB (void)sizeof(std::cerr << M) BE
 
 
 //Log macro
@@ -76,38 +80,50 @@
 
 #if LOG_LEVEL >= LOG_LEVEL_CRITICAL
 #  define log_critical(...) __LOG_MESSAGE(LOG_LEVEL_CRITICAL, ## __VA_ARGS__)
+#  define log_critical_s(...) __LOG_MESSAGE_STREAM(LOG_LEVEL_CRITICAL, ## __VA_ARGS__)
 #else
-#  define log_critical(...) __NO_LOG_MESSAGE(## __VA_ARGS__)
+#  define log_critical(M) __NO_LOG_MESSAGE(M)
+#  define log_critical_s(M) __NO_LOG_MESSAGE_STREAM(M)
 #endif
 
 #if LOG_LEVEL >= LOG_LEVEL_ERROR
 #  define log_error(...) __LOG_MESSAGE(LOG_LEVEL_ERROR, ## __VA_ARGS__)
+#  define log_error_s(...) __LOG_MESSAGE_STREAM(LOG_LEVEL_ERROR, ## __VA_ARGS__)
 #else
-#  define log_error(...) __NO_LOG_MESSAGE(## __VA_ARGS__)
+#  define log_error(M) __NO_LOG_MESSAGE(M)
+#  define log_error_s(M) __NO_LOG_MESSAGE_STREAM(M)
 #endif
 
 #if LOG_LEVEL >= LOG_LEVEL_WARNING
 #  define log_warning(...) __LOG_MESSAGE(LOG_LEVEL_WARNING, ## __VA_ARGS__)
+#  define log_warning_s(...) __LOG_MESSAGE_STREAM(LOG_LEVEL_WARNING, ## __VA_ARGS__)
 #else
-#  define log_warning(...) __NO_LOG_MESSAGE(## __VA_ARGS__)
+#  define log_warning(M) __NO_LOG_MESSAGE(M)
+#  define log_warning_s(M) __NO_LOG_MESSAGE_STREAM(M)
 #endif
 
 #if LOG_LEVEL >= LOG_LEVEL_INFO
 #  define log_info(...) __LOG_MESSAGE(LOG_LEVEL_INFO, ## __VA_ARGS__)
+#  define log_info_s(...) __LOG_MESSAGE_STREAM(LOG_LEVEL_INFO, ## __VA_ARGS__)
 #else
-#  define log_info(...) __NO_LOG_MESSAGE(## __VA_ARGS__)
+#  define log_info(M) __NO_LOG_MESSAGE(M)
+#  define log_info_s(M) __NO_LOG_MESSAGE_STREAM(M)
 #endif
 
 #if LOG_LEVEL >= LOG_LEVEL_DEBUG
 #  define log_debug(...) __LOG_MESSAGE(LOG_LEVEL_DEBUG, ## __VA_ARGS__)
+#  define log_debug_s(...) __LOG_MESSAGE_STREAM(LOG_LEVEL_DEBUG, ## __VA_ARGS__)
 #else
-#  define log_debug(...) __NO_LOG_MESSAGE(## __VA_ARGS__)
+#  define log_debug(M) __NO_LOG_MESSAGE(M)
+#  define log_debug_s(M) __NO_LOG_MESSAGE_STREAM(M)
 #endif
 
 #if LOG_LEVEL >= LOG_LEVEL_VERY_VERBOSE_DEBUG
 #  define log_vv_debug(...) __LOG_MESSAGE(LOG_LEVEL_VERY_VERBOSE_DEBUG, ## __VA_ARGS__)
+#  define log_vv_debug_s(...) __LOG_MESSAGE_STREAM(LOG_LEVEL_VERY_VERBOSE_DEBUG, ## __VA_ARGS__)
 #else
-#  define log_vv_debug(...) __NO_LOG_MESSAGE(## __VA_ARGS__)
+#  define log_vv_debug(M) __NO_LOG_MESSAGE(M)
+#  define log_vv_debug_s(M) __NO_LOG_MESSAGE_STREAM(M)
 #endif
 
 
