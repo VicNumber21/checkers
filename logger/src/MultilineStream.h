@@ -11,10 +11,13 @@ class MultilineStream
   friend std::ostream & operator<<(std::ostream &aOut, MultilineStream &aValue);
 
 public:
+  MultilineStream();
+
   template<class T>
   MultilineStream & operator<<(const T &aValue)
   {
     m_buffer << aValue;
+    clearFrame();
     return *this;
   }
 
@@ -25,8 +28,17 @@ public:
   MultilineStream & operator<<(MultilineStream &aValue);
   MultilineStream & operator<<(std::stringstream &aValue);
 
+  void makeFrame();
+  void clearFrame();
+  bool isFramed() const;
+
+private:
+  void rewind();
+
 private:
   std::stringstream m_buffer;
+  size_t m_line_count;
+  size_t m_max_line_length;
 };
 
 #endif //H_MULTILINE_STREAM_H
