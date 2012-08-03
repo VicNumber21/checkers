@@ -57,7 +57,7 @@ bool Manager::message(int aLogLevel, std::string aFileName, int aLine, std::stri
   std::cerr << getLogLevelName(aLogLevel) << ": ";
   std::cerr << "at " << reduceFileName(aFileName) << " in " << aLine;
   std::cerr << " from " << aFunctionName;
-  std::cerr << ": " << aMessage;
+  std::cerr << (aMessage.size() > 0? ": ": "") << aMessage;
 
   return true;
 }
