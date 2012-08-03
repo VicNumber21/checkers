@@ -3,8 +3,8 @@ message(STATUS "Checkers engine build starting up...")
 
 add_definitions(-Wall -Werror -Wextra)
 
+include_directories("../../logger/src")
 include_directories( ${CMAKE_BINARY_DIR} )
-#include_directories("../../logger")
 
 set(engine_SRCS
     Error.cpp
@@ -33,4 +33,4 @@ set(engine_SRCS
    )
 
 add_library(engine SHARED ${engine_SRCS})
-target_link_libraries(engine)
+target_link_libraries(engine logger)
